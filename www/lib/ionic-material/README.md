@@ -1,19 +1,15 @@
-![alt tag](https://raw.githubusercontent.com/mexists/ionic-2-material-design-starter/master/www/img/ionic-md-logo.png)
-# Ionic 2 Material Design Starter
-
+# Ionic Material
 Ionic Framework ♥ Material Design
 
-[![GitHub version](https://badge.fury.io/gh/mexists%2Fionic-2-material-design-starter.svg)](https://badge.fury.io/gh/mexists%2Fionic-2-material-design-starter.svg)
+#### NB: all versions pre-1.0 are intended as a work in progress 'Alpha'
+[![GitHub version](https://badge.fury.io/gh/zachsoft%2Fionic-material.svg)](http://badge.fury.io/gh/zachsoft%2Fionic-material)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-See our [releases](https://github.com/mexists/ionic-2-material-design-starter/releases) and other [versions](https://github.com/mexists/ionic-2-material-design-starter/tags)
+See our [releases](https://github.com/zachsoft/ionic-material/releases) and other [versions](https://github.com/zachsoft/ionic-material/tags)
 
-### Documentation
-- [Documentation Application by @zachsoft @ ionicmaterial.com](http://ionicmaterial.com/demo/) 
+## Documentation and Demo App (in-browser simulation)
+[Documentation Application @ ionicmaterial.com](http://ionicmaterial.com/demo/) 
 (Use the ☰ menu for Documentation sections)
-
-- [Ionic Material on Readme.io (REALLY WIP)](http://ionicmaterial.readme.io/v0.3)
-
-<small> **NB:** Note: It is recommended that when creating an issue, you demonstrate the problem by forking the codepen.</small>
 
 # Quick Start
 ## Step 1: Install using [Bower](http://bower.io) 
@@ -52,11 +48,11 @@ Add `ionic.material.min.css` and `ionic.material.min.js` to your `index.html`
 
 ```html 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="lib/ionic-material/dist/ionic.material.min.css" rel="stylesheet">
+    <link href="lib/ionic-material/ionic.material.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/ionic-material/dist/ionic.material.min.js"></script>
+    <script src="lib/ionic-material/ionic.material.min.js"></script>
 ```
 
 ### Step 4: Inject Ionic & Ionic Material into your Ionic App 
