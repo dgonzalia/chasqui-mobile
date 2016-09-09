@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput'])
+angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', 'ionic-material', 'ionMdInput', 'ngCookies'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -19,6 +19,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
     });
 })
+
+/*.run(['$rootScope', '$location', '$cookieStore', '$http',
+    function ($rootScope, $location, $cookieStore, $http) {
+        // keep user logged in after page refresh
+        $rootScope.globals = $cookieStore.get('globals') || {};
+        if ($rootScope.globals.currentUser) {
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        }
+ 
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in
+            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+                $location.path('/login');
+            }
+        });
+}])*/
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 

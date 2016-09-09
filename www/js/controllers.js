@@ -1,7 +1,7 @@
 /* global angular, document, window */
 'use strict';
 
-angular.module('starter.controllers', [])
+angular.module('chasqui.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
@@ -177,12 +177,32 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl',
+    function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
+        
+    $scope.data= {};    
+        
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
+    
+    // reset login status
+    //AuthenticationService.ClearCredentials();
+
+    $scope.login = function () {
+        console.log("login function");
+        AuthenticationService.Login($scope.data.email, $scope.data.password, function(response) {
+                console.log ("response.success");
+                console.log (response);
+                AuthenticationService.SetCredentials($scope.username, $scope.password);
+                $location.path('/');
+                //$scope.error = response.message;
+            
+        });
+    };
+
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
