@@ -179,7 +179,7 @@ angular.module('chasqui.controllers', [])
 
 .controller('LoginCtrl',
     function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
-        
+                                    //usuariosService
     $scope.data= {};    
         
     $scope.$parent.clearFabs();
@@ -202,7 +202,13 @@ angular.module('chasqui.controllers', [])
             
         });
     };
-
+    
+/*    $scope.login = $scope.error = null;
+        return usuariosService.iniciarSesion(this, function() {
+            return $state.go('home');
+        }, function(error) {
+            return $scope.error = error;
+    });*/
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
