@@ -1,21 +1,14 @@
-![alt tag](https://raw.githubusercontent.com/mexists/ionic-2-material-design-starter/master/www/img/ionic-md-logo.png)
-# Ionic 2 Material Design Starter
+# Chasqui mobile
 
-Ionic Framework ♥ Material Design
+### Documentacion
+- [Ionic Material API & Demo](http://ionicmaterial.com/demo/) 
+(Usar el ☰ menu para ver las secciones de documentación)
 
-[![GitHub version](https://badge.fury.io/gh/mexists%2Fionic-2-material-design-starter.svg)](https://badge.fury.io/gh/mexists%2Fionic-2-material-design-starter.svg)
+- [Ionicons](http://ionicons.com/)
 
-See our [releases](https://github.com/mexists/ionic-2-material-design-starter/releases) and other [versions](https://github.com/mexists/ionic-2-material-design-starter/tags)
+- [Ionic Documentation](http://ionicframework.com/docs/) 
 
-### Documentation
-- [Documentation Application by @zachsoft @ ionicmaterial.com](http://ionicmaterial.com/demo/) 
-(Use the ☰ menu for Documentation sections)
-
-- [Ionic Material on Readme.io (REALLY WIP)](http://ionicmaterial.readme.io/v0.3)
-
-<small> **NB:** Note: It is recommended that when creating an issue, you demonstrate the problem by forking the codepen.</small>
-
-# Quick Start
+# Quick Start [en desarrollo]
 ## Step 1: Install using [Bower](http://bower.io) 
 
 ```shell
@@ -92,13 +85,10 @@ Look at `gulpfile.js` for how the process works.
 ## Development 
 This project uses [Webpack](http://webpack.github.io/)
 
-## Contributing
-See our [CONTRIBUTING INSTRUCTIONS](./CONTRIBUTING.md)
-
 ## Website
 [http://ionicmaterial.com/](http://ionicmaterial.com/)
 
-## FAQ
+## FAQ [en desarrollo]
 ### What is Ionic Material?
 Ionic material is aimed at being an extension library for the Ionic Framework, meaning you won't change the way you develop your Ionic hybrid apps to have them materialized. Ionic Material aims to integrate the best representations of Material Design into a single add-on library for Ionic Developers. With the Polymer Project, ngMaterial, and other open source projects arising, we aim to be actively engaged and aligned with these, and other, related projects.
 
@@ -110,23 +100,3 @@ As a 100% free open-source project, **developer participation is encouraged**, a
 **Ionic Material** is best explained as a "material extension" to Ionic, rather than to Angular as a whole. The difference isn't just semantics - Ionic Material extends the actual ionic framework namespace (in JS), renders material styles on the ionic elements (following ionic's conventions), and will aim to follow the releases of Ionic, and support material theming, ink, and motion for any new Ionic release.
 
 Ionic Material will pull in the best ideas of Angular Material, Paper/Polymer, etc. and by the same tune, Ionic Material will also abstract the parts of the framework that would be beneficial outside of ionic apps (like animations, motions) into their standalone git projects so they can be adopted for use in -any- web project that uses material design.
-
-### How can I contribute?
-Please see our [contribution guidelines](CONTRIBUTING.md)
-
-Want to become an official collaborator? Please contact @zachsoft
-
-
-## Roadmap and the Future 
-See [Milestones](https://github.com/zachsoft/ionic-material/milestones)
-
-### Rough Ideas
-0. Complete implementation of Material Design specification.
-
-1. Full UI Kit w/ dozens of templates for rapid application development. Inspired by amazing kits like: https://ui8.net/product/material-ui-kit.
-
-2. Increase animation performance. We're really stretching the limits of hybrid app animations - if **you** have ideas on performance adjustments, we're all ears and would love the insight.
-
-3. Port animate.js with bezier curve adjustments to match "authentic motion" spec of Material Design.
-
-4. Bug fixes

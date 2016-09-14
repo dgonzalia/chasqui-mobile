@@ -65,12 +65,10 @@ p {
 ==================================*/
 .app-icon {
     background-color: #fff;
-    background: url('../img/ionic-md-logo.png') center;
-    background-size: cover;
-    border-radius: 50%;
-    height: 125px;
+    background: url('../img/logo.png') center no-repeat;
+    background-size: auto;
+    height: 100px;
     margin: 0 auto;
-    width: 125px;
 }
 
 .social-login {
@@ -83,7 +81,7 @@ p {
 }
 .input-login {
     font-size: 14px;
-    width: 93%; 
+    width: 93%;
 }
 /*Accordion List*/
 /*
