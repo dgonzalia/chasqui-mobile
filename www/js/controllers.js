@@ -178,9 +178,9 @@ angular.module('chasqui.controllers', [])
 })
 
 .controller('LoginCtrl',
-    function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
+    function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, $http) {
                                     //usuariosService
-    $scope.data= {};    
+    $scope.usuario= {};    
         
     $scope.$parent.clearFabs();
     $timeout(function() {
@@ -193,14 +193,17 @@ angular.module('chasqui.controllers', [])
 
     $scope.login = function () {
         console.log("login function");
-        AuthenticationService.Login($scope.data.email, $scope.data.password, function(response) {
-                console.log ("response.success");
+        AuthenticationService.Login($scope.usuario.email, $scope.usuario.password, function(response) {
+                console.log ("onSuccess");
                 console.log (response);
-                AuthenticationService.SetCredentials($scope.username, $scope.password);
-                $location.path('/');
-                //$scope.error = response.message;
-            
-        });
+                AuthenticationService.SetCredentials($scope.usuario.email, response.token);
+                $http.get('http://localhost:8090/chasqui/rest/user/adm/read').success(function (response){
+                    console.log(response);
+                });
+        }, function (response) {
+            console.log("onError");
+        }
+        );
     };
     
 /*    $scope.login = $scope.error = null;
@@ -211,8 +214,10 @@ angular.module('chasqui.controllers', [])
     });*/
 })
 
-.controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+.controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
+    
+    console.log($rootScope.globals);
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.$parent.setHeaderFab('left');

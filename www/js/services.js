@@ -7,12 +7,13 @@ angular.module('chasqui.services', [])
     function ($http, $cookieStore, $rootScope) {
         var service = {};
 
-        service.Login = function (username, password, callback) {
+        service.Login = function (username, password, callbackSuccess, callbackError) {
             $http.post('http://localhost:8090/chasqui/rest/client/sso/singIn', { email: username, password: password })
                 .success(function (response) {
-                    callback(response);
+                    callbackSuccess(response);
+            })  .error(function (response) {
+                    callbackError(response)
             });
-
         };
  
         service.SetCredentials = function (username, password) {
@@ -35,7 +36,7 @@ angular.module('chasqui.services', [])
         service.ClearCredentials = function () {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic ';
+            $http.defaults.headers.common.Authorization = '';
         };
  
         return service;
