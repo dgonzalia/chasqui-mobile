@@ -3,12 +3,13 @@
 
 angular.module('chasqui.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout,usuarioService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
+
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
@@ -16,6 +17,28 @@ angular.module('chasqui.controllers', [])
             this.classList.toggle('active');
         });
     }
+    
+    $ionicPopover.fromTemplateUrl('/templates/notificaciones.html', {
+      scope: $scope
+     }).then(function(popover) {
+         $scope.popover = popover;
+    });
+
+    $scope.onVerNotificaciones = function($event){
+        console.log($scope.popover);
+        $scope.popover.show($event);
+    };
+
+   $scope.closePopover = function() {
+      $scope.popover.hide();
+   };
+   //Cleanup the popover when we're done with it!
+   $scope.$on('$destroy', function() {
+      $scope.popover.remove();
+   });
+
+
+
 
     ////////////////////////////////////////
     // Layout Methods
@@ -69,6 +92,11 @@ angular.module('chasqui.controllers', [])
 
     };
 
+    $scope.loadNotificaciones = function () {
+        $scope.notificaciones = usuarioService.obtenerNotificaciones();
+        console.log ($scope.notificaciones);
+    }
+
     $scope.hideHeader = function() {
         $scope.hideNavBar();
         $scope.noHeader();
@@ -92,68 +120,68 @@ angular.module('chasqui.controllers', [])
         name: "General",
         items: [{
                 "title": "Activity",
-                "sref": "app.activity"
+                "sref": "menu.activity"
             },{
                 "title": "Login",
-                "sref": "app.login"
+                "sref": "menu.login"
             },{
                 "title": "Profile",
-                "sref": "app.profile"
+                "sref": "menu.profile"
             },{
                 "title": "Friends",
-                "sref": "app.friends"
+                "sref": "menu.friends"
             },{
                 "title": "Gallery",
-                "sref": "app.gallery"
+                "sref": "menu.gallery"
             },
         ]
     },{
         name: "Components",
         items: [{
                 "title": "Header",
-                "sref": "app.components.header"
+                "sref": "menu.components.header"
             },{
                 "title": "Content",
-                "sref": "app.components.content"
+                "sref": "menu.components.content"
             },{
                 "title": "Footer",
-                "sref": "app.components.footer"
+                "sref": "menu.components.footer"
             },{
                 "title": "Buttons",
-                "sref": "app.components.buttons"
+                "sref": "menu.components.buttons"
             },{
                 "title": "List",
-                "sref": "app.components.list"
+                "sref": "menu.components.list"
             },{
                 "title": "Cards",
-                "sref": "app.components.cards"
+                "sref": "menu.components.cards"
             },{
                 "title": "Forms",
-                "sref": "app.components.forms"
+                "sref": "menu.components.forms"
             },{
                 "title": "Toggle",
-                "sref": "app.components.toggle"
+                "sref": "menu.components.toggle"
             },{
                 "title": "Checkbox",
-                "sref": "app.components.checkbox"
+                "sref": "menu.components.checkbox"
             },{
                 "title": "Radio Buttons",
-                "sref": "app.components.radio-buttons"
+                "sref": "menu.components.radio-buttons"
             },{
                 "title": "Range",
-                "sref": "app.components.range"
+                "sref": "menu.components.range"
             },{
                 "title": "Select",
-                "sref": "app.components.select"
+                "sref": "menu.components.select"
             },{
                 "title": "Tabs",
-                "sref": "app.components.tabs"
+                "sref": "menu.components.tabs"
             },{
                 "title": "Grid",
-                "sref": "app.components.grid"
+                "sref": "menu.components.grid"
             },{
                 "title": "Utility",
-                "sref": "app.components.utility"
+                "sref": "menu.components.utility"
             },
         ]
     },];
@@ -176,20 +204,12 @@ angular.module('chasqui.controllers', [])
     };
   
 })
-
+/*
 .controller('LoginCtrl',
-    function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, $http) {
+    function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, $http,$state) {
                                     //usuariosService
     $scope.usuario= {};    
-        
-    $scope.$parent.clearFabs();
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-    }, 0);
     ionicMaterialInk.displayEffect();
-    
-    // reset login status
-    //AuthenticationService.ClearCredentials();
 
     $scope.login = function () {
         console.log("login function");
@@ -197,22 +217,16 @@ angular.module('chasqui.controllers', [])
                 console.log ("onSuccess");
                 console.log (response);
                 AuthenticationService.SetCredentials($scope.usuario.email, response.token);
-                $http.get('http://localhost:8090/chasqui/rest/user/adm/read').success(function (response){
-                    console.log(response);
-                });
+                $state.go("pepe.activity");
         }, function (response) {
             console.log("onError");
         }
         );
     };
-    
-/*    $scope.login = $scope.error = null;
-        return usuariosService.iniciarSesion(this, function() {
-            return $state.go('home');
-        }, function(error) {
-            return $scope.error = error;
-    });*/
-})
+})*/
+
+.controller('LoginCtrl',['$scope', '$rootScope', '$location', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk',LoginCtrl])
+
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header

@@ -1,0 +1,15 @@
+<ion-popover-view >	
+   <ion-content>
+   	  <ion-header-bar>
+      		 <h2 class="title">Notificaciones</h2>
+   	  </ion-header-bar>
+      <ion-list>
+  			<ion-item ng-repeat="n in notificaciones">
+                <div class="list card item item-avatar">
+                    <h2 class="padding-top">{n.usuarioOrigen}</h2>
+                    <p>{n.mensaje}}</p>
+                </div>
+  			</ion-item>
+	   </ion-list>
+	</ion-content>
+</ion-popover-view>
