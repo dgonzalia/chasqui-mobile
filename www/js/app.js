@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', 'ionic-material', 'ionMdInput', 'ngCookies'])
+angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', 'ionic-material', 'ionMdInput'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -48,6 +48,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
 
     $stateProvider.state('app', {
         url: '/app',
+        abstract:true,
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
     })
@@ -117,29 +118,22 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         }
     })
-    .state('login', {
+    .state('app.login', {
         url: '/login',
-        templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
-        // views: {
-        //     'menuContent': {
-        //         templateUrl: 'templates/login.html',
-        //         controller: 'LoginCtrl'
-        //     }
-        // }
+        // templateUrl: 'templates/login.html',
+        // controller: 'LoginCtrl'
+        views: {
+             'menuContent': {
+                templateUrl: 'templates/login.html',
+                controller: 'LoginCtrl'
+            }
+        }
     })
 
     .state('singup',{
         url:'/chasqui_profile',
         templateUrl: 'templates/chasqui_profile.html',
         controller: 'singUpCtrl'
-        // views:{
-        //     'menuContent':{
-        //         templateUrl:'templates/chasqui_profile.html',
-        //         controller:'singUpCtrl'
-        //     }
-           
-        // }
     })
 
     .state('menu.profile', {
@@ -356,5 +350,5 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/app/login');
 });

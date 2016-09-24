@@ -123,7 +123,7 @@ angular.module('chasqui.controllers', [])
                 "sref": "menu.activity"
             },{
                 "title": "Login",
-                "sref": "login"
+                "sref": "app.login"
             },{
                 "title": "Profile",
                 "sref": "menu.profile"

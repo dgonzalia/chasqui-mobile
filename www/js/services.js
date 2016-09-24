@@ -3,8 +3,8 @@
 angular.module('chasqui.services', [])
  
 .factory('AuthenticationService',
-    ['$http', '$cookieStore', '$rootScope',
-    function ($http, $cookieStore, $rootScope) {
+    ['$http', '$rootScope',
+    function ($http, $rootScope) {
         var service = {};
 
         service.Login = function (username, password, callback) {
@@ -29,12 +29,12 @@ angular.module('chasqui.services', [])
             };
  
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-            $cookieStore.put('globals', $rootScope.globals);
+            // $cookieStore.put('globals', $rootScope.globals);
         };
  
         service.ClearCredentials = function () {
             $rootScope.globals = {};
-            $cookieStore.remove('globals');
+            // $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
         };
  
@@ -42,8 +42,8 @@ angular.module('chasqui.services', [])
 }])
 
 .factory('usuarioService',
-    ['$http', '$cookieStore', '$rootScope',
-    function ($http, $cookieStore, $rootScope) {
+    ['$http','$rootScope',
+    function ($http, $rootScope) {
         var service = {};
 
         service.Login = function (username, password, callback) {
@@ -68,12 +68,12 @@ angular.module('chasqui.services', [])
             };
  
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-            $cookieStore.put('globals', $rootScope.globals);
+            // $cookieStore.put('globals', $rootScope.globals);
         };
  
         service.ClearCredentials = function () {
             $rootScope.globals = {};
-            $cookieStore.remove('globals');
+            // $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
         };
 
