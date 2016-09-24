@@ -123,7 +123,7 @@ angular.module('chasqui.controllers', [])
                 "sref": "menu.activity"
             },{
                 "title": "Login",
-                "sref": "menu.login"
+                "sref": "login"
             },{
                 "title": "Profile",
                 "sref": "menu.profile"
@@ -204,29 +204,9 @@ angular.module('chasqui.controllers', [])
     };
   
 })
-/*
-.controller('LoginCtrl',
-    function($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, $http,$state) {
-                                    //usuariosService
-    $scope.usuario= {};    
-    ionicMaterialInk.displayEffect();
 
-    $scope.login = function () {
-        console.log("login function");
-        AuthenticationService.Login($scope.usuario.email, $scope.usuario.password, function(response) {
-                console.log ("onSuccess");
-                console.log (response);
-                AuthenticationService.SetCredentials($scope.usuario.email, response.token);
-                $state.go("pepe.activity");
-        }, function (response) {
-            console.log("onError");
-        }
-        );
-    };
-})*/
-
-.controller('LoginCtrl',['$scope', '$rootScope', '$location', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk',LoginCtrl])
-
+.controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk',LoginCtrl])
+.controller("singUpCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk',singUpCtrl])
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header

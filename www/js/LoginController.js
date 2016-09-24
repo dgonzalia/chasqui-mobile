@@ -1,4 +1,4 @@
-function LoginCtrl ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
+function LoginCtrl ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
         
     $scope.usuario= {};           
    
@@ -17,6 +17,10 @@ function LoginCtrl ($scope, $rootScope, $location, AuthenticationService, $timeo
         }
         );
     };
+
+    $scope.singUp = function(){
+        $state.go("app.singup");
+    }
 
 
 }

@@ -1,37 +1,40 @@
 <ion-view align-title="left">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Nombre</span>
+        <input type="text" placeholder="Nombre" ng-model="nombre" type="text" required>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Apellido</span>
+        <input type="text" placeholder="Apellido" type="text" ng-model="apellido" required>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Email</span>
+        <input type="text" placeholder="Email" type="email" ng-model="email" required>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Nick</span>
+        <input type="text" placeholder="Nick" ng-model="nickname" type="text" required>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Telefono</span>
+        <input type="text" placeholder="Telefono" ng-model="telefono" type="text" required>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Celular</span>
+        <input type="text" placeholder="Celular" ng-model="celular" type="text" required>
+      </label>
+      <button class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button>
+    </div>
+    <button id="editar" tooltiptext="Editar"  ng-click="editar()"class="button button-positive 
+    		button-fab button-fab-bottom-left">
+    	<i class="icon ion-pencil"/>
+    </button>
+    <button id="guardar" tooltiptext="Guardar" ng-click="guardar()" class="button button-positive 
+        button-fab button-fab-bottom-right">
+      <i class="ion-ios-compose"/>
+    </button>
 
-<div class="list">
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Nombre</span>
-    <input type="text" placeholder="Nombre">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Apellido</span>
-    <input type="text" placeholder="Apellido">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Email</span>
-    <input type="text" placeholder="Email">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Nick</span>
-    <input type="text" placeholder="Nick">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Telefono</span>
-    <input type="text" placeholder="Telefono">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Celular</span>
-    <input type="text" placeholder="Celular">
-  </label>
-  <button class="button button-block button-positive">Ver Direcciones</button>
-</div>
-<button id="editar" tooltiptext="Editar" class="button button-positive 
-		button-fab button-fab-bottom-right">
-	<i class="icon ion-pencil"/>
-</button>
-
-
-
+  </ion-content>
 </ion-view>

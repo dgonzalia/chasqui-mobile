@@ -49,12 +49,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     $stateProvider.state('app', {
         url: '/app',
         templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl',
-        // resolve: {
-        //     notificaciones : function(usuarioService){
-        //         return usuarioService.obtenerNotificaciones();
-        //     } 
-        // }
+        controller: 'LoginCtrl'
     })
 
 
@@ -122,27 +117,31 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         }
     })
-    .state('app.login', {
+    .state('login', {
         url: '/login',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/login.html',
-                controller: 'LoginCtrl'
-            }
-        }
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl'
+        // views: {
+        //     'menuContent': {
+        //         templateUrl: 'templates/login.html',
+        //         controller: 'LoginCtrl'
+        //     }
+        // }
     })
-    .state('app.signup', {
-        url: '/signup',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/signup.html',
-                controller: 'LoginCtrl'
-            },
-            'fabContent': {
-                template: ''
-            }
-        }
+
+    .state('singup',{
+        url:'/chasqui_profile',
+        templateUrl: 'templates/chasqui_profile.html',
+        controller: 'singUpCtrl'
+        // views:{
+        //     'menuContent':{
+        //         templateUrl:'templates/chasqui_profile.html',
+        //         controller:'singUpCtrl'
+        //     }
+           
+        // }
     })
+
     .state('menu.profile', {
         url: '/profile',
         views: {
@@ -357,5 +356,5 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/login');
 });
