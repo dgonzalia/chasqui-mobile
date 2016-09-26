@@ -1,44 +1,54 @@
 <ion-view align-title="left">
-  <ion-content>
-    <div class="list input-loggin">
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Nombre</span>
-        <input placeholder="Nombre" ng-model="nombre" type="text" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Apellido</span>
-        <input placeholder="Apellido" type="text" ng-model="apellido" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Email</span>
-        <input placeholder="Email" type="email" ng-model="email" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Password</span>
-        <input placeholder="Password" type="password" ng-model="password" required>
-      </label>     
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Nick</span>
-        <input type="text" placeholder="Nick" ng-model="nickname" type="text" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Telefono</span>
-        <input type="text" placeholder="Telefono" ng-model="telefono" type="text" required>
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Celular</span>
-        <input placeholder="Celular" ng-model="celular" type="text" required>
-      </label>
-      <button id="direcciones" class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button>
-    </div>
-    <button id="editar" ng-click="editar()"class="button button-positive 
-    		button-fab button-fab-bottom-left">
-    	<i class="ion-pencil"/>
-    </button>
-    <button id="guardar" ng-click="guardar()" class="button button-positive 
-        button-fab button-fab-bottom-right">
-      <i class="md-checkmark-circle-outline"/>
-    </button>
-
-  </ion-content>
+<ion-content>
+    <form name="profile" novalidate>
+        <div class="list input-loggin">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Nombre</span>
+            <input placeholder="Nombre" ng-model="nombre" type="text" required>
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Apellido</span>
+            <input placeholder="Apellido" type="text" ng-model="apellido" required>
+          </label>
+          <label class="item item-input item-floating-label" >
+              <span class="input-label">Email</span>
+              <input placeholder="Email" type="email" ng-model="email" name="email" required>
+              <p ng-show="profile.email.$invalid && !profile.email.$pristine">* Username must be an email address</p>
+          </label>
+            <!--acá estoy usando lumx. lx-allow-clear te habilita el botoncito para limpiar el campo
+            lx-valid te permite definir la condicion para la cual es valido el campo. Podes llamar a una funcion o declararla como está.
+            lx-error análogo al anterior, pero para campo erroneo. -->
+          <lx-text-field lx-label="Email" lx-allow-clear="true"
+               lx-valid="!profile.email_2.$pristine && profile.email_2.$valid"
+               lx-error="!profile.email_2.$pristine && profile.email_2.$invalid">
+               <input type="email" ng-model="email_2" name="email_2" required>
+          </lx-text-field>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Password</span>
+            <input placeholder="Password" type="password" ng-model="password" required>
+          </label>     
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Nick</span>
+            <input type="text" placeholder="Nick" ng-model="nickname" type="text" required>
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Telefono</span>
+            <input type="text" placeholder="Telefono" ng-model="telefono" type="text" required>
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Celular</span>
+            <input placeholder="Celular" ng-model="celular" type="text" required>
+          </label>
+          <button id="direcciones" class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button>
+        </div>
+        <button id="editar" ng-click="editar()"class="button button-positive 
+                button-fab button-fab-bottom-left">
+            <i class="ion-edit"></i>
+        </button>
+        <button id="guardar" ng-click="guardar()" class="button button-positive 
+            button-fab button-fab-bottom-right">
+            <i class="ion-android-checkmark-circle"></i>
+        </button>
+      </form>    
+</ion-content> 
 </ion-view>

@@ -168,3 +168,36 @@ ul.list li.item.item-divider, ol.list li.item.item-divider {
 .list.form .item.item-input {
     display: block;
 }
+
+.text-field-feedback-empty,
+.text-field-feedback-error,
+.text-field-feedback-success {
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  pointer-events: none;
+}
+.text-field-feedback-error {
+  color: #d9534f;
+  display: none;
+}
+.text-field-feedback-success {
+  color: #5cb85c;
+  display: none;
+}
+.text-field--is-valid .text-field-feedback-empty,
+.text-field--has-error .text-field-feedback-empty {
+  display: none;
+}
+.text-field--is-valid .text-field-feedback-success {
+  display: block;
+}
+.text-field--has-error .text-field-feedback-error {
+  display: block;
+}
