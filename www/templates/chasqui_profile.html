@@ -1,52 +1,67 @@
-<ion-view align-title="left">
+<ion-view view-title="Chasqui - Perfil de Usuario">
+<ion-header-bar align-title="left" class="bar-positive">
+  <h1 class="title">Chasqui - Registro</h1>
+</ion-header-bar>
 <ion-content>
+
     <form name="profile" novalidate>
         <div class="list input-loggin">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Nombre</span>
-            <input placeholder="Nombre" ng-model="nombre" type="text" required>
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Apellido</span>
-            <input placeholder="Apellido" type="text" ng-model="apellido" required>
-          </label>
-          <label class="item item-input item-floating-label" >
-              <span class="input-label">Email</span>
-              <input placeholder="Email" type="email" ng-model="email" name="email" required>
-              <p ng-show="profile.email.$invalid && !profile.email.$pristine">* Username must be an email address</p>
-          </label>
-            <!--acá estoy usando lumx. lx-allow-clear te habilita el botoncito para limpiar el campo
-            lx-valid te permite definir la condicion para la cual es valido el campo. Podes llamar a una funcion o declararla como está.
-            lx-error análogo al anterior, pero para campo erroneo. -->
-          <lx-text-field lx-label="Email" lx-allow-clear="true"
-               lx-valid="!profile.email_2.$pristine && profile.email_2.$valid"
-               lx-error="!profile.email_2.$pristine && profile.email_2.$invalid">
-               <input type="email" ng-model="email_2" name="email_2" required>
+          <lx-text-field lx-label="Email" lx-allow-clear="true" lx-icon="email"
+               lx-valid="!profile.email.$pristine && profile.email.$valid && emailValido()"
+               lx-error="!profile.email.$pristine && (profile.email.$invalid || 
+               !emailValido())">
+               <input type="email" ng-model="perfil.email" name="email" required ng-disabled="esEdicionPerfil">
           </lx-text-field>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Password</span>
-            <input placeholder="Password" type="password" ng-model="password" required>
-          </label>     
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Nick</span>
-            <input type="text" placeholder="Nick" ng-model="nickname" type="text" required>
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Telefono</span>
-            <input type="text" placeholder="Telefono" ng-model="telefono" type="text" required>
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Celular</span>
-            <input placeholder="Celular" ng-model="celular" type="text" required>
-          </label>
-          <button id="direcciones" class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button>
+          <p ng-show="!profile.email.$pristine && (profile.email.$invalid || 
+               !emailValido())">El texto ingresado no es un email</p>  
+          <lx-text-field lx-label="Contraseña" lx-allow-clear="true" lx-icon="account"
+               lx-valid="!profile.password.$pristine && profile.password.$valid && passwordValida()"
+               lx-error="!profile.password.$pristine && (profile.password.$invalid ||
+               !passwordValida())">
+               <input type="password" ng-model="perfil.password" name="password" required  maxlength="15" ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+          <lx-text-field lx-label="Confirme contraseña" lx-allow-clear="true" lx-icon="account"
+               lx-valid="!profile.password_r.$pristine && profile.password_r.$valid && coincidenContrasenias"
+               lx-error="!profile.password_r.$pristine && (profile.password_r.$invalid || !coincidenContrasenias())">
+               <input id="password_r" type="password" ng-model="perfil_r.password" maxlength="15" name="password_r" required ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+          <p ng-show="!profile.password_r.$pristine && (profile.password_r.$invalid || !coincidenContrasenias())">Las contraseñas no coinciden</p>
+           <lx-text-field lx-label="Nombre" lx-allow-clear="true" lx-icon="account"
+              lx-valid="!profile.nombre.$pristine && profile.nombre.$valid && nombreValido()"
+              lx-error="!profile.nombre.$pristine && (profile.nombre.$invalid || !nombreValido())">
+            <input type="text" ng-model="perfil.nombre" name="nombre" maxlength="15" required ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+           <lx-text-field lx-label="Apellido" lx-allow-clear="true" lx-icon="account"
+              lx-valid="!profile.apellido.$pristine && profile.apellido.$valid && apellidoValido()"
+              lx-error="!profile.apellido.$pristine && (profile.apellido.$invalid || 
+              !apellidoValido())">
+            <input type="text" ng-model="perfil.apellido" name="apellido" maxlength="15" required ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+          <lx-text-field lx-label="Nick" lx-allow-clear="true" lx-icon="account"
+               lx-valid="!profile.nickName.$pristine && profile.nickName.$valid"
+               lx-error="(!profile.nickName.$pristine && profile.nickName.$invalid)">
+               <input type="text" ng-model="perfil.nickName" maxlength="10" name="nickName" required ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+          <lx-text-field lx-label="Teléfono" lx-allow-clear="true" lx-icon="phone"
+               lx-valid="!profile.telefonoFijo.$pristine && profile.telefonoFijo.$valid && telefonoValido()"
+               lx-error="!profile.telefonoFijo.$pristine && (profile.telefonoFijo.$invalid || !telefonoValido())">
+               <input type="tel" ng-model="perfil.telefonoFijo" maxlength="10" name="telefonoFijo" required ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+           <lx-text-field lx-label="Celular" lx-allow-clear="true"
+               lx-valid="!profile.celular.$pristine && profile.celular.$valid && celularValido()" lx-icon="phone"
+               lx-error="!profile.celular.$pristine && (profile.celular.invalid || !celularValido())">
+               <input type="tel" ng-model="perfil.telefonoMovil" maxlength="10" name="celular" required ng-disabled="esEdicionPerfil">
+          </lx-text-field>
+
+
+<!-- 
+        <button id="direcciones" name="direcciones" ng-show="esEdicionPerfil"  class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button> -->
         </div>
-        <button id="editar" ng-click="editar()"class="button button-positive 
-                button-fab button-fab-bottom-left">
+        <button id="editar" ng-show="esEdicionPerfil" ng-click="editar()" class="button button-positive button-fab button-fab-bottom-left">
             <i class="ion-edit"></i>
         </button>
-        <button id="guardar" ng-click="guardar()" class="button button-positive 
-            button-fab button-fab-bottom-right">
+        <button id="guardar" ng-show="!esEdicionPerfil" ng-click="guardar()" class="button button-positive 
+            button-fab button-fab-bottom-left">
             <i class="ion-android-checkmark-circle"></i>
         </button>
       </form>    

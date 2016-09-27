@@ -20,22 +20,6 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     });
 })
 
-/*.run(['$rootScope', '$location', '$cookieStore', '$http',
-    function ($rootScope, $location, $cookieStore, $http) {
-        // keep user logged in after page refresh
-        $rootScope.globals = $cookieStore.get('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-        }
- 
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in
-            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
-                $location.path('/login');
-            }
-        });
-}])*/
-
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
     // Turn off caching for demo simplicity's sake
@@ -120,8 +104,6 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     })
     .state('app.login', {
         url: '/login',
-        // templateUrl: 'templates/login.html',
-        // controller: 'LoginCtrl'
         views: {
              'menuContent': {
                 templateUrl: 'templates/login.html',
@@ -133,7 +115,26 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('singup',{
         url:'/chasqui_profile',
         templateUrl: 'templates/chasqui_profile.html',
-        controller: 'singUpCtrl'
+        controller: 'SingUpCtrl'
+    })
+
+    .state('menu.perfil',{
+        url:'/perfil',
+        views:{
+            'menuContent':{
+                templateUrl:'templates/chasqui_profile.html',
+                controller: 'perfilCtrl'
+            },
+            'fabContent': {
+                template: '',
+            }
+        }
+        // resolve: {
+        //     datosPerfil : function(usuarioService,$rootScope){
+        //         debugger;
+        //         return usuarioService.obtenerDatosPerfilUsuario($rootScope.globals.currentUser.id);
+        //     } 
+        // }
     })
 
     .state('menu.profile', {
@@ -170,7 +171,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.header', {
         url: '/header',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/header.html',
                 controller: 'ComponentsCtrl'
             },
@@ -182,7 +183,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.content', {
         url: '/content',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/content.html',
                 controller: 'ComponentsCtrl'
             },
@@ -194,7 +195,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.footer', {
         url: '/footer',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/footer.html',
                 controller: 'ComponentsCtrl'
             },
@@ -206,7 +207,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.buttons', {
         url: '/buttons',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/buttons.html',
                 controller: 'ComponentsCtrl'
             },
@@ -218,7 +219,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.list', {
         url: '/list',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/list.html',
                 controller: 'ComponentsCtrl'
             },
@@ -230,7 +231,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.cards', {
         url: '/cards',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/cards.html',
                 controller: 'ComponentsCtrl'
             },
@@ -242,7 +243,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.forms', {
         url: '/forms',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/forms.html',
                 controller: 'ComponentsCtrl'
             },
@@ -254,7 +255,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.toggle', {
         url: '/toggle',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/toggle.html',
                 controller: 'ComponentsCtrl'
             },
@@ -266,7 +267,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.checkbox', {
         url: '/checkbox',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/checkbox.html',
                 controller: 'ComponentsCtrl'
             },
@@ -278,7 +279,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.radio-buttons', {
         url: '/radio-buttons',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/radio-buttons.html',
                 controller: 'ComponentsCtrl'
             },
@@ -290,7 +291,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.range', {
         url: '/range',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/range.html',
                 controller: 'ComponentsCtrl'
             },
@@ -302,7 +303,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.select', {
         url: '/select',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/select.html',
                 controller: 'ComponentsCtrl'
             },
@@ -314,7 +315,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.tabs', {
         url: '/tabs',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/tabs.html',
                 controller: 'ComponentsCtrl'
             },
@@ -326,7 +327,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.grid', {
         url: '/grid',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/grid.html',
                 controller: 'ComponentsCtrl'
             },
@@ -338,7 +339,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.components.utility', {
         url: '/utility',
         views: {
-            'menuContent@app': {
+            'menuContent@menu': {
                 templateUrl: 'templates/components/utility.html',
                 controller: 'ComponentsCtrl'
             },
