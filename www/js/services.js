@@ -8,7 +8,7 @@ angular.module('chasqui.services', [])
         var service = {};
 
         service.Login = function (username, password, callback) {
-            $http.post('http://localhost:8019/chasqui/rest/client/sso/singIn', { email: username, password: password })
+            $http.post('http://10.12.3.121:8019/chasqui/rest/client/sso/singIn', { email: username, password: password })
                 .success(function (response) {
                     callback(response);
             });
@@ -16,7 +16,6 @@ angular.module('chasqui.services', [])
         };
  
         service.SetCredentials = function (username, password) {
-            console.log("setCredentials");
             var authdata = btoa(username + ':' + password);
  
             console.log(authdata);
@@ -49,7 +48,7 @@ angular.module('chasqui.services', [])
         var userService = {};
 
         userService.registro = function(perfil,callback){
-            $http.post("http://localhost:8019/chasqui/rest/client/sso/singUp",perfil)
+            $http.post("http://10.12.3.121:8019/chasqui/rest/client/sso/singUp",perfil)
                     .success(function(data){
                         userService.SetCredentials(data.email,data.token,data.id,data.nickname);
                         callback(data);
@@ -57,8 +56,26 @@ angular.module('chasqui.services', [])
 
         };
 
+        userService.SetCredentials = function (username, password,id,nickname) {
+            var authdata = btoa(username + ':' + password);
+ 
+            console.log(authdata);
+            
+            $rootScope.globals = {
+                currentUser: {
+                    username: username,
+                    authdata: authdata,
+                    id:id,
+                    nickname:nickname
+                }
+            };
+ 
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+            // $cookieStore.put('globals', $rootScope.globals);
+        };
+
         userService.obtenerNotificaciones = function(){
-            $http.get("http://localhost:8019/chasqui/rest/user/adm/notificacion/1").success(function(data){            
+            $http.get("http://10.12.3.121:8019/chasqui/rest/user/adm/notificacion/1").success(function(data){            
                 return data;
             });
         };
@@ -68,7 +85,40 @@ angular.module('chasqui.services', [])
 /*            $http.get('http://localhost:8019/chasqui/rest/user/adm/read').success(function (response) {
                 return response;
             });*/
+        };
+
+
+        userService.obtenerVendedores = function(){
+            return $http.get("http://10.12.3.121:8019/chasqui/rest/client/vendedor/all")
+                        .success(function(data){
+                            for (var i = 0; i < data.length; i++) {
+                                 data[i].imagen = 'http://10.12.3.121:8019/chasqui'+data[i].imagen;
+                             }
+                             return data;
+                        });
+        };
+
+
+        userService.obtenerCategoriasDe = function(idVendedor,actividad){
+            return $http.get("http://10.12.3.121:8019/chasqui/rest/client/categoria/all/"+idVendedor)
+                        .success(function(data){
+                          data.idVendedor = idVendedor;
+                          data.actividad = actividad;
+                          return data;
+                        });
         }
- 
+
+          userService.obtenerProductoresDe = function(idVendedor,actividad){
+            return $http.get("http://10.12.3.12110.12.3.121:8019/chasqui/rest/client/productor/all/"+idVendedor)
+                        .success(function(data){
+                          for (var i = 0; i < data.length; i++) {
+                                data[i].pathImagen = 'http://10.12.3.121:8019/chasqui'+data[i].pathImagen;
+                                data[i].idVendedor = idVendedor;
+                             }
+                          data.actividad = actividad;
+                          return data;
+                        });
+        }
+
         return userService;
 }]);

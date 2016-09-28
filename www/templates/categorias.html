@@ -1,0 +1,21 @@
+<ion-view view-title="Catálogo">
+<ion-header-bar align-title="left" class="bar-positive">
+  <h1 class="title">Catálogo</h1>
+</ion-header-bar>
+<ion-content>
+<div class="card">
+    <div class="item item-divider">{{actividad}}</div> 
+</div> 
+  <ion-list>
+      <div ng-repeat="v in ctss">
+        <div class="card" ng-click="verProductos(v.nombre)">
+          <div class="item item-text-wrap">
+            <div class="row">
+                <h3 class="dark">{{v.nombre}}<h3>
+            </div>
+           </div>
+         <div class="card">
+      </div>
+  <ion-list>
+</ion-content> 
+</ion-view>

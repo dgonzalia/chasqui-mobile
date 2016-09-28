@@ -124,6 +124,10 @@ angular.module('chasqui.controllers', [])
             //     "sref": "menu.activity"
             // },
             {
+                "title":'Inicio',
+                "sref":"menu.home"
+            },
+            {
                 "title":"Perfil Usuario",
                 "sref":"menu.perfil"
             }
@@ -315,10 +319,62 @@ angular.module('chasqui.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
+.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, vendedores) {
 
-.controller('SingUpCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, datosPerfil) {
-    
+    $scope.actividad = 'Inicio ';
+    $scope.vss = vendedores.data;
+    console.log($scope.vss);
+
+
+
+    $scope.verCategorias = function(nombre){
+        var selectedItem = null;
+         for (var i = 0; i < $scope.vss.length; i++) {
+            if($scope.vss[i].nombre === nombre){
+                selectedItem = $scope.vss[i];
+            }
+        }
+        $state.go('menu.home.categorias',{idVendedor:selectedItem.id,actividad:$scope.actividad});
+    }
+
+
+     $scope.verProductores = function(nombre){
+        var selectedItem = null;
+         for (var i = 0; i < $scope.vss.length; i++) {
+            if($scope.vss[i].nombre === nombre){
+                selectedItem = $scope.vss[i];
+            }
+        }
+        $state.go('menu.home.productores',{idVendedor:selectedItem.id,actividad:$scope.actividad});
+    }
+
+})
+
+.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, categorias) {
+
+    $scope.actividad = categorias.data.actividad;
+    if(!$scope.actividad.includes('Catálogo')){
+        $scope.actividad = $scope.actividad + '-> Catálogo';
+    }
+    $scope.ctss = categorias.data;
+
+})
+
+
+.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, productores) {
+
     debugger;
+    $scope.actividad = productores.data.actividad;
+    if(!$scope.actividad.includes('Productores')){
+        $scope.actividad = $scope.actividad + '-> Productores';
+    }
+    $scope.pss = productores.data;
+
+})
+
+
+.controller('SingUpCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state) {
+    
     $scope.esEdicionPerfil=false;
     $scope.perfil={};
     $scope.perfil_r={}
@@ -388,7 +444,7 @@ angular.module('chasqui.controllers', [])
     $scope.guardar= function(){
         if($scope.validarFormulario()){
             usuarioService.registro($scope.perfil,function(data){
-               $state.go("menu.perfil");
+               $state.go("menu.home");
             });
         }
     };
