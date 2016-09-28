@@ -1,6 +1,16 @@
-function perfilCtrl ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk,usuarioService,$ionicLoading) {
-        
-    $scope.perfil = usuarioService    
+function perfilCtrl ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, usuarioService, $ionicLoading, datosPerfil) {
+    
+    //datosPerfil se inyecta ya que es el nombre de la variable del resolve que retorna los datos del perfil
+    
+    //$scope.perfil = datosPerfil; //Acá es undefined usandolo asi. Si el controller está en controllers.js funciona ok.
+    $scope.obtenerPerfil = function (){  
+        $timeout(function() {
+            $scope.data  = usuarioService.obtenerDatosPerfilUsuario();
+        }, 500);
+    }
+    
+    console.log ("Perfil del usuario: ",$scope.data);
+    
     $scope.esEdicionPerfil=true;         
     $scope.perfil = {};
     $scope.perfil_r = {}

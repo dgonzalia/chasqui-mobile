@@ -48,36 +48,6 @@ angular.module('chasqui.services', [])
     function ($http, $rootScope) {
         var userService = {};
 
-        userService.Login = function (username, password, callback) {
-            $http.post('http://localhost:8019/chasqui/rest/client/sso/singIn', { email: username, password: password })
-                .success(function (response) {
-                    callback(response);
-            });
-
-        };
- 
-        userService.SetCredentials = function (username, password,id,nickname) {
-            var authdata = btoa(username + ':' + password);
-            
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    authdata: authdata,
-                    id:id,
-                    nickname: nickname
-                }
-            };
- 
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-            // $cookieStore.put('globals', $rootScope.globals);
-        };
- 
-        userService.ClearCredentials = function () {
-            $rootScope.globals = {};
-            // $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic ';
-        };
-
         userService.registro = function(perfil,callback){
             $http.post("http://localhost:8019/chasqui/rest/client/sso/singUp",perfil)
                     .success(function(data){
@@ -93,9 +63,11 @@ angular.module('chasqui.services', [])
             });
         };
 
-        userService.obtenerDatosPerfilUsuario = function(idUsuario,callback){
-            $http.post('http://localhost:8019/chasqui/rest/user/adm/');
-
+        userService.obtenerDatosPerfilUsuario = function(){
+            return {"fafafa": "lalala" };
+/*            $http.get('http://localhost:8019/chasqui/rest/user/adm/read').success(function (response) {
+                return response;
+            });*/
         }
  
         return userService;

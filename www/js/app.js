@@ -128,13 +128,12 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             'fabContent': {
                 template: '',
             }
-        }
-        // resolve: {
-        //     datosPerfil : function(usuarioService,$rootScope){
-        //         debugger;
-        //         return usuarioService.obtenerDatosPerfilUsuario($rootScope.globals.currentUser.id);
-        //     } 
-        // }
+        },
+         resolve: {
+             datosPerfil : function(usuarioService){
+                return usuarioService.obtenerDatosPerfilUsuario();
+             } 
+         }
     })
 
     .state('menu.profile', {
