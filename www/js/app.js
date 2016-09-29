@@ -121,7 +121,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.perfil',{
         url:'/perfil',
         views:{
-            'menuContent':{
+            'menuContent@menu':{
                 templateUrl:'templates/chasqui_profile.html',
                 controller: 'perfilCtrl'
             },
@@ -139,7 +139,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     .state('menu.home',{
         url:'/home',
         views:{
-            'menuContent':{
+            'menuContent@menu':{
                 templateUrl:'templates/home.html',
                 controller:'homeCtrl'
             }
@@ -185,6 +185,26 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         resolve:{
             productores: function(usuarioService,$stateParams){
                 return usuarioService.obtenerProductoresDe($stateParams.idVendedor,$stateParams.actividad);
+            }
+        }
+    })
+
+
+    .state('menu.home.productores.info',{
+        url:'/infoProductor',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/infoProductor.html',
+                controller:'infoProductorCtrl'
+            }
+        },
+        params:{
+            productor:null,
+            actividad:null
+        },
+        resolve:{
+            productor: function(usuarioService,$stateParams){
+                return {productor:$stateParams.productor,actividad:$stateParams.actividad};
             }
         }
     })

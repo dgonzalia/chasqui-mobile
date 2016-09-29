@@ -119,10 +119,10 @@ angular.module('chasqui.controllers', [])
     var right_menus = [{
         name: "General",
         items: [
-            {
-                "title": "Activity",
-                "sref": "menu.activity"
-            },
+            // {
+            //     "title": "Activity",
+            //     "sref": "menu.activity"
+            // }
             {
                 "title":'Inicio',
                 "sref":"menu.home"
@@ -379,6 +379,27 @@ angular.module('chasqui.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
+
+
+    $scope.verInfoProductor = function(nombreProductor){
+        var selectedItem = null;
+         for (var i = 0; i < $scope.pss.length; i++) {
+            if($scope.pss[i].nombreProductor === nombreProductor){
+                selectedItem = $scope.pss[i];
+            }
+        }
+        $state.go('menu.home.productores.info',{productor:selectedItem,actividad:$scope.actividad});
+    }
+
+})
+
+.controller('infoProductorCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productor) {
+
+    $scope.productor = productor.productor;
+    $scope.actividad = productor.actividad + ' -> ' + $scope.productor.nombreProductor;
+    
+    $scope.imagenCaracteristicaValida = ($scope.productor.medalla != undefined && $scope.productor.medalla.pathImagen != undefined);
+    $scope.imagenValida = $scope.productor.pathImagen != undefined;
 
 })
 
