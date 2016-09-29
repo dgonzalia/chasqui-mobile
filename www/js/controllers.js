@@ -380,15 +380,23 @@ angular.module('chasqui.controllers', [])
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
-
-    $scope.verInfoProductor = function(nombreProductor){
+    function encontrarProductor(nombreProductor){
         var selectedItem = null;
          for (var i = 0; i < $scope.pss.length; i++) {
             if($scope.pss[i].nombreProductor === nombreProductor){
                 selectedItem = $scope.pss[i];
             }
         }
-        $state.go('menu.home.productores.info',{productor:selectedItem,actividad:$scope.actividad});
+        return selectedItem;
+    }
+
+    $scope.imagenValida = function(nombreProductor){
+        var prd = encontrarProductor(nombreProductor);
+        return prd.pathImagen !== undefined && prd.pathImagen !== null;
+    }
+
+    $scope.verInfoProductor = function(nombreProductor){
+     $state.go('menu.home.productores.info',{productor:encontrarProductor(nombreProductor),actividad:$scope.actividad});
     }
 
 })

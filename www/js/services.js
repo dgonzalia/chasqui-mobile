@@ -112,8 +112,10 @@ angular.module('chasqui.services', [])
             return $http.get("http://192.168.0.15:8019/chasqui/rest/client/productor/all/"+idVendedor)
                         .success(function(data){
                           for (var i = 0; i < data.length; i++) {
-                                data[i].pathImagen = 'http://192.168.0.15:8019/chasqui'+data[i].pathImagen;
                                 data[i].idVendedor = idVendedor;
+                                if(!(data[i].pathImagen === undefined || data[i].pathImagen === null)){
+                                  data[i].pathImagen = 'http://192.168.0.15:8019/chasqui'+data[i].pathImagen;  
+                                }
                                 if(!(data[i].medalla === undefined || data[i].medalla === null)){
                                     data[i].medalla.pathImagen = 'http://192.168.0.15:8019/chasqui' + data[i].medalla.pathImagen;
                                 }
