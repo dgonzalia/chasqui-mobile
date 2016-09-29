@@ -2,7 +2,7 @@
 <ion-header-bar align-title="left" class="bar-positive">
   <h1 class="title">Productores</h1>
 </ion-header-bar>
-<ion-content> 
+<ion-content class="animate-fade-slide-in"> 
 <div class="card">
     <div class="item item-divider">{{actividad}}</div> 
 </div>
@@ -11,20 +11,26 @@
         <div class="card">
           <div class="item item-text-wrap">
             <div class="row">
-                <div class="col col-90">
-                  <div class="row">
-                   <h5 class="dark">{{p.nombreProductor}}<h5>
+              <div class="col col-90">
+                <div class="row">
+                   <h3 class="dark">{{p.nombreProductor}}<h3>
                   </div>
                   <div class="row">
                     <p>{{p.descripcionCorta}}</p>
                   </div>
-                </div>
-                <div class = "col col-10">
-                    <img ng-src="{{p.pathImagen}}" style="width:50%" align="left">
-                </div>
+               </div>
+               <div class = "col col-10">
+                  <img ng-src="{{p.pathImagen}}" style="width:50%" align="left">
+               </div>
+            </div>
+             <div class="row mt">
+              <lx-button lx-size="xs" lx-type="raised" ng-click="verInfoProductor(p.nombreProductor)">Ver Info.
+              </lx-button>
+              <lx-button class="btn btn--m btn--raised bgc-orange-50 tc-orange-900" lx-size="xs" lx-type="raised" ng-click="verProductos(p.nombre)">Ver Productos
+              </lx-button>
             </div>
           </div>
-         <div class="card">
+        </div>
       </div>
   <ion-list>
 </ion-content> 

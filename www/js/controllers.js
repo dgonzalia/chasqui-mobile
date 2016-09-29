@@ -119,10 +119,10 @@ angular.module('chasqui.controllers', [])
     var right_menus = [{
         name: "General",
         items: [
-            // {
-            //     "title": "Activity",
-            //     "sref": "menu.activity"
-            // },
+            {
+                "title": "Activity",
+                "sref": "menu.activity"
+            },
             {
                 "title":'Inicio',
                 "sref":"menu.home"
@@ -130,17 +130,19 @@ angular.module('chasqui.controllers', [])
             {
                 "title":"Perfil Usuario",
                 "sref":"menu.perfil"
-            }
+            },
             // ,{
             //     "title": "Login",
             //     "sref": "app.login"
             // },{
             //     "title": "Profile",
             //     "sref": "menu.profile"
-            // },{
-            //     "title": "Friends",
-            //     "sref": "menu.friends"
-            // },{
+            // },
+            {
+                "title": "Friends",
+                "sref": "menu.friends"
+            }
+            //,{
             //     "title": "Gallery",
             //     "sref": "menu.gallery"
             // },
@@ -361,14 +363,22 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, productores) {
+.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productores) {
 
-    debugger;
     $scope.actividad = productores.data.actividad;
     if(!$scope.actividad.includes('Productores')){
         $scope.actividad = $scope.actividad + '-> Productores';
     }
     $scope.pss = productores.data;
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
 
 })
 
