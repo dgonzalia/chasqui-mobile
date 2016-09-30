@@ -215,7 +215,7 @@ angular.module('chasqui.controllers', [])
   
 })
 
-.controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk','usuarioService',LoginCtrl])
+.controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', LoginCtrl])
 /*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','usuarioService','$ionicLoading',perfilCtrl])*/
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
