@@ -122,7 +122,7 @@ angular.module('chasqui.controllers', [])
             // {
             //     "title": "Activity",
             //     "sref": "menu.activity"
-            // },
+            // }
             {
                 "title":'Inicio',
                 "sref":"menu.home"
@@ -130,17 +130,19 @@ angular.module('chasqui.controllers', [])
             {
                 "title":"Perfil Usuario",
                 "sref":"menu.perfil"
-            }
+            },
             // ,{
             //     "title": "Login",
             //     "sref": "app.login"
             // },{
             //     "title": "Profile",
             //     "sref": "menu.profile"
-            // },{
-            //     "title": "Friends",
-            //     "sref": "menu.friends"
-            // },{
+            // },
+            {
+                "title": "Friends",
+                "sref": "menu.friends"
+            }
+            //,{
             //     "title": "Gallery",
             //     "sref": "menu.gallery"
             // },
@@ -361,14 +363,51 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, productores) {
+.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productores) {
 
-    debugger;
     $scope.actividad = productores.data.actividad;
     if(!$scope.actividad.includes('Productores')){
         $scope.actividad = $scope.actividad + '-> Productores';
     }
     $scope.pss = productores.data;
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+
+    function encontrarProductor(nombreProductor){
+        var selectedItem = null;
+         for (var i = 0; i < $scope.pss.length; i++) {
+            if($scope.pss[i].nombreProductor === nombreProductor){
+                selectedItem = $scope.pss[i];
+            }
+        }
+        return selectedItem;
+    }
+
+    $scope.imagenValida = function(nombreProductor){
+        var prd = encontrarProductor(nombreProductor);
+        return prd.pathImagen !== undefined && prd.pathImagen !== null;
+    }
+
+    $scope.verInfoProductor = function(nombreProductor){
+     $state.go('menu.home.productores.info',{productor:encontrarProductor(nombreProductor),actividad:$scope.actividad});
+    }
+
+})
+
+.controller('infoProductorCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productor) {
+
+    $scope.productor = productor.productor;
+    $scope.actividad = productor.actividad + ' -> ' + $scope.productor.nombreProductor;
+    
+    $scope.imagenCaracteristicaValida = ($scope.productor.medalla != undefined && $scope.productor.medalla.pathImagen != undefined);
+    $scope.imagenValida = $scope.productor.pathImagen != undefined;
 
 })
 
