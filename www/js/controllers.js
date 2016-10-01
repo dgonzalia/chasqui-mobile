@@ -131,6 +131,10 @@ angular.module('chasqui.controllers', [])
                 "title":"Perfil Usuario",
                 "sref":"menu.perfil"
             },
+            {
+                "title":"Direcciones",
+                "sref":"menu.direcciones"
+            },
             // ,{
             //     "title": "Login",
             //     "sref": "app.login"
@@ -138,6 +142,10 @@ angular.module('chasqui.controllers', [])
             //     "title": "Profile",
             //     "sref": "menu.profile"
             // },
+            {
+                "title":"Medallas",
+                "sref":"menu.medallas"
+            },
             {
                 "title": "Friends",
                 "sref": "menu.friends"
@@ -352,7 +360,81 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, categorias) {
+.controller('medallasCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, medallas) {
+
+
+    $scope.actividad = 'Medallas';
+    $scope.mss = medallas.data;
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+
+
+    $scope.renderHTML = function(html_code)
+    {
+        return $sce.trustAsHtml(html_code);
+    };
+
+})
+
+.controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, direcciones) {
+
+
+    $scope.actividad = direcciones.actividad;
+    if(!$scope.actividad.includes('Direcciones')){
+        $scope.actividad = $scope.actividad + ' -> Direcciones';
+    }
+    $scope.dss = [];
+    $scope.dss[0] = {alias_p:'Mi Casa',
+                    alias_h:'Mi Casa',
+                     altura:'1907',
+                     calle:'Bragado',
+                     localidad:'Avellaneda',
+                     codigoPostal:'1875',
+                     predeterminada:true,
+                     departamento:'4D'
+                     };
+    $scope.dss[1] = {alias_p:'Mi Trabajo',
+                     alias_h:'Mi Trabajo',
+                     altura:'9999',
+                     calle:'Trabajo',
+                     predeterminada:true,
+                     departamento:'4D',
+                     localidad:'Quilmes',
+                     codigoPostal:'1897'
+                    };
+
+
+    $scope.toggleGroup = function(alias) {
+        if ($scope.isGroupShown(alias)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = alias;
+        }
+    };
+    $scope.isGroupShown = function(alias) {
+        return $scope.shownGroup === alias;
+    };
+
+
+       $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 100);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+
+})
+
+.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, categorias) {
 
     $scope.actividad = categorias.data.actividad;
     if(!$scope.actividad.includes('Catálogo')){

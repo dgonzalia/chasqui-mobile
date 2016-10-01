@@ -136,6 +136,24 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
          }
     })
 
+    .state('menu.direcciones',{
+        url:'/direcciones',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/direcciones.html',
+                controller:'direccionesCtrl'
+            }
+        },
+        params:{
+            actividad :null
+        },
+        resolve:{
+            direcciones : function(usuarioService,$stateParams){
+                return {actividad:'Perfil'};
+            }
+        }        
+    })
+
     .state('menu.home',{
         url:'/home',
         views:{
@@ -147,6 +165,21 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         resolve:{
             vendedores : function(usuarioService){
                 return usuarioService.obtenerVendedores();
+            }
+        }
+    })
+
+    .state('menu.medallas',{
+        url:'/medallas',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/medallas.html',
+                controller:'medallasCtrl'
+            }
+        },
+        resolve:{
+            medallas: function(usuarioService){
+                return usuarioService.obtenerMedallas();
             }
         }
     })

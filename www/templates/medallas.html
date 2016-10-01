@@ -1,0 +1,18 @@
+<ion-view view-title="Medallas">
+<ion-content>
+<!-- class="animate-fade-slide-in" -->
+    <ion-list class="animate-fade-slide-in">
+        <div ng-repeat="m in mss">
+            <div >
+                <div class="item item-avatar item-icon-right">
+                    <img ng-src="{{m.pathImagen}}">
+                    <h2>{{m.nombre}}</h2>
+                   <!--  <i class="icon ion-chatbubble muted"></i> -->
+                    <p ng-bind-html="renderHTML(m.descripcion)"/>
+                    <!-- <p>{{m.descripcion}}</p> -->
+                 </div>
+            </div>
+        </div>
+    <ion-list>
+  </ion-content> 
+</ion-view>
