@@ -3,7 +3,7 @@
 
 angular.module('chasqui.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout,usuarioService) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, privateService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -93,7 +93,7 @@ angular.module('chasqui.controllers', [])
     };
 
     $scope.loadNotificaciones = function () {
-        $scope.notificaciones = usuarioService.obtenerNotificaciones();
+        $scope.notificaciones = privateService.obtenerNotificaciones();
         console.log ($scope.notificaciones);
     }
 
@@ -226,7 +226,7 @@ angular.module('chasqui.controllers', [])
 })
 
 .controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', LoginCtrl])
-/*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','usuarioService','$ionicLoading',perfilCtrl])*/
+/*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
@@ -329,7 +329,7 @@ angular.module('chasqui.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, vendedores) {
+.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, publicService, $state, vendedores) {
 
     $scope.actividad = 'Inicio ';
     $scope.vss = vendedores.data;
@@ -360,7 +360,7 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('medallasCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, medallas) {
+.controller('medallasCtrl',function ($scope, $sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, medallas) {
 
 
     $scope.actividad = 'Medallas';
@@ -383,7 +383,7 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, direcciones) {
+.controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, privateService, $state, direcciones) {
 
 
     $scope.actividad = direcciones.actividad;
@@ -434,7 +434,7 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, categorias) {
+.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, categorias) {
 
     $scope.actividad = categorias.data.actividad;
     if(!$scope.actividad.includes('Catálogo')){
@@ -445,7 +445,7 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productores) {
+.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, productores) {
 
     $scope.actividad = productores.data.actividad;
     if(!$scope.actividad.includes('Productores')){
@@ -478,12 +478,12 @@ angular.module('chasqui.controllers', [])
     }
 
     $scope.verInfoProductor = function(nombreProductor){
-     $state.go('menu.home.productores.info',{productor:encontrarProductor(nombreProductor),actividad:$scope.actividad});
+        $state.go('menu.home.productores.info',{productor:encontrarProductor(nombreProductor),actividad:$scope.actividad});
     }
 
 })
 
-.controller('infoProductorCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productor) {
+.controller('infoProductorCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, productor) {
 
     $scope.productor = productor.productor;
     $scope.actividad = productor.actividad + ' -> ' + $scope.productor.nombreProductor;
@@ -494,7 +494,7 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('SingUpCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state) {
+.controller('SingUpCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, publicService, $state) {
     
     $scope.esEdicionPerfil=false;
     $scope.perfil={};
@@ -564,18 +564,17 @@ angular.module('chasqui.controllers', [])
 
     $scope.guardar= function(){
         if($scope.validarFormulario()){
-            usuarioService.registro($scope.perfil,function(data){
+            publicService.registro($scope.perfil, function(data){
                $state.go("menu.home");
+            }, function (response) {
+                console.log("onError");
             });
         }
     };
 
 })
 
-.controller('perfilCtrl',function ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, usuarioService, $ionicLoading, datosPerfil) {
-    
-   
-    //datosPerfil se inyecta ya que es el nombre de la variable del resolve que retorna los datos del perfil
+.controller('perfilCtrl',function ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, privateService, $ionicLoading, datosPerfil) {
     
     $scope.perfil = datosPerfil;
     
@@ -651,7 +650,6 @@ angular.module('chasqui.controllers', [])
     $scope.contraseniasNoEditadas = function(){
         return ($scope.perfil.password == undefined && $scope.perfil_r.password == undefined)
                  || ($scope.perfil.password == '' && $scope.perfil_r.password == '');
-
     }
 
     $scope.validarFormulario = function(){
