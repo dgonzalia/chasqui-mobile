@@ -138,6 +138,19 @@ angular.module('chasqui.services', [])
                         });
         }
 
+
+        publicService.obtenerImagenesDeProducto = function(prod,actividad){
+            return $http.get("http://localhost:8019/chasqui/rest/client/producto/images/"+prod.idVariante)
+                        .success(function(data){
+                        for (var i = 0; i < data.length; i++) {
+                            if(!(data[i].path === undefined || data[i].path === null)){
+                                data[i].path = 'http://localhost:8019/chasqui'+data[i].path;
+                                data[i].prod = {prod:prod,actividad:actividad}  
+                            }
+                        }   
+                    });
+        }
+
         return publicService;
 }])
 

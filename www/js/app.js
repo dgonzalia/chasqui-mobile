@@ -242,6 +242,26 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         }
     })
 
+
+    .state('menu.home.productores.productos.infoProducto',{
+        url:'/infoProducto',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/infoProducto.html',
+                controller:'infoProductoCtrl'
+            }
+        },
+        params:{
+           prod : null,
+           actividad: null
+        },
+        resolve:{
+            infoProducto : function(publicService,$stateParams){
+                return publicService.obtenerImagenesDeProducto($stateParams.prod,$stateParams.actividad);
+            }
+        }
+    })
+
     .state('menu.home.categorias.productos',{
         url:'/productosByCategoria',
         views:{

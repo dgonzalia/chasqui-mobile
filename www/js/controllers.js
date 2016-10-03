@@ -573,7 +573,6 @@ angular.module('chasqui.controllers', [])
 .controller('productosCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, prods) {
 
     $scope.pss = prods.data.productos;
-    console.log(prods.data);
     $scope.actividad = prods.data.actividad;
     if(!$scope.actividad.includes('Productos')){
         $scope.actividad = $scope.actividad + ' -> Productos';
@@ -589,6 +588,41 @@ angular.module('chasqui.controllers', [])
     ionicMaterialInk.displayEffect();
 
 
+
+     function encontrarProducto(nombreProducto,nombreVariante){
+        var selectedItem = null;
+         for (var i = 0; i < $scope.pss.length; i++) {
+            if($scope.pss[i].nombreProducto === nombreProducto 
+                && $scope.pss[i].nombreVariante === nombreVariante){
+                selectedItem = $scope.pss[i];
+            }
+        }
+        return selectedItem;
+    }
+
+
+    $scope.verInfoProducto = function(nombreProducto){
+        var producto = encontrarProducto(nombreProducto);
+        var param = {
+                        prod:producto,
+                        actividad: $scope.actividad
+                     }         
+        $state.go('menu.home.productores.productos.infoProducto',param);
+    }
+
+})
+
+.controller('infoProductoCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, infoProducto) {
+
+
+    $scope.producto = infoProducto.data[0].prod.prod;
+    $scope.actividad = infoProducto.data[0].prod.actividad;
+    $scope.imagenes = infoProducto.data;
+     if(!$scope.actividad.includes('Info Producto')){
+        $scope.actividad = $scope.actividad + ' -> ' + $scope.producto.nombreProducto +' -> Info Producto';
+    }
+
+   
 })
 
 
