@@ -3,14 +3,13 @@
 <div class="card">
     <div class="item item-divider">{{actividad}}</div> 
 </div>
-    <form name="profile" novalidate>
         <ion-list ng-class="accordion">
             <div ng-repeat="d in dss">
                 <ion-item class="item-stable" ng-click="toggleGroup(d.alias_p)" ng-class="{active: isGroupShown(d.alias_p)}">
                     <i class="icon" ng-class="isGroupShown(d.alias_p) ? 'ion-minus' : 'ion-plus'"></i>&nbsp;
                     {{d.alias_p}}
                     </ion-item>
-
+                 <form name="profile" novalidate>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
                     <lx-text-field lx-label="Alias:" lx-allow-clear="true"
                         lx-valid="!profile.alias_h.$pristine && profile.alias_h.$valid"
@@ -63,8 +62,8 @@
                             <lx-switch ng-model="d.predeterminada" lx-color="green" class="mt+"/>
                         </div>
                     </div>
-                 </ion-item>  
-            </ion-list>
-            </form>  
+                 </ion-item>
+                 </form>   
+            </ion-list> 
   </ion-content> 
 </ion-view>
