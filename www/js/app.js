@@ -44,8 +44,8 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl',
         // resolve: {
-        //     notificaciones : function(usuarioService){
-        //         return usuarioService.obtenerNotificaciones();
+        //     notificaciones : function(privateService){
+        //         return privateService.obtenerNotificaciones();
         //     } 
         // }
     })
@@ -130,8 +130,8 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         },
          resolve: {
-             datosPerfil : function(usuarioService){
-                return usuarioService.obtenerDatosPerfilUsuario();
+             datosPerfil : function(privateService){
+                return privateService.obtenerDatosPerfilUsuario();
              } 
          }
     })
@@ -148,7 +148,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             actividad :null
         },
         resolve:{
-            direcciones : function(usuarioService,$stateParams){
+            direcciones : function(privateService, $stateParams){
                 return {actividad:'Perfil'};
             }
         }        
@@ -163,8 +163,8 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         },
         resolve:{
-            vendedores : function(usuarioService){
-                return usuarioService.obtenerVendedores();
+            vendedores : function(publicService){
+                return publicService.obtenerVendedores();
             }
         }
     })
@@ -178,8 +178,8 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         },
         resolve:{
-            medallas: function(usuarioService){
-                return usuarioService.obtenerMedallas();
+            medallas: function(publicService){
+                return publicService.obtenerMedallas();
             }
         }
     })
@@ -197,8 +197,8 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             actividad:null
         },
         resolve:{
-            categorias: function(usuarioService,$stateParams){
-                return usuarioService.obtenerCategoriasDe($stateParams.idVendedor,$stateParams.actividad);
+            categorias: function(publicService, $stateParams){
+                return publicService.obtenerCategoriasDe($stateParams.idVendedor,$stateParams.actividad);
             }
         }
     })
@@ -216,8 +216,48 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             actividad:null
         },
         resolve:{
-            productores: function(usuarioService,$stateParams){
-                return usuarioService.obtenerProductoresDe($stateParams.idVendedor,$stateParams.actividad);
+            productores: function(publicService, $stateParams){
+                return publicService.obtenerProductoresDe($stateParams.idVendedor,$stateParams.actividad);
+            }
+        }
+    })
+
+    .state('menu.home.productores.productos',{
+        url:'/productos',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/productos.html',
+                controller:'productosCtrl'
+            }
+        },
+        params:{
+            actividad:null,
+            idProductor:null,
+            nombreProductor:null
+        },
+        resolve:{
+            prods : function(publicService,$stateParams){
+                return publicService.obtenerProductosDeProductor($stateParams.idProductor,$stateParams.nombreProductor,$stateParams.actividad);
+            }
+        }
+    })
+
+    .state('menu.home.categorias.productos',{
+        url:'/productosByCategoria',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/productos.html',
+                controller:'productosCtrl'
+            }
+        },
+        params:{
+            actividad:null,
+            idCategoria:null,
+            nombreCategoria:null
+        },
+        resolve:{
+            prods : function(publicService,$stateParams){
+                return publicService.obtenerProductosDeCategoria($stateParams.idCategoria,$stateParams.nombreCategoria,$stateParams.actividad);
             }
         }
     })
@@ -236,7 +276,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             actividad:null
         },
         resolve:{
-            productor: function(usuarioService,$stateParams){
+            productor: function(publicService, $stateParams){
                 return {productor:$stateParams.productor,actividad:$stateParams.actividad};
             }
         }
@@ -265,10 +305,10 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         abstract: true,
         controller: 'AppCtrl',
         // resolve: {
-        //     notificaciones : function(usuarioService){
+        //     notificaciones : function(privateService){
         //         console.log("LAOEOEOE")
-        //         console.log(usuarioService.obtenerNotificaciones());
-        //         return usuarioService.obtenerNotificaciones();
+        //         console.log(privateService.obtenerNotificaciones());
+        //         return privateService.obtenerNotificaciones();
         //     } 
         // }
 

@@ -3,7 +3,7 @@
 
 angular.module('chasqui.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout,usuarioService) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, privateService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -93,7 +93,7 @@ angular.module('chasqui.controllers', [])
     };
 
     $scope.loadNotificaciones = function () {
-        $scope.notificaciones = usuarioService.obtenerNotificaciones();
+        $scope.notificaciones = privateService.obtenerNotificaciones();
         console.log ($scope.notificaciones);
     }
 
@@ -226,7 +226,7 @@ angular.module('chasqui.controllers', [])
 })
 
 .controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', LoginCtrl])
-/*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','usuarioService','$ionicLoading',perfilCtrl])*/
+/*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
@@ -329,11 +329,10 @@ angular.module('chasqui.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state, vendedores) {
+.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, publicService, $state, vendedores) {
 
     $scope.actividad = 'Inicio ';
     $scope.vss = vendedores.data;
-    console.log($scope.vss);
 
 
 
@@ -360,7 +359,7 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('medallasCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, medallas) {
+.controller('medallasCtrl',function ($scope, $sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, medallas) {
 
 
     $scope.actividad = 'Medallas';
@@ -383,7 +382,7 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, direcciones) {
+.controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, privateService, $state, direcciones) {
 
 
     $scope.actividad = direcciones.actividad;
@@ -411,6 +410,42 @@ angular.module('chasqui.controllers', [])
                     };
 
 
+
+    $scope.agregarDireccion = function(){
+        var nuevaDireccion = {alias_p:'Nueva Direccion',
+                              alias_h:undefined,
+                              altura:undefined,
+                              calle:undefined,
+                              predeterminada:false,
+                              departamento:undefined,
+                              localidad:undefined,
+                              codigoPostal:undefined,
+                              nuevaDireccion:true
+                              };
+        $scope.dss.push(nuevaDireccion);
+    };
+
+    function buscarIndexDireccion(alias){
+        for (var i = 0; i < $scope.dss.length; i++) {
+            if($scope.dss[i].alias_p === alias){
+               return i;  
+            }
+        }
+        return null;
+    }
+
+    $scope.eliminarDireccion = function(alias_p){
+        var index = buscarIndexDireccion(alias_p);
+        var direccionABorrar = $scope.dss.splice(index,1)[0];
+        //llamar servicio de borrado
+    };
+
+    $scope.editarDireccion = function(alias_p){
+        var index = buscarIndexDireccion(alias_p);
+        // llamar al servicio de editar direccion y validar;
+        // si es nueva direccion llamar al servicio de alta
+    }
+
     $scope.toggleGroup = function(alias) {
         if ($scope.isGroupShown(alias)) {
             $scope.shownGroup = null;
@@ -434,7 +469,7 @@ angular.module('chasqui.controllers', [])
 
 })
 
-.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, categorias) {
+.controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, categorias) {
 
     $scope.actividad = categorias.data.actividad;
     if(!$scope.actividad.includes('Catálogo')){
@@ -442,10 +477,28 @@ angular.module('chasqui.controllers', [])
     }
     $scope.ctss = categorias.data;
 
+    function encontrarCategoria(nombreCategoria){
+         for (var i = 0; i < $scope.ctss.length; i++) {
+            if($scope.ctss[i].nombre === nombreCategoria){
+                return $scope.ctss[i];
+            }
+        }
+        return null;
+    }
+
+    $scope.verProductos = function(nombreCategoria){
+        var params = {
+                       actividad:$scope.actividad,
+                       nombreCategoria:nombreCategoria,
+                       idCategoria:encontrarCategoria(nombreCategoria).idCategoria
+                     }
+        $state.go('menu.home.categorias.productos',params);
+    }
+
 })
 
 
-.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productores) {
+.controller('productoresCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, productores) {
 
     $scope.actividad = productores.data.actividad;
     if(!$scope.actividad.includes('Productores')){
@@ -478,12 +531,26 @@ angular.module('chasqui.controllers', [])
     }
 
     $scope.verInfoProductor = function(nombreProductor){
-     $state.go('menu.home.productores.info',{productor:encontrarProductor(nombreProductor),actividad:$scope.actividad});
+        var params = {
+                      productor:encontrarProductor(nombreProductor),
+                      actividad:$scope.actividad
+                     }
+        $state.go('menu.home.productores.info',params);
+    }
+
+
+    $scope.verProductos = function(nombreProductor){
+        var params = {
+                       actividad:$scope.actividad,
+                       nombreProductor:nombreProductor,
+                       idProductor:encontrarProductor(nombreProductor).idProductor
+                     }
+        $state.go('menu.home.productores.productos',params);
     }
 
 })
 
-.controller('infoProductorCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion,usuarioService,$state, productor) {
+.controller('infoProductorCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, productor) {
 
     $scope.productor = productor.productor;
     $scope.actividad = productor.actividad + ' -> ' + $scope.productor.nombreProductor;
@@ -491,10 +558,41 @@ angular.module('chasqui.controllers', [])
     $scope.imagenCaracteristicaValida = ($scope.productor.medalla != undefined && $scope.productor.medalla.pathImagen != undefined);
     $scope.imagenValida = $scope.productor.pathImagen != undefined;
 
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
 })
 
 
-.controller('SingUpCtrl',function ($scope, $rootScope, $location, AuthenticationService,$timeout, $stateParams, ionicMaterialInk,usuarioService,$state) {
+.controller('productosCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, prods) {
+
+    $scope.pss = prods.data.productos;
+    console.log(prods.data);
+    $scope.actividad = prods.data.actividad;
+    if(!$scope.actividad.includes('Productos')){
+        $scope.actividad = $scope.actividad + ' -> Productos';
+    }
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+
+
+})
+
+
+.controller('SingUpCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, publicService, $state) {
     
     $scope.esEdicionPerfil=false;
     $scope.perfil={};
@@ -564,18 +662,17 @@ angular.module('chasqui.controllers', [])
 
     $scope.guardar= function(){
         if($scope.validarFormulario()){
-            usuarioService.registro($scope.perfil,function(data){
+            publicService.registro($scope.perfil, function(data){
                $state.go("menu.home");
+            }, function (response) {
+                console.log("onError");
             });
         }
     };
 
 })
 
-.controller('perfilCtrl',function ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, usuarioService, $ionicLoading, datosPerfil) {
-    
-   
-    //datosPerfil se inyecta ya que es el nombre de la variable del resolve que retorna los datos del perfil
+.controller('perfilCtrl',function ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, privateService, $ionicLoading, datosPerfil) {
     
     $scope.perfil = datosPerfil;
     
@@ -651,7 +748,6 @@ angular.module('chasqui.controllers', [])
     $scope.contraseniasNoEditadas = function(){
         return ($scope.perfil.password == undefined && $scope.perfil_r.password == undefined)
                  || ($scope.perfil.password == '' && $scope.perfil_r.password == '');
-
     }
 
     $scope.validarFormulario = function(){
