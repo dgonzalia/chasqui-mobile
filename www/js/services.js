@@ -162,16 +162,68 @@ angular.module('chasqui.services', [])
         var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
         privateService.obtenerNotificaciones = function(){
-            $http.get("http://localhost:8019/chasqui/rest/user/adm/notificacion/1").success(function(data){            
+           return $http.get("http://localhost:8019/chasqui/rest/user/adm/notificacion/1").success(function(data){            
                 return data;
             });
         };
 
         privateService.obtenerDatosPerfilUsuario = function(){
-            $http.get('http://localhost:8019/chasqui/rest/user/adm/read', header).success(function (response) {
-                return response;
+            return $http.get('http://localhost:8019/chasqui/rest/user/adm/read', header).success(function (data) {
+                return data;
             });
         };
+
+
+        privateService.obtenerDireccionesDeUsuario = function(){
+            return $http.get("http://localhost:8019/chasqui/rest/user/adm/dir",header)
+                        .success(function(data){
+                           for (var i = 0; i < data.length; i++) {
+                                data[i].alias_p = data[i].alias;
+                            }
+                        });
+        }
+
+        privateService.guardarDireccion = function(direccion){
+            var params = {
+                            alias:direccion.alias,
+                            altura:direccion.altura,
+                            calle:direccion.calle,
+                            predeterminada:direccion.predeterminada,
+                            departamento:direccion.departamento,
+                            localidad:direccion.localidad,
+                            codigoPostal:direccion.codigoPostal
+                        };
+            $http.post("http://localhost:8019/chasqui/rest/user/adm/dir",params,header)
+                 .success(function(data){
+                    direccion.idDireccion = data;
+                 });
+        }
+
+
+        privateService.editarDireccion = function(direccion){
+             var params = {
+                            alias:direccion.alias,
+                            altura:direccion.altura,
+                            calle:direccion.calle,
+                            predeterminada:direccion.predeterminada,
+                            departamento:direccion.departamento,
+                            localidad:direccion.localidad,
+                            codigoPostal:direccion.codigoPostal,
+                            idDireccion:direccion.idDireccion
+                        };
+
+            $http.post("http://localhost:8019/chasqui/rest/user/adm/dir/edit",params,header)
+                 .success(function(data){
+                 });
+        }
+
+
+        privateService.eliminarDireccion = function(direccion){
+            $http.get("http://localhost:8019/chasqui/rest/user/adm/dir/"+direccion.idDireccion,header)
+                 .success(function(data){
+
+                 }) 
+        }
 
         return privateService;
 }]);

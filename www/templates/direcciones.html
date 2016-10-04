@@ -13,9 +13,9 @@
                  <form name="profile" novalidate>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
                     <lx-text-field lx-label="Alias:" lx-allow-clear="true"
-                        lx-valid="!profile.alias_h.$pristine && profile.alias_h.$valid"
-                        lx-error="!profile.alias_h.$pristine && profile.alias_h.$invalid">
-                            <input type="text" ng-model="d.alias_h" name="alias_h" required maxlength="15"/>
+                        lx-valid="!profile.alias.$pristine &&  profile.alias.$valid"
+                        lx-error="!profile.alias.$pristine &&  profile.alias.$invalid">
+                            <input type="text" ng-model="d.alias" name="alias" required maxlength="15"/>
                     </lx-text-field>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
@@ -29,14 +29,16 @@
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
                     <lx-text-field lx-label="Altura:" lx-allow-clear="true"
                     lx-valid="!profile.altura.$pristine && profile.altura.$valid"
-                    lx-error="!profile.altura.$pristine && profile.altura.$invalid">
-                       <input type="text" ng-model="d.altura" name="altura" required maxlength="4"/>
+                    lx-error="!profile.altura.$pristine && (profile.altura.$invalid 
+                    || !altValida(d.altura))">
+                       <input type="tel" ng-model="d.altura" name="altura" required maxlength="4"/>
                     </lx-text-field>
                     </ion-item>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
                     <lx-text-field lx-label="codigoPostal:" lx-allow-clear="true"
                     lx-valid="!profile.codigoPostal.$pristine && profile.codigoPostal.$valid"
-                    lx-error="!profile.codigoPostal.$pristine && profile.codigoPostal.$invalid">
+                    lx-error="!profile.codigoPostal.$pristine && (profile.codigoPostal.$invalid
+                    || !codigoPostalValido(d.codigoPostal))">
                         <input  type="tel" ng-model="d.codigoPostal" name="codigoPostal" required maxlength="4"/>
                     </lx-text-field>
                 </ion-item>
@@ -65,7 +67,8 @@
                     </div>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
                     <div class="p+" align="center">
-                        <lx-icon lx-id="checkbox-marked-circle-outline" ng-click="editarDireccion(d.alias_p)" lx-size="xl" lx-color="green" lx-type="circled"></lx-icon>
+                        <lx-icon lx-id="checkbox-marked-circle-outline"  lx-color="green"
+                        ng-click="editarDireccion(d.alias_p)" lx-size="xl" lx-type="circled"></lx-icon>
                          <lx-icon lx-id="close-octagon-outline" ng-click="eliminarDireccion(d.alias_p)"lx-size="xl" lx-color="red" lx-type="circled"></lx-icon>
                     </div>
                 </ion-item>

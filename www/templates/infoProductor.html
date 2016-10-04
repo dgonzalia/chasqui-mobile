@@ -3,31 +3,31 @@
 <div class="card">
     <div class="item item-divider">{{actividad}}</div> 
 </div>
-<div class="list form">
+<fieldset ng-disabled="true" class="list form"> 
     <label class="item item-input">
       <span class="input-label">Nombre:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.nombreProductor">
+      <input type="text" ng-model="productor.nombreProductor">
     </label>
     <label class="item item-input">
       <span class="input-label">Pais:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.direccion.pais">
+      <input type="text"  ng-model="productor.direccion.pais">
     </label>
     <label class="item item-input">
       <span class="input-label">Provincia:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.direccion.provincia">
+      <input type="text"  ng-model="productor.direccion.provincia">
     </label>
     <label class="item item-input">
       <span class="input-label">Localidad:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.direccion.localidad">
+      <input type="text" ng-model="productor.direccion.localidad">
     </label>
     <label class="item item-input">
       <span class="input-label">Calle:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.direccion.calle">
+      <input type="text" ng-model="productor.direccion.calle">
      </label>
     <label class="item item-input">
       <span class="input-label">Altura:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.direccion.altura">
+      <input type="text" ng-model="productor.direccion.altura">
     </label>
-</div>  
+</fieldset>  
 </ion-content> 
 </ion-view>

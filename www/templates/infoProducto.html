@@ -3,20 +3,33 @@
 <div class="card">
     <div class="item item-divider">{{actividad}}</div> 
 </div>
-<div>
+<div align="center">
+    <h2>{{producto.nombreProducto}} - {{producto.nombreVariedad}}</hs>
     <ion-list>
         <ion-item ng-repeat="i in imagenes">
-            <div>
-                <img ng-src="{{i.path}}" align="left" >
+            <div align="center" >
+                <img ng-src="{{i.path}}" height="200" width="200">
             </div>
         </ion-item>
     </ion-list>
+    <div ng-disabled="true">
+         <p ng-bind-html="renderHTML(producto.descripcion)"/>
+    </div>
 </div>
-<div>
-    <button ng-click="loadNextPage()">
-                Show More
-    </button>
-</div>
+<fieldset ng-disabled="true" class="list form"> 
+    <label class="item item-input">
+        <span class="input-label">Productor:</span>
+        <input type="text" ng-value="producto.nombreFabricante"></input>
+    </label>
+    <label class="item item-input">
+        <span class="input-label">Precio:</span>
+        <input type="text" ng-value="producto.precio"></input>
+    </label>
+    <label class="item item-input">
+        <span class="input-label">Stock:</span>
+        <input type="text" ng-value="producto.stock"></input>
+    </label>
+</fieldset> 
 <!-- <div class="list form"> -->
     <!--<label class="item item-input">
       <span class="input-label">Nombre:</span>

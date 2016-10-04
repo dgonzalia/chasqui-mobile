@@ -124,9 +124,6 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             'menuContent@menu':{
                 templateUrl:'templates/chasqui_profile.html',
                 controller: 'perfilCtrl'
-            },
-            'fabContent': {
-                template: '',
             }
         },
          resolve: {
@@ -144,12 +141,9 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
                 controller:'direccionesCtrl'
             }
         },
-        params:{
-            actividad :null
-        },
         resolve:{
-            direcciones : function(privateService, $stateParams){
-                return {actividad:'Perfil'};
+            direcciones : function(privateService){
+                return privateService.obtenerDireccionesDeUsuario();
             }
         }        
     })
@@ -243,7 +237,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     })
 
 
-    .state('menu.home.productores.productos.infoProducto',{
+    .state('menu.home.infoProducto',{
         url:'/infoProducto',
         views:{
             'menuContent@menu':{

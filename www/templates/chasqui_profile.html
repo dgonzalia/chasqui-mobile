@@ -50,19 +50,17 @@
                lx-valid="!profile.celular.$pristine && profile.celular.$valid && celularValido()" lx-icon="phone"
                lx-error="!profile.celular.$pristine && (profile.celular.invalid || !celularValido())">
                <input type="tel" ng-model="perfil.telefonoMovil" maxlength="10" name="celular" required ng-disabled="esEdicionPerfil">
-          </lx-text-field>
-
-
-<!-- 
-        <button id="direcciones" name="direcciones" ng-show="esEdicionPerfil"  class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button> -->
+          </lx-text-field> 
         </div>
-        <button id="editar" ng-show="esEdicionPerfil" ng-click="editar()" class="button button-positive button-fab button-fab-bottom-left">
-            <i class="ion-edit"></i>
-        </button>
-        <button id="guardar" ng-show="!esEdicionPerfil" ng-click="guardar()" class="button button-positive 
-            button-fab button-fab-bottom-left">
-            <i class="ion-android-checkmark-circle"></i>
-        </button>
-      </form>    
+      </form> 
+      <div align="center">
+          <button class="button button-positive" id="editar" ng-show="esEdicionPerfil" 
+                  ng-click="editar()">Editar</button>
+          <button class="button button-positive" id="guardar" ng-show="!esEdicionPerfil" 
+                  ng-click="guardar()">Guardar</button>
+      </div>
+      <div>
+        <button id="direcciones" name="direcciones" ng-show="esEdicionPerfil"  class="button button-block button-positive" ng-click="verDirecciones()">Ver Direcciones</button> 
+      </div>
 </ion-content> 
 </ion-view>

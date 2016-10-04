@@ -131,10 +131,6 @@ angular.module('chasqui.controllers', [])
                 "title":"Perfil Usuario",
                 "sref":"menu.perfil"
             },
-            {
-                "title":"Direcciones",
-                "sref":"menu.direcciones"
-            },
             // ,{
             //     "title": "Login",
             //     "sref": "app.login"
@@ -385,44 +381,30 @@ angular.module('chasqui.controllers', [])
 .controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, privateService, $state, direcciones) {
 
 
-    $scope.actividad = direcciones.actividad;
+    $scope.actividad = 'Perfil -> Direcciones';
     if(!$scope.actividad.includes('Direcciones')){
         $scope.actividad = $scope.actividad + ' -> Direcciones';
     }
-    $scope.dss = [];
-    $scope.dss[0] = {alias_p:'Mi Casa',
-                    alias_h:'Mi Casa',
-                     altura:'1907',
-                     calle:'Bragado',
-                     localidad:'Avellaneda',
-                     codigoPostal:'1875',
-                     predeterminada:true,
-                     departamento:'4D'
-                     };
-    $scope.dss[1] = {alias_p:'Mi Trabajo',
-                     alias_h:'Mi Trabajo',
-                     altura:'9999',
-                     calle:'Trabajo',
-                     predeterminada:true,
-                     departamento:'4D',
-                     localidad:'Quilmes',
-                     codigoPostal:'1897'
-                    };
+    $scope.dss = direcciones.data;
 
 
 
     $scope.agregarDireccion = function(){
-        var nuevaDireccion = {alias_p:'Nueva Direccion',
-                              alias_h:undefined,
-                              altura:undefined,
-                              calle:undefined,
-                              predeterminada:false,
-                              departamento:undefined,
-                              localidad:undefined,
-                              codigoPostal:undefined,
-                              nuevaDireccion:true
-                              };
-        $scope.dss.push(nuevaDireccion);
+        var index = buscarIndexDireccion('Nueva Direccion');
+        var direccion = $scope.dss[index];
+        if(direccion === null || direccion === undefined){
+            var nuevaDireccion = {alias_p:'Nueva Direccion',
+                                  alias:undefined,
+                                  altura:undefined,
+                                  calle:undefined,
+                                  predeterminada:false,
+                                  departamento:undefined,
+                                  localidad:undefined,
+                                  codigoPostal:undefined,
+                                  nuevaDireccion:true
+                                };
+            $scope.dss.push(nuevaDireccion);
+        }
     };
 
     function buscarIndexDireccion(alias){
@@ -432,16 +414,65 @@ angular.module('chasqui.controllers', [])
             }
         }
         return null;
+    };
+
+
+    $scope.codigoPostalValido = function(codigoPostal){
+        if(codigoPostal== undefined){
+            return false;
+        }
+        if(typeof codigoPostal === 'number'){
+            return true;
+        }
+        return codigoPostal !== '' && (codigoPostal.match(/^[0-9]+$/) != null);
+    };
+
+    $scope.altValida = function(altura){
+        if(altura == undefined){
+            return false;
+        }
+        if(typeof altura === 'number'){
+            return true;
+        }
+        return altura !== '' && (altura.match(/^[0-9]+$/) != null);
+    };
+
+    $scope.formularioValido = function(d){
+        return validarCampo(d.alias_h) && validarCampo(d.altura) 
+                && validarCampo(d.calle)
+                && validarCampo(d.departamento) && validarCampo(d.localidad)
+                && validarCampo(d.codigoPostal);     
     }
+
+    function validarCampo(valor){
+        return valor !== undefined || valor !== '';
+    }
+
 
     $scope.eliminarDireccion = function(alias_p){
         var index = buscarIndexDireccion(alias_p);
-        var direccionABorrar = $scope.dss.splice(index,1)[0];
-        //llamar servicio de borrado
+        var direccion = $scope.dss[index];
+        privateService.eliminarDireccion(direccion);
+        $scope.dss.splice(index,1);
+       // var direccionABorrar = $scope.dss.splice(index,1)[0];
     };
+
+    $scope.algunoIncompleto = function(direccion){
+        return !$scope.formularioValido(direccion);
+    }
 
     $scope.editarDireccion = function(alias_p){
         var index = buscarIndexDireccion(alias_p);
+        var direccion = $scope.dss[index];
+        if(direccion.nuevaDireccion !== undefined && direccion.nuevaDireccion
+            && $scope.formularioValido(direccion)){
+            privateService.guardarDireccion(direccion);
+            direccion.nuevaDireccion = false;
+            direccion.alias_p = direccion.alias;
+        }else if($scope.formularioValido){
+            privateService.editarDireccion(direccion);
+            direccion.alias_p = direccion.alias;
+        }
         // llamar al servicio de editar direccion y validar;
         // si es nueva direccion llamar al servicio de alta
     }
@@ -607,12 +638,12 @@ angular.module('chasqui.controllers', [])
                         prod:producto,
                         actividad: $scope.actividad
                      }         
-        $state.go('menu.home.productores.productos.infoProducto',param);
+        $state.go('menu.home.infoProducto',param);
     }
 
 })
 
-.controller('infoProductoCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, infoProducto) {
+.controller('infoProductoCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, infoProducto) {
 
 
     $scope.producto = infoProducto.data[0].prod.prod;
@@ -621,6 +652,12 @@ angular.module('chasqui.controllers', [])
      if(!$scope.actividad.includes('Info Producto')){
         $scope.actividad = $scope.actividad + ' -> ' + $scope.producto.nombreProducto +' -> Info Producto';
     }
+
+
+     $scope.renderHTML = function(html_code)
+    {
+        return $sce.trustAsHtml(html_code);
+    };
 
    
 })
@@ -708,12 +745,11 @@ angular.module('chasqui.controllers', [])
 
 .controller('perfilCtrl',function ($scope, $rootScope, $location,$state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, privateService, $ionicLoading, datosPerfil) {
     
-    $scope.perfil = datosPerfil;
+    $scope.perfil = datosPerfil.data;
     
     console.log ("Perfil del usuario: ",$scope.perfil);
     
     $scope.esEdicionPerfil=true;         
-    $scope.perfil = {};
     $scope.perfil_r = {}
     $scope.perfil_r.password = '';
     $scope.perfil.password = '';
@@ -797,6 +833,11 @@ angular.module('chasqui.controllers', [])
         //llamar al servicio de edicion;
         //$scope.hide();
         $scope.esEdicionPerfil = true;
+    }
+
+
+    $scope.verDirecciones = function(){
+        $state.go('menu.direcciones');
     }
 
 
