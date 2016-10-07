@@ -225,5 +225,22 @@ angular.module('chasqui.services', [])
                  }) 
         }
 
+
+        privateService.editarPerfilUsuario = function(perfil){
+            var param = {
+                nickName : perfil.nickName,
+                nombre: perfil.nombre,
+                apellido: perfil.apellido,
+                telefonoFijo: perfil.telefonoFijo,
+                telefonoMovil: perfil.telefonoMovil,
+                password: perfil.password
+            };
+
+            $http.put('http://localhost:8019/chasqui/rest/user/adm/edit',param,header)
+                .success(function(data){
+                    
+                })
+        }
+
         return privateService;
 }]);

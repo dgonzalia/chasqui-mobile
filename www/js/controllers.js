@@ -773,7 +773,7 @@ angular.module('chasqui.controllers', [])
         if($scope.perfil.nombre == undefined){
             return false;
         }
-        return $scope.perfil.password !== '';
+        return $scope.perfil.nombre !== '';
     };
 
     $scope.apellidoValido = function(){
@@ -805,10 +805,9 @@ angular.module('chasqui.controllers', [])
     };
 
     $scope.passwordValida = function(){
-        if($scope.perfil.password == undefined){
-            return false;
-        }
-        return $scope.perfil.password.length >= 8;
+        return $scope.perfil.password !== undefined
+                 && $scope.perfil.password === ''
+                 || $scope.perfil.password.length >= 8;
     };
 
     $scope.coincidenContrasenias = function(){
@@ -829,10 +828,13 @@ angular.module('chasqui.controllers', [])
 
 
     $scope.guardar = function(){
-        $scope.show();
-        //llamar al servicio de edicion;
-        //$scope.hide();
-        $scope.esEdicionPerfil = true;
+        if($scope.validarFormulario()){
+            $scope.show();
+            privateService.editarPerfilUsuario($scope.perfil);
+            //llamar al servicio de edicion;
+            $scope.hide();
+            $scope.esEdicionPerfil = true;
+        }
     }
 
 
