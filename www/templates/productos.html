@@ -35,5 +35,11 @@
         </div>
       </div>
   <ion-list>
+           <!-- Agregar para parar la carga cuando ya no hay mas paginas -> ng-if="moreDataCanBeLoaded()"-->
+  <ion-infinite-scroll
+      ng-if="hayItems"                      
+      distance="10%"                
+      on-infinite="loadMoreData()">
+  </ion-infinite-scroll>  
 </ion-content> 
 </ion-view>

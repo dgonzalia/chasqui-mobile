@@ -520,11 +520,12 @@ angular.module('chasqui.controllers', [])
 
     $scope.verProductos = function(nombreCategoria){
         var params = {
-                       actividad:$scope.actividad,
-                       nombreCategoria:nombreCategoria,
-                       idCategoria:encontrarCategoria(nombreCategoria).idCategoria
+                       actividad: $scope.actividad,
+                       nombreCategoria: nombreCategoria,
+                       idCategoria: encontrarCategoria(nombreCategoria).idCategoria,
+                       pagina: 0    
                      }
-        $state.go('menu.home.categorias.productos',params);
+        $state.go('menu.home.categorias.productos', params);
     }
 
 })
@@ -605,6 +606,7 @@ angular.module('chasqui.controllers', [])
 .controller('productosCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, prods) {
 
     $scope.pss = prods.data.productos;
+    $scope.hayItems = true;
     $scope.actividad = prods.data.actividad;
     if(!$scope.actividad.includes('Productos')){
         $scope.actividad = $scope.actividad + ' -> Productos';
@@ -632,6 +634,26 @@ angular.module('chasqui.controllers', [])
         return selectedItem;
     }
 
+    $scope.loadMoreData = function() {
+        publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina+1).success(function(data){
+            console.log("se llamo a pagina: "+$stateParams.pagina)
+            $scope.pss = data.productos;
+            if ($scope.pss) {
+                console.log("hay items");
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            else {
+                console.log("no hay items");
+                $scope.hayItems=false;
+            }
+            
+        }); //definir comportamiento para error
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+        console.log("$scope.$on('$stateChangeSuccess')...")
+        $scope.loadMoreData();
+    });
 
     $scope.verInfoProducto = function(nombreProducto){
         var producto = encontrarProducto(nombreProducto);

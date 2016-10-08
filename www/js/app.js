@@ -265,13 +265,15 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         },
         params:{
-            actividad:null,
-            idCategoria:null,
-            nombreCategoria:null
+            actividad: null,
+            idCategoria: null,
+            nombreCategoria: null,
+            pagina: null
         },
         resolve:{
-            prods : function(publicService,$stateParams){
-                return publicService.obtenerProductosDeCategoria($stateParams.idCategoria,$stateParams.nombreCategoria,$stateParams.actividad);
+            prods : function(publicService, $stateParams){
+                console.log("se carga el estado menu.home.categorias.productos");
+                return publicService.obtenerProductosDeCategoria($stateParams.idCategoria,$stateParams.nombreCategoria,$stateParams.actividad, $stateParams.pagina);
             }
         }
     })
