@@ -12,14 +12,14 @@
                     </ion-item>
                  <form name="profile" novalidate>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
-                    <lx-text-field lx-label="Alias:" lx-allow-clear="true"
+                    <lx-text-field lx-label="Alias:"
                         lx-valid="!profile.alias.$pristine &&  profile.alias.$valid"
                         lx-error="!profile.alias.$pristine &&  profile.alias.$invalid">
                             <input type="text" ng-model="d.alias" name="alias" required maxlength="15"/>
                     </lx-text-field>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
-                    <lx-text-field lx-label="Calle:" lx-allow-clear="true"
+                    <lx-text-field lx-label="Calle:" 
                         lx-valid="!profile.calle.$pristine && profile.calle.$valid"
                         lx-error="!profile.calle.$pristine && profile.calle.$invalid">
                             <input type="text" ng-model="d.calle" name="calle" required
@@ -35,7 +35,7 @@
                     </lx-text-field>
                     </ion-item>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
-                    <lx-text-field lx-label="codigoPostal:" lx-allow-clear="true"
+                    <lx-text-field lx-label="codigoPostal:"
                     lx-valid="!profile.codigoPostal.$pristine && profile.codigoPostal.$valid"
                     lx-error="!profile.codigoPostal.$pristine && (profile.codigoPostal.$invalid
                     || !codigoPostalValido(d.codigoPostal))">
@@ -43,14 +43,14 @@
                     </lx-text-field>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
-                    <lx-text-field lx-label="departamento:" lx-allow-clear="true"
+                    <lx-text-field lx-label="departamento:"
                     lx-valid="!profile.departamento.$pristine && profile.departamento.$valid"
                     lx-error="!profile.departamento.$pristine && profile.departamento.$invalid">
                         <input  type="text" ng-model="d.departamento" required name="departamento" maxlength="4"/>
                     </lx-text-field>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-accordion"  ng-show="isGroupShown(d.alias_p)">
-                    <lx-text-field lx-label="localidad:" lx-allow-clear="true"
+                    <lx-text-field lx-label="localidad:" 
                     lx-valid="!profile.localidad.$pristine && profile.localidad.$valid"
                     lx-error="!profile.localidad.$pristine && profile.localidad.$invalid">
                         <input type="text" ng-model="d.localidad" name="localidad" required maxlength="15"/>

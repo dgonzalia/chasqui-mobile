@@ -212,14 +212,14 @@ angular.module('chasqui.services', [])
                             idDireccion:direccion.idDireccion
                         };
 
-            $http.post("http://localhost:8019/chasqui/rest/user/adm/dir/edit",params,header)
+            $http.put("http://localhost:8019/chasqui/rest/user/adm/dir",params,header)
                  .success(function(data){
                  });
         }
 
 
         privateService.eliminarDireccion = function(direccion){
-            $http.get("http://localhost:8019/chasqui/rest/user/adm/dir/"+direccion.idDireccion,header)
+            $http.delete("http://localhost:8019/chasqui/rest/user/adm/dir/"+direccion.idDireccion,header)
                  .success(function(data){
 
                  }) 

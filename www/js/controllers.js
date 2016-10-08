@@ -473,8 +473,9 @@ angular.module('chasqui.controllers', [])
             privateService.editarDireccion(direccion);
             direccion.alias_p = direccion.alias;
         }
-        // llamar al servicio de editar direccion y validar;
-        // si es nueva direccion llamar al servicio de alta
+        var html = this;
+        //nombre del formulario
+        html.profile.$setPristine();
     }
 
     $scope.toggleGroup = function(alias) {
@@ -833,6 +834,9 @@ angular.module('chasqui.controllers', [])
             privateService.editarPerfilUsuario($scope.perfil);
             //llamar al servicio de edicion;
             $scope.hide();
+            var html = this;
+            //nombre del formulario
+            html.profile.$setPristine();
             $scope.esEdicionPerfil = true;
         }
     }
