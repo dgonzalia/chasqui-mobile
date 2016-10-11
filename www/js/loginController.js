@@ -1,4 +1,4 @@
-function LoginCtrl ($scope, $rootScope, $location, $state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
+function loginCtrl ($scope, $rootScope, $location, $state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
         
     $scope.usuario= {};           
    
@@ -7,11 +7,10 @@ function LoginCtrl ($scope, $rootScope, $location, $state, AuthenticationService
 
     $scope.login = function () {
         AuthenticationService.Login($scope.usuario.email, $scope.usuario.password, function(response) {
-            AuthenticationService.SetCredentials($scope.usuario.email, response.token, response.id, response.nickname);
-            console.log("paso set credentials");    
+            AuthenticationService.SetCredentials($scope.usuario.email, response.token, response.id, response.nickname);  
             $state.go("menu.home");
         }, function (response) {
-            console.log("onError");
+            console.log("TODO: definir onError en login");
         });
     };
 

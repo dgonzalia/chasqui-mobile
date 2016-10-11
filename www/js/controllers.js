@@ -221,7 +221,7 @@ angular.module('chasqui.controllers', [])
   
 })
 
-.controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', LoginCtrl])
+.controller('loginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', loginCtrl])
 /*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -603,27 +603,17 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('productosCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, prods) {
+.controller('productosCtrl',function ($scope, $stateParams, publicService, $state, prods, LxNotificationService) {
 
-    $scope.pss = prods.data.productos;
-    $scope.hayItems = true;
+    //Lista de productos.
+    $scope.pss = [];
+    
     $scope.actividad = prods.data.actividad;
     if(!$scope.actividad.includes('Productos')){
         $scope.actividad = $scope.actividad + ' -> Productos';
     }
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 200);
-
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-
-
-
-     function encontrarProducto(nombreProducto,nombreVariante){
+    function encontrarProducto(nombreProducto,nombreVariante){
         var selectedItem = null;
          for (var i = 0; i < $scope.pss.length; i++) {
             if($scope.pss[i].nombreProducto === nombreProducto 
@@ -635,23 +625,25 @@ angular.module('chasqui.controllers', [])
     }
 
     $scope.loadMoreData = function() {
-        publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina+1).success(function(data){
-            console.log("se llamo a pagina: "+$stateParams.pagina)
-            $scope.pss = data.productos;
-            if ($scope.pss) {
-                console.log("hay items");
+        $stateParams.pagina ++;
+        publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina).success(function(data){
+            if (data.productos.length > 0) {
+                $scope.pss = $scope.pss.concat(data.productos);
+                $scope.hayItems = true;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
+                
             }
             else {
-                console.log("no hay items");
-                $scope.hayItems=false;
+                $scope.hayItems = false;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             }
             
-        }); //definir comportamiento para error
+        }).error(function(data){
+            LxNotificationService.error('Error al obtener productos');
+        }); 
     };
 
     $scope.$on('$stateChangeSuccess', function() {
-        console.log("$scope.$on('$stateChangeSuccess')...")
         $scope.loadMoreData();
     });
 
