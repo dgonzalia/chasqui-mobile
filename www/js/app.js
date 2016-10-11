@@ -34,7 +34,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         url: '/app',
         abstract:true,
         templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
+        controller: 'loginCtrl'
     })
 
 
@@ -107,7 +107,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
         views: {
              'menuContent': {
                 templateUrl: 'templates/login.html',
-                controller: 'LoginCtrl'
+                controller: 'loginCtrl'
             }
         }
     })
@@ -265,13 +265,14 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         },
         params:{
-            actividad:null,
-            idCategoria:null,
-            nombreCategoria:null
+            actividad: null,
+            idCategoria: null,
+            nombreCategoria: null,
+            pagina: null
         },
         resolve:{
-            prods : function(publicService,$stateParams){
-                return publicService.obtenerProductosDeCategoria($stateParams.idCategoria,$stateParams.nombreCategoria,$stateParams.actividad);
+            prods : function(publicService, $stateParams){
+                return publicService.obtenerProductosDeCategoria($stateParams.idCategoria,$stateParams.nombreCategoria,$stateParams.actividad, $stateParams.pagina);
             }
         }
     })

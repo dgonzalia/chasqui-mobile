@@ -6,9 +6,10 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 
     function ($http, $rootScope) {
         var authentication = {};
+        var URL_BACKEND = "http://localhost:8019/chasqui"
         
         authentication.Login = function (username, password, callbackSucces, callbackError) {
-            $http.post('http://localhost:8019/chasqui/rest/client/sso/singIn', { email: username, password: password })
+            $http.post(URL_BACKEND+"/rest/client/sso/singIn", { email: username, password: password })
                 .success(function (response) {
                     callbackSucces(response);
             }).error (function (response) {
@@ -39,9 +40,10 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 'AuthenticationService',
     function ($http, $rootScope) {
         var publicService = {};
+        var URL_BACKEND = "http://localhost:8019/chasqui"
 
         publicService.registro = function(perfil, callbackSuccess, callbackError){
-            $http.post("http://localhost:8019/chasqui/rest/client/sso/singUp", perfil, header)
+            $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil, header)
                 .success(function(data){
                     AuthenticationService.SetCredentials(data.email, data.token, data.id, data.nickname);
                     callbackSuccess(data);
@@ -51,10 +53,10 @@ angular.module('chasqui.services', [])
         };
 
         publicService.obtenerVendedores = function(){
-            return $http.get("http://localhost:8019/chasqui/rest/client/vendedor/all")
+            return $http.get(URL_BACKEND+"/rest/client/vendedor/all")
                 .success(function(data){
                     for (var i = 0; i < data.length; i++) {
-                         data[i].imagen = 'http://localhost:8019/chasqui'+data[i].imagen;
+                         data[i].imagen = URL_BACKEND+data[i].imagen;
                      }
                      return data;
                 });
@@ -62,7 +64,7 @@ angular.module('chasqui.services', [])
 
 
         publicService.obtenerCategoriasDe = function(idVendedor, actividad){
-            return $http.get("http://localhost:8019/chasqui/rest/client/categoria/all/"+idVendedor)
+            return $http.get(URL_BACKEND+"/rest/client/categoria/all/"+idVendedor)
                 .success(function(data){
                   data.idVendedor = idVendedor;
                   data.actividad = actividad;
@@ -71,15 +73,15 @@ angular.module('chasqui.services', [])
         }
 
         publicService.obtenerProductoresDe = function(idVendedor, actividad){
-            return $http.get("http://localhost:8019/chasqui/rest/client/productor/all/"+idVendedor)
+            return $http.get(URL_BACKEND+"/rest/client/productor/all/"+idVendedor)
                 .success(function(data){
                   for (var i = 0; i < data.length; i++) {
                         data[i].idVendedor = idVendedor;
                         if(!(data[i].pathImagen === undefined || data[i].pathImagen === null)){
-                          data[i].pathImagen = 'http://localhost:8019/chasqui'+data[i].pathImagen;  
+                          data[i].pathImagen = URL_BACKEND+data[i].pathImagen;  
                         }
                         if(!(data[i].medalla === undefined || data[i].medalla === null)){
-                            data[i].medalla.pathImagen = 'http://localhost:8019/chasqui' + data[i].medalla.pathImagen;
+                            data[i].medalla.pathImagen = URL_BACKEND+data[i].medalla.pathImagen;
                         }
                      }
                   data.actividad = actividad;
@@ -89,11 +91,11 @@ angular.module('chasqui.services', [])
 
 
         publicService.obtenerMedallas = function(){
-            return $http.get("http://localhost:8019/chasqui/rest/client/medalla/all")
+            return $http.get(URL_BACKEND+"/rest/client/medalla/all")
                 .success(function(data){
                     for (var i = 0; i < data.length; i++) {
                         if(!(data[i].pathImagen === undefined || data[i].pathImagen === null)){
-                          data[i].pathImagen = 'http://localhost:8019/chasqui'+data[i].pathImagen;  
+                          data[i].pathImagen = URL_BACKEND+data[i].pathImagen;  
                         }
                     }
                 });
@@ -107,11 +109,11 @@ angular.module('chasqui.services', [])
                               precio:'Down',
                               idProductor:idProductor
                              }
-            return $http.post("http://localhost:8019/chasqui/rest/client/producto/byProductor",postParams)
+            return $http.post(URL_BACKEND+"/rest/client/producto/byProductor",postParams)
                         .success(function(data){
                              for (var i = 0; i < data.productos.length; i++) {
                                 if(!(data.productos[i].imagenPrincipal === undefined || data.productos[i].imagenPrincipal === null)){
-                                    data.productos[i].imagenPrincipal = 'http://localhost:8019/chasqui'+data.productos[i].imagenPrincipal;  
+                                    data.productos[i].imagenPrincipal = URL_BACKEND+data.productos[i].imagenPrincipal;  
                                 }
                             }
                             data.actividad = actividad + ' -> ' + nombreProductor;
@@ -119,19 +121,19 @@ angular.module('chasqui.services', [])
 
         }
 
-        publicService.obtenerProductosDeCategoria = function(idCategoria,nombreCategoria,actividad){
+        publicService.obtenerProductosDeCategoria = function(idCategoria, nombreCategoria, actividad, pagina){
             var postParams = {
-                              pagina:0,
-                              cantItems:10,
-                              precio:'Down',
-                              idCategoria:idCategoria
+                              pagina: pagina,
+                              cantItems: 5,
+                              precio: 'Down',
+                              idCategoria: idCategoria
                              }
 
-            return $http.post("http://localhost:8019/chasqui/rest/client/producto/byCategoria",postParams)
+            return $http.post(URL_BACKEND+"/rest/client/producto/byCategoria",postParams)
                         .success(function(data){
                              for (var i = 0; i < data.productos.length; i++) {
                                 if(!(data.productos[i].imagenPrincipal === undefined || data.productos[i].imagenPrincipal === null)){
-                                    data.productos[i].imagenPrincipal = 'http://localhost:8019/chasqui'+data.productos[i].imagenPrincipal;  
+                                    data.productos[i].imagenPrincipal = URL_BACKEND+data.productos[i].imagenPrincipal;  
                                 }
                             }
                             data.actividad = actividad + ' -> ' + nombreCategoria;
@@ -140,11 +142,11 @@ angular.module('chasqui.services', [])
 
 
         publicService.obtenerImagenesDeProducto = function(prod,actividad){
-            return $http.get("http://localhost:8019/chasqui/rest/client/producto/images/"+prod.idVariante)
+            return $http.get(URL_BACKEND+"/rest/client/producto/images/"+prod.idVariante)
                         .success(function(data){
                         for (var i = 0; i < data.length; i++) {
                             if(!(data[i].path === undefined || data[i].path === null)){
-                                data[i].path = 'http://localhost:8019/chasqui'+data[i].path;
+                                data[i].path = URL_BACKEND+data[i].path;
                                 data[i].prod = {prod:prod,actividad:actividad}  
                             }
                         }   
@@ -158,24 +160,25 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope',
     function ($http, $rootScope) {
         var privateService = {};
+        var URL_BACKEND = "http://localhost:8019/chasqui"
         
         var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
         privateService.obtenerNotificaciones = function(){
-           return $http.get("http://localhost:8019/chasqui/rest/user/adm/notificacion/1").success(function(data){            
+           return $http.get(URL_BACKEND+"/rest/user/adm/notificacion/1").success(function(data){            
                 return data;
             });
         };
 
         privateService.obtenerDatosPerfilUsuario = function(){
-            return $http.get('http://localhost:8019/chasqui/rest/user/adm/read', header).success(function (data) {
+            return $http.get(URL_BACKEND+"/rest/user/adm/read", header).success(function (data) {
                 return data;
             });
         };
 
 
         privateService.obtenerDireccionesDeUsuario = function(){
-            return $http.get("http://localhost:8019/chasqui/rest/user/adm/dir",header)
+            return $http.get(URL_BACKEND+"/rest/user/adm/dir", header)
                         .success(function(data){
                            for (var i = 0; i < data.length; i++) {
                                 data[i].alias_p = data[i].alias;
@@ -193,7 +196,7 @@ angular.module('chasqui.services', [])
                             localidad:direccion.localidad,
                             codigoPostal:direccion.codigoPostal
                         };
-            $http.post("http://localhost:8019/chasqui/rest/user/adm/dir",params,header)
+            $http.post(URL_BACKEND+"/rest/user/adm/dir", params, header)
                  .success(function(data){
                     direccion.idDireccion = data;
                  });
@@ -211,7 +214,6 @@ angular.module('chasqui.services', [])
                             codigoPostal:direccion.codigoPostal,
                             idDireccion:direccion.idDireccion
                         };
-
             $http.put("http://localhost:8019/chasqui/rest/user/adm/dir",params,header)
                  .success(function(data){
                  });

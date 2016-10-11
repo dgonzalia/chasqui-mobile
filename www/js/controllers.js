@@ -221,7 +221,7 @@ angular.module('chasqui.controllers', [])
   
 })
 
-.controller('LoginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', LoginCtrl])
+.controller('loginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', loginCtrl])
 /*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -520,11 +520,12 @@ angular.module('chasqui.controllers', [])
 
     $scope.verProductos = function(nombreCategoria){
         var params = {
-                       actividad:$scope.actividad,
-                       nombreCategoria:nombreCategoria,
-                       idCategoria:encontrarCategoria(nombreCategoria).idCategoria
+                       actividad: $scope.actividad,
+                       nombreCategoria: nombreCategoria,
+                       idCategoria: encontrarCategoria(nombreCategoria).idCategoria,
+                       pagina: 0    
                      }
-        $state.go('menu.home.categorias.productos',params);
+        $state.go('menu.home.categorias.productos', params);
     }
 
 })
@@ -602,26 +603,17 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('productosCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, prods) {
+.controller('productosCtrl',function ($scope, $stateParams, publicService, $state, prods, LxNotificationService) {
 
-    $scope.pss = prods.data.productos;
+    //Lista de productos.
+    $scope.pss = [];
+    
     $scope.actividad = prods.data.actividad;
     if(!$scope.actividad.includes('Productos')){
         $scope.actividad = $scope.actividad + ' -> Productos';
     }
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 200);
-
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-
-
-
-     function encontrarProducto(nombreProducto,nombreVariante){
+    function encontrarProducto(nombreProducto,nombreVariante){
         var selectedItem = null;
          for (var i = 0; i < $scope.pss.length; i++) {
             if($scope.pss[i].nombreProducto === nombreProducto 
@@ -632,6 +624,28 @@ angular.module('chasqui.controllers', [])
         return selectedItem;
     }
 
+    $scope.loadMoreData = function() {
+        $stateParams.pagina ++;
+        publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina).success(function(data){
+            if (data.productos.length > 0) {
+                $scope.pss = $scope.pss.concat(data.productos);
+                $scope.hayItems = true;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                
+            }
+            else {
+                $scope.hayItems = false;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            
+        }).error(function(data){
+            LxNotificationService.error('Error al obtener productos');
+        }); 
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+        $scope.loadMoreData();
+    });
 
     $scope.verInfoProducto = function(nombreProducto){
         var producto = encontrarProducto(nombreProducto);
