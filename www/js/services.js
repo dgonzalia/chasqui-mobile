@@ -214,14 +214,14 @@ angular.module('chasqui.services', [])
                             codigoPostal:direccion.codigoPostal,
                             idDireccion:direccion.idDireccion
                         };
-            $http.put("http://localhost:8019/chasqui/rest/user/adm/dir",params,header)
+            $http.put(URL_BACKEND+"/rest/user/adm/dir",params,header)
                  .success(function(data){
                  });
         }
 
 
         privateService.eliminarDireccion = function(direccion){
-            $http.delete("http://localhost:8019/chasqui/rest/user/adm/dir/"+direccion.idDireccion,header)
+            $http.delete(URL_BACKEND+"/rest/user/adm/dir/"+direccion.idDireccion,header)
                  .success(function(data){
 
                  }) 
@@ -238,7 +238,7 @@ angular.module('chasqui.services', [])
                 password: perfil.password
             };
 
-            $http.put('http://localhost:8019/chasqui/rest/user/adm/edit',param,header)
+            $http.put(URL_BACKEND+"/rest/user/adm/edit",param,header)
                 .success(function(data){
                     
                 })
