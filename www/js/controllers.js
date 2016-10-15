@@ -221,7 +221,7 @@ angular.module('chasqui.controllers', [])
   
 })
 
-.controller('loginCtrl',['$scope', '$rootScope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', loginCtrl])
+.controller('loginCtrl',['$scope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', 'LxNotificationService', loginCtrl])
 /*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -613,17 +613,6 @@ angular.module('chasqui.controllers', [])
         $scope.actividad = $scope.actividad + ' -> Productos';
     }
 
-    function encontrarProducto(nombreProducto,nombreVariante){
-        var selectedItem = null;
-         for (var i = 0; i < $scope.pss.length; i++) {
-            if($scope.pss[i].nombreProducto === nombreProducto 
-                && $scope.pss[i].nombreVariante === nombreVariante){
-                selectedItem = $scope.pss[i];
-            }
-        }
-        return selectedItem;
-    }
-
     $scope.loadMoreData = function() {
         $stateParams.pagina ++;
         publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina).success(function(data){
@@ -647,10 +636,9 @@ angular.module('chasqui.controllers', [])
         $scope.loadMoreData();
     });
 
-    $scope.verInfoProducto = function(nombreProducto){
-        var producto = encontrarProducto(nombreProducto);
+    $scope.verInfoProducto = function(prod){
         var param = {
-                        prod:producto,
+                        prod: prod,
                         actividad: $scope.actividad
                      }         
         $state.go('menu.home.infoProducto',param);
@@ -664,6 +652,7 @@ angular.module('chasqui.controllers', [])
     $scope.producto = infoProducto.data[0].prod.prod;
     $scope.actividad = infoProducto.data[0].prod.actividad;
     $scope.imagenes = infoProducto.data;
+    debugger;
      if(!$scope.actividad.includes('Info Producto')){
         $scope.actividad = $scope.actividad + ' -> ' + $scope.producto.nombreProducto +' -> Info Producto';
     }

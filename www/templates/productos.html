@@ -9,8 +9,8 @@
             <div class="card">
                 <div flex-container="row">
                     <div class="card__img card__img--left" style="height: 160px">
-                        <img src="/images/placeholder/3-vertical.jpg">
-                    </div>
+                        <img ng-src="{{p.imagenPrincipal}}">
+                    </div>  
 
                     <div flex-item flex-container="column">
                         <div flex-item>
@@ -19,9 +19,8 @@
                                 <span class="fs-subhead tc-black-2 display-block">$ {{p.precio}}</span>
                             </div>
                         </div>
-
                         <div class="card__actions">
-                            <lx-button lx-size="s" lx-type="raised" ng-click="verInfoProducto(p.nombreProducto,p.nombreVariante)">Ver Info.
+                            <lx-button lx-size="s" lx-type="raised" ng-click="verInfoProducto(p)">Ver Info.
                             </lx-button>
                             <lx-button lx-size="s" class="btn btn--s btn--raised bgc-green-100 tc-green-900"  lx-type="raised">Agregar al carrito
                             </lx-button>

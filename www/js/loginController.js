@@ -1,4 +1,4 @@
-function loginCtrl ($scope, $rootScope, $location, $state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk) {
+function loginCtrl ($scope, $location, $state, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, LxNotificationService) {
         
     $scope.usuario= {};           
    
@@ -10,7 +10,7 @@ function loginCtrl ($scope, $rootScope, $location, $state, AuthenticationService
             AuthenticationService.SetCredentials($scope.usuario.email, response.token, response.id, response.nickname);  
             $state.go("menu.home");
         }, function (response) {
-            console.log("TODO: definir onError en login");
+            LxNotificationService.error('No es posible conectarse al servidor');
         });
     };
 

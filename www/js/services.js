@@ -141,7 +141,7 @@ angular.module('chasqui.services', [])
         }
 
 
-        publicService.obtenerImagenesDeProducto = function(prod,actividad){
+        publicService.obtenerImagenesDeProducto = function(prod, actividad){
             return $http.get(URL_BACKEND+"/rest/client/producto/images/"+prod.idVariante)
                         .success(function(data){
                         for (var i = 0; i < data.length; i++) {
