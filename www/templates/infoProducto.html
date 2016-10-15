@@ -5,13 +5,7 @@
 </div>
 <div align="center">
     <h2>{{producto.nombreProducto}} - {{producto.nombreVariedad}}</hs>
-    <ion-list>
-        <ion-item ng-repeat="i in imagenes">
-            <div align="center" >
-                <img ng-src="{{i.path}}" height="200" width="200">
-            </div>
-        </ion-item>
-    </ion-list>
+    <a ng-click="openModal()"><img ng-src="{{producto.imagenPrincipal}}" height="200" width="200"></a>
     <div ng-disabled="true">
          <p ng-bind-html="renderHTML(producto.descripcion)"/>
     </div>
@@ -33,7 +27,7 @@
 <!-- <div class="list form"> -->
     <!--<label class="item item-input">
       <span class="input-label">Nombre:</span>
-      <input type="text" ng-disabled="true" ng-model="productor.nombreProductor">
+      <input type="text" ng-disabled="true" ng-model="app/loginproductor.nombreProductor">
     </label>
     <label class="item item-input">
       <span class="input-label">Pais:</span>
@@ -56,5 +50,17 @@
       <input type="text" ng-disabled="true" ng-model="productor.direccion.altura">
     </label> -->
 <!-- </div>   -->
+
+    <script id="image-modal.html" type="text/ng-template">
+        <div class="modal image-modal transparent" 
+        ng-click="closeModal()">
+            <ion-slide-box on-slide-changed="slideChanged(index)" 
+                       show-pager="false">
+            <ion-slide ng-repeat="i in imagenes">
+                <img ng-src="{{i.path}}" class="fullscreen-image" />
+            </ion-slide>
+            </ion-slide-box>
+        </div>
+    </script>
 </ion-content> 
 </ion-view>
