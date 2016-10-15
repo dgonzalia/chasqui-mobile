@@ -18,7 +18,7 @@ angular.module('chasqui.controllers', [])
         });
     }
     
-    $ionicPopover.fromTemplateUrl('/templates/notificaciones.html', {
+    $ionicPopover.fromTemplateUrl('templates/notificaciones.html', {
       scope: $scope
      }).then(function(popover) {
          $scope.popover = popover;
@@ -92,11 +92,6 @@ angular.module('chasqui.controllers', [])
 
     };
 
-    $scope.loadNotificaciones = function () {
-        $scope.notificaciones = privateService.obtenerNotificaciones();
-        console.log ($scope.notificaciones);
-    }
-
     $scope.hideHeader = function() {
         $scope.hideNavBar();
         $scope.noHeader();
@@ -113,6 +108,16 @@ angular.module('chasqui.controllers', [])
             fabs[0].remove();
         }
     };
+
+
+    $scope.loadNotificaciones = function () {
+        privateService.obtenerNotificaciones(function(data){
+            $scope.notificaciones = data;
+        });
+    }
+
+    $scope.loadNotificaciones();
+    
 })
 
 .controller('SideMenuCtrl', function($scope) {
