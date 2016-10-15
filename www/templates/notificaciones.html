@@ -2,10 +2,15 @@
    <ion-content>
       <ion-list>
   			<ion-item ng-repeat="n in notificaciones">
-                <div class="list card item item-avatar">
-                    <h2 class="padding-top">{n.usuarioOrigen}</h2>
-                    <p>{n.mensaje}}</p>
-                </div>
+                <ion-card>
+                    <ion-card-header>
+                        <h3><strong>De: {{n.usuarioOrigen}}</strong></h3>
+                        <strong>Fecha:{{n.fechaCreacion}}</span> 
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{n.mensaje}}
+                    </ion-card-content>
+                </ion-card>
   			</ion-item>
 	   </ion-list>
 	</ion-content>
