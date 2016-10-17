@@ -38,12 +38,12 @@ angular.module('chasqui.services', [])
 
 .factory('publicService',
     ['$http', '$rootScope', 'AuthenticationService',
-    function ($http, $rootScope) {
+    function ($http, $rootScope, AuthenticationService) {
         var publicService = {};
         var URL_BACKEND = "http://localhost:8019/chasqui"
 
         publicService.registro = function(perfil, callbackSuccess, callbackError){
-            $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil, header)
+            $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil)
                 .success(function(data){
                     AuthenticationService.SetCredentials(data.email, data.token, data.id, data.nickname);
                     callbackSuccess(data);
