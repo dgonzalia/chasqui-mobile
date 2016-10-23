@@ -4,12 +4,13 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', 'ionic-material', 'ionMdInput', 'lumx'])
+angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.services', 'ionic-material', 'ionMdInput', 'lumx'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$cordovaSQLite,$state,AuthenticationService) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
+
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
@@ -17,6 +18,26 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+
+        if (window.cordova) {
+          db = $cordovaSQLite.openDB({ name: "chasqui.db",iosDatabaseLocation:'default' }); //device
+        }else{
+          db = window.openDatabase("chasqui.db", '1', 'my', 1024 * 1024 * 100); // browser
+        }
+        $cordovaSQLite.execute(db,
+        "CREATE TABLE IF NOT EXISTS USUARIO (TOKEN TEXT PRIMARY KEY, EMAIL TEXT,ID_USUARIO INTEGER, NICKNAME TEXT)");
+
+        var query = "SELECT * FROM USUARIO";
+        $cordovaSQLite.execute(db,query).then(function(result){
+            if(result.rows.length > 0){
+                var token = result.rows.item(0).TOKEN;
+                var email = result.rows.item(0).EMAIL;
+                var id = result.rows.item(0).ID_USUARIO;
+                var nickname = result.rows.item(0).NICKNAME;
+                AuthenticationService.SetCredentials(email, token,id, nickname); 
+            }
+        });
+
     });
 })
 
@@ -33,8 +54,13 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     $stateProvider.state('app', {
         url: '/app',
         abstract:true,
-        templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
+        templateUrl: 'templates/loading.html',
+        controller: 'loadingCtrl'
+    //     onEnter: function($state, AuthenticationService){
+    //     if(AuthenticationService.logueado()){
+    //        $state.go('menu.home');
+    //     }
+    // }
     })
 
 
@@ -102,14 +128,31 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
             }
         }
     })
-    .state('app.login', {
+
+    .state('app.loading', {
+        url: '/loading',
+        views: {
+             'menuContent': {
+                templateUrl: 'templates/loading.html'
+            }
+        },
+    })
+
+     .state('abstrac', {
+        url: '/abstrac',
+        abstract:true,
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+    })
+
+    .state('abstrac.login', {
         url: '/login',
         views: {
              'menuContent': {
                 templateUrl: 'templates/login.html',
                 controller: 'loginCtrl'
             }
-        }
+        },
     })
 
     .state('singup',{
@@ -511,5 +554,5 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'chasqui.services', '
     ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/app/loading');
 });

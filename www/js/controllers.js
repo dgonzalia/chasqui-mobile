@@ -226,8 +226,25 @@ angular.module('chasqui.controllers', [])
   
 })
 
-.controller('loginCtrl',['$scope', '$location','$state', 'AuthenticationService', '$timeout', '$stateParams', 'ionicMaterialInk', 'LxNotificationService', loginCtrl])
+.controller('loginCtrl',['$scope', '$location','$state', 'AuthenticationService','$cordovaSQLite', '$timeout', '$stateParams', 'ionicMaterialInk', 'LxNotificationService', loginCtrl])
 /*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
+
+
+.controller('loadingCtrl', function($scope, $rootScope, $stateParams, $state,$timeout, AuthenticationService) {
+    function redirect(){
+        if(AuthenticationService.estaLogueado()){
+            $state.go('menu.home');
+        }else{
+            $state.go('abstrac.login');
+        }
+    }
+
+    $timeout(function(){
+        redirect();
+    },2000);
+
+})
+
 
 .controller('FriendsCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
@@ -330,11 +347,16 @@ angular.module('chasqui.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, publicService, $state, vendedores) {
+.controller('homeCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk,ionicMaterialMotion, publicService, $state, vendedores) {
 
+
+    if (typeof String.prototype.includes === 'undefined') {
+        String.prototype.includes = function(it) { 
+            return this.indexOf(it) != -1; 
+        };
+    }
     $scope.actividad = 'Inicio ';
     $scope.vss = vendedores.data;
-
 
 
     $scope.verCategorias = function(nombre){
@@ -508,11 +530,22 @@ angular.module('chasqui.controllers', [])
 
 .controller('categoriasCtrl',function ($scope, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, publicService, $state, categorias) {
 
+
     $scope.actividad = categorias.data.actividad;
     if(!$scope.actividad.includes('Catálogo')){
         $scope.actividad = $scope.actividad + '-> Catálogo';
     }
     $scope.ctss = categorias.data;
+
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
 
     function encontrarCategoria(nombreCategoria){
          for (var i = 0; i < $scope.ctss.length; i++) {

@@ -8,6 +8,13 @@ angular.module('chasqui.services', [])
         var authentication = {};
         var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
         
+
+
+        authentication.estaLogueado = function(){
+            return $rootScope.globals !== undefined && $rootScope.globals.currentUser !== undefined
+                    && $rootScope.globals.currentUser.id !== undefined;
+        };
+
         authentication.Login = function (username, password, callbackSucces, callbackError) {
             $http.post(URL_BACKEND+"/rest/client/sso/singIn", { email: username, password: password })
                 .success(function (response) {
@@ -160,8 +167,7 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope',
     function ($http, $rootScope) {
         var privateService = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
-        
+        var URL_BACKEND = "http://192.168.0.106:8019/chasqui";
         var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
         privateService.obtenerNotificaciones = function(callback){

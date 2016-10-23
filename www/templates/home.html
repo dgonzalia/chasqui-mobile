@@ -4,26 +4,26 @@
     <div class="item item-divider">{{actividad}}</div> 
 </div>
   <ion-list>
-      <div class="list card" ng-repeat="v in vss">
+        <div ng-repeat="v in vss">
             <div class="card">
                 <div class="row">
                     <div class="col col-75">
-                         <div class="row">
-                             <p><h2 class="dark">{{v.nombre}}<h2></p><br />
-                         </div>
-                         <div class="row">
-                             <lx-button lx-size="xs" lx-type="raised" lx-color="blue" ng-click="verCategorias(v.nombre)">Ver Categorias
-                             </lx-button>
-                             <lx-button lx-size="xs" lx-type="raised" lx-color="green" ng-click="verProductores(v.nombre)">Ver Productores
+                        <div class="row">
+                            <p><h1 class="dark">{{v.nombre}}<h1></p><br />
+                        </div>
+                        <div class="row">
+                            <lx-button lx-size="xs" lx-type="raised" lx-color="blue" ng-click="verCategorias(v.nombre)">Ver Categorias
                             </lx-button>
-                         </div>
+                            <lx-button lx-size="xs" lx-type="raised" lx-color="green" ng-click="verProductores(v.nombre)">Ver Productores
+                            </lx-button>
+                        </div>
                     </div>
-                    <div class = "col col-25 item item-avatar item-icon-right">
+                    <div class ="col col-25 item item-avatar item-icon-right">
                         <img ng-src="{{v.imagen}}" align="left">
                     </div>
                 </div>
             </div>
-         </div>
+        </div>
   <ion-list>
 </ion-content> 
 </ion-view>

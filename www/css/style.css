@@ -83,6 +83,11 @@ p {
     font-size: 14px;
     width: 93%;
 }
+
+.spinner svg {
+  width: 19% !important;
+  height: 85px !important;
+}
 /*Accordion List*/
 /*
  * http://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
