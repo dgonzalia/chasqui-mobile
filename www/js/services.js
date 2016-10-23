@@ -6,7 +6,7 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 
     function ($http, $rootScope) {
         var authentication = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
+        var URL_BACKEND = "http://localhost:8019/chasqui"
         
 
 
@@ -45,12 +45,12 @@ angular.module('chasqui.services', [])
 
 .factory('publicService',
     ['$http', '$rootScope', 'AuthenticationService',
-    function ($http, $rootScope) {
+    function ($http, $rootScope, AuthenticationService) {
         var publicService = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
+        var URL_BACKEND = "http://localhost:8019/chasqui"
 
         publicService.registro = function(perfil, callbackSuccess, callbackError){
-            $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil, header)
+            $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil)
                 .success(function(data){
                     AuthenticationService.SetCredentials(data.email, data.token, data.id, data.nickname);
                     callbackSuccess(data);
@@ -167,7 +167,7 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope',
     function ($http, $rootScope) {
         var privateService = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui";
+        var URL_BACKEND = "http://localhost:8019/chasqui"
         var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
         privateService.obtenerNotificaciones = function(callback){
