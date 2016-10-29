@@ -230,18 +230,27 @@ angular.module('chasqui.controllers', [])
 /*.controller("perfilCtrl",['$scope', '$rootScope', '$location', '$state','AuthenticationService','$timeout', '$stateParams', 'ionicMaterialInk','privateService','$ionicLoading',perfilCtrl])*/
 
 
-.controller('loadingCtrl', function($scope, $rootScope, $stateParams, $state,$timeout, AuthenticationService) {
-    function redirect(){
+.controller('loadingCtrl', function($scope, $rootScope,$stateParams, $state,$timeout, AuthenticationService) {
+   
+     function redirect(){
         if(AuthenticationService.estaLogueado()){
-            $state.go('menu.home');
+            AuthenticationService.esTokenValido(function(respuesta){
+                if(respuesta){
+                    $state.go('menu.home');
+                }else{
+                     AuthenticationService.BorrarCredenciales(); 
+                     $state.go('abstrac.login');
+                }
+            })
         }else{
+            AuthenticationService.BorrarCredenciales(); 
             $state.go('abstrac.login');
         }
     }
 
     $timeout(function(){
         redirect();
-    },2000);
+    },3000);
 
 })
 

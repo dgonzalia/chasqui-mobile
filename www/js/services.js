@@ -3,11 +3,46 @@
 angular.module('chasqui.services', [])
 
 .factory('AuthenticationService',
-    ['$http', '$rootScope', 
-    function ($http, $rootScope) {
+    ['$http', '$rootScope','$cordovaSQLite', 
+    function ($http, $rootScope,$cordovaSQLite) {
         var authentication = {};
-        var URL_BACKEND = "http://localhost:8019/chasqui"
-        
+        var URL_BACKEND = "http://192.168.0.15:8019/chasqui"
+        var db = null;
+
+        authentication.GuardarCredenciales = function(token,email,id,nickname){
+            var query = "INSERT INTO USUARIO (TOKEN,EMAIL,ID_USUARIO,NICKNAME) VALUES (?,?,?,?)";
+            var borrado = "DELETE FROM USUARIO"; 
+           // $ionicPlatform.ready(function () {
+                $cordovaSQLite.execute(db,borrado);
+                $cordovaSQLite.execute(db,query,[token,email,id,nickname])
+                             .then(function(result){
+                               console.log(result);
+                              });
+            //})
+        }
+
+        authentication.BorrarCredenciales = function(){
+            //$ionicPlatform.ready(function() {
+                var borrado = "DELETE FROM USUARIO"; 
+                $cordovaSQLite.execute(db,borrado);
+            //})
+        }
+
+        authentication.setDB = function(dataBase){
+            db = dataBase;
+        }
+
+
+        authentication.esTokenValido = function(callback){
+            var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
+            $http.get(URL_BACKEND+"/rest/user/adm/check",header)
+                    .success(function(data){            
+                                 callback(true);
+                             })
+                    .error(function(data){
+                                 callback(false);
+                    });
+        }
 
 
         authentication.estaLogueado = function(){
@@ -47,7 +82,7 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 'AuthenticationService',
     function ($http, $rootScope, AuthenticationService) {
         var publicService = {};
-        var URL_BACKEND = "http://localhost:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.15:8019/chasqui"
 
         publicService.registro = function(perfil, callbackSuccess, callbackError){
             $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil)
@@ -167,8 +202,10 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope',
     function ($http, $rootScope) {
         var privateService = {};
-        var URL_BACKEND = "http://localhost:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.15:8019/chasqui"
         var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
+
+
 
         privateService.obtenerNotificaciones = function(callback){
            $http.get(URL_BACKEND+"/rest/user/adm/notificacion/1",header).success(function(data){            

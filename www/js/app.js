@@ -20,10 +20,11 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
         }
 
         if (window.cordova) {
-          db = $cordovaSQLite.openDB({ name: "chasqui.db",iosDatabaseLocation:'default' }); //device
+          db = $cordovaSQLite.openDB({ name: "chasqui.db",iosDatabaseLocation:'default'}); //device
         }else{
           db = window.openDatabase("chasqui.db", '1', 'my', 1024 * 1024 * 100); // browser
         }
+        AuthenticationService.setDB(db);
         $cordovaSQLite.execute(db,
         "CREATE TABLE IF NOT EXISTS USUARIO (TOKEN TEXT PRIMARY KEY, EMAIL TEXT,ID_USUARIO INTEGER, NICKNAME TEXT)");
 
