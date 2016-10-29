@@ -19,6 +19,8 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
             StatusBar.styleDefault();
         }
 
+        // api key = AIzaSyAxfdNf4NOgVIaozY3TaEV0341rVQYUUCM
+        // gcm = 320708593934
         if (window.cordova) {
           db = $cordovaSQLite.openDB({ name: "chasqui.db",iosDatabaseLocation:'default'}); //device
         }else{

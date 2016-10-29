@@ -15,12 +15,28 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-device",
+    "ionic-plugin-keyboard",
+    "cordova-plugin-console",
+    {
+      "locator": "https://github.com/phonegap-build/PushPlugin.git",
+      "id": "com.phonegap.plugins.PushPlugin"
+    },
+    {
+      "locator": "https://github.com/brodysoft/Cordova-SQLitePlugin.git",
+      "id": "cordova-sqlite-storage"
+    },
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-velda-devicefeedback"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    }
+  ]
 }
