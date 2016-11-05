@@ -42,8 +42,9 @@ p {
 }
 
 .menu .avatar {
-    height: 88px;
-    width: 88px;
+    height: 90px;
+    width: 250px;
+    border-radius: 0% !important;
 }
 
 .menu.menu-left * {
@@ -110,12 +111,6 @@ p {
 .list .item.item-accordion.ng-hide-add,
 .list .item.item-accordion.ng-hide-remove {
   display: block !important;
-}
-
-
-
-.bar .button.button-clear {
-   color: #b2b2b2; 
 }
 .list.form .item.item-input:first-child{
     border-top-color: transparent;
@@ -199,7 +194,6 @@ ul.list li.item.item-divider, ol.list li.item.item-divider {
   width: 100%;
   height: 100%;
 }
-
 p.info {
   position: absolute;
   bottom: 55px;
@@ -222,4 +216,57 @@ p.info {
     background-color: #000;
     opacity: 0;
   }
+}
+
+
+/* Actionsheets Android Styling */
+.platform-android .action-sheet-backdrop.active {
+    background-color: rgba(0, 0, 0, 0.1); 
+}    
+.platform-android .action-sheet {
+    align-content: center;
+    margin:auto;
+    max-width: 96vw;
+    border-radius: 5px;
+    /*margin: 0;*/
+    margin-bottom: 10px;
+}
+.platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+    text-align: left;
+    /*border-color: #e2e2e2;*/
+    font-size: 16px;
+    color: inherit;
+}
+.platform-android .action-sheet .action-sheet-title {
+    font-size: 14px;
+    padding: 16px;
+    color: #666; 
+}
+.platform-android .action-sheet .button {
+    border-color: #e2e2e2;
+    padding-left: 16px;
+    color: #104e89;
+}
+.platform-android .action-sheet .button.destructive {
+    color: red;
+}
+.platform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {
+    background: #e8e8e8; 
+}
+.platform-android .action-sheet-group {
+    /*margin: 0;*/
+    border-radius: 0;
+    background-color: #fafafa; 
+}
+.platform-android .action-sheet-cancel {
+    display: none;
+}
+.platform-android .action-sheet-has-icons .button {
+    padding-left: 56px; 
+}
+
+.header-badge{
+    display: inline-block !important;
+    top: -7px !important;
+    left: -20px !important;
 }

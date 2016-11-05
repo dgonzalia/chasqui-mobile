@@ -1,4 +1,14 @@
 <ion-view view-title="Productos">
+    
+<ion-nav-buttons side="right">
+    <span ui-sref="app.cart" >
+        <button class="button button-clear icon ion-android-cart white-color">
+            <!--ng-show="cart.products.length" ng-if="badge"-->
+            <span class="badge badge-assertive header-badge">512</span>
+        </button>
+    </span>
+</ion-nav-buttons>
+    
 <ion-content> 
 <div class="card">
     <div class="item item-divider">{{actividad}}</div> 
@@ -20,7 +30,8 @@
                         <div class="card__actions">
                             <lx-button lx-size="s" lx-type="raised" ng-click="verInfoProducto(p)">Ver Info.
                             </lx-button>
-                            <lx-button lx-size="s" class="btn btn--s btn--raised bgc-green-100 tc-green-900"  lx-type="raised">Agregar al carrito
+                            <lx-button lx-size="s" class="btn btn--s btn--raised bgc-green-100 tc-green-900" ng-click="addProduct(p)"
+                                       lx-type="raised">Agregar al carrito
                             </lx-button>
                         </div>
                     </div>

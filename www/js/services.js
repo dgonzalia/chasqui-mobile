@@ -6,7 +6,7 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope','$cordovaSQLite', 
     function ($http, $rootScope,$cordovaSQLite) {
         var authentication = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
         var db = null;
 
         authentication.GuardarCredenciales = function(token,email,id,nickname){
@@ -82,7 +82,7 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 'AuthenticationService',
     function ($http, $rootScope, AuthenticationService) {
         var publicService = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
 
         publicService.registro = function(perfil, callbackSuccess, callbackError){
             $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil)
@@ -202,7 +202,7 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope',
     function ($http, $rootScope) {
         var privateService = {};
-        var URL_BACKEND = "http://192.168.0.106:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
         var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
 
