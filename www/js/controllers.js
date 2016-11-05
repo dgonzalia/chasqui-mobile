@@ -412,6 +412,27 @@ angular.module('chasqui.controllers', [])
         return $sce.trustAsHtml(html_code);
     };
 
+    $scope.verMedalla = function(medallaSeleccionada){
+          var params = {
+                     actividad: $scope.actividad + ' -> ' + medallaSeleccionada.nombre,
+                     medalla: medallaSeleccionada
+                    }; 
+          $state.go('menu.medallas.info', params);
+    }
+
+})
+
+.controller("infoMedallaCtrl",function($scope,$sce,medalla){
+
+    $scope.actividad = medalla.actividad;
+    $scope.medalla = medalla.medalla;
+
+
+     $scope.renderHTML = function(html_code)
+    {
+        return $sce.trustAsHtml(html_code);
+    };
+
 })
 
 .controller('direccionesCtrl',function ($scope,$sce, $rootScope, $location, AuthenticationService, $timeout, $stateParams, ionicMaterialInk, ionicMaterialMotion, privateService, $state, direcciones) {
@@ -708,6 +729,7 @@ angular.module('chasqui.controllers', [])
     {
         return $sce.trustAsHtml(html_code);
     };
+
   
     $ionicModal.fromTemplateUrl('image-modal.html', {
       scope: $scope,
