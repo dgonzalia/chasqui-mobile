@@ -156,7 +156,7 @@ angular.module('chasqui.controllers', [])
             //     "sref": "menu.gallery"
             // },
         ]
-    },{
+    }/*,{
         name: "Components",
         items: [{
                 "title": "Header",
@@ -205,7 +205,7 @@ angular.module('chasqui.controllers', [])
                 "sref": "menu.components.utility"
             },
         ]
-    },];
+    }*/,];
 
     $scope.groups = right_menus;
   
@@ -650,10 +650,11 @@ angular.module('chasqui.controllers', [])
 })
 
 
-.controller('productosCtrl',function ($scope, $stateParams, publicService, $state, prods, LxNotificationService) {
+.controller('productosCtrl',function ($scope, $stateParams, publicService, $state, prods, LxNotificationService, $ionicActionSheet) {
 
     //Lista de productos.
     $scope.pss = [];
+    $scope.cart = [];
     
     $scope.actividad = prods.data.actividad;
     if(!$scope.actividad.includes('Productos')){
@@ -690,6 +691,39 @@ angular.module('chasqui.controllers', [])
                      }         
         $state.go('menu.home.infoProducto',param);
     }
+     
+  // private method to add a product to cart
+  var addProductToCart = function(product){
+    console.log("producto agregado");
+    //$scope.cart.products.push(product);
+    //CartService.saveCart($scope.cart);
+  };
+
+  // method to add a product to cart via $ionicActionSheet
+  $scope.addProduct = function(p){
+    $ionicActionSheet.show({
+      titleText: 'ActionSheet Example',
+      buttons: [
+        { text: '<i class="icon ion-share balanced"></i> Agregar'},
+        { text: '<i class="icon ion-arrow-move assertive"></i> Quitar' },
+      ],
+      destructiveText: 'Cancelar',
+      cancelText: 'Cancel',
+      cancel: function() {
+        console.log('CANCELLED');
+      },
+      buttonClicked: function(index) {
+        console.log('BUTTON CLICKED', index);
+        if (index==1) {
+            $scope.cart.push(p);
+        }
+      },
+      destructiveButtonClicked: function() {
+        console.log('DESTRUCT');
+        return true;
+      }
+    });
+  };
 
 })
 
