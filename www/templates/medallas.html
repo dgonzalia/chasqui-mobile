@@ -4,7 +4,7 @@
     <ion-list class="animate-fade-slide-in">
         <div ng-repeat="m in mss">
             <div >
-                <div class="item item-avatar item-icon-right">
+                <div class="item item-avatar item-icon-right" ng-click="verMedalla(m)">
                     <img ng-src="{{m.pathImagen}}">
                     <h2>{{m.nombre}}</h2>
                    <!--  <i class="icon ion-chatbubble muted"></i> -->

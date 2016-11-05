@@ -72,11 +72,6 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
         abstract:true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl',
-        // resolve: {
-        //     notificaciones : function(privateService){
-        //         return privateService.obtenerNotificaciones();
-        //     } 
-        // }
     })
 
 
@@ -220,6 +215,25 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
         resolve:{
             medallas: function(publicService){
                 return publicService.obtenerMedallas();
+            }
+        }
+    })
+
+    .state('menu.medallas.info',{
+        url:'/infoMedalla',
+        views:{
+            'menuContent@menu':{
+                templateUrl:'templates/infoMedalla.html',
+                controller:'infoMedallaCtrl'
+            }
+        },
+        params:{
+            actividad: null,
+            medalla: null
+        },
+        resolve:{
+            medalla : function($stateParams){
+                return {actividad:$stateParams.actividad,medalla:$stateParams.medalla};
             }
         }
     })

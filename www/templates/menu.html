@@ -27,14 +27,17 @@
             <span class="avatar" style="background: url('img/logo.png'); background-size: cover;"></span>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
-            <ion-list ng-class="accordion">
-                <div ng-repeat="group in groups">
-                    <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
-                        <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>&nbsp;
-                        {{group.name}}
-                    </ion-item>
-                    <ion-item ui-sref="{{item.sref}}" nav-clear menu-close class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
-                        {{item.title}}
+            <ion-list>
+                <div>
+                  <div ng-repeat="group in groups">
+                      <ion-item class="item-stable" ui-sref="{{group.sref}}" nav-clear menu-close 
+                      class="item-accordion">
+                          {{group.title}}
+                      </ion-item>
+                  </div>
+                  <ion-item class="item-stable" nav-clear menu-close ng-click="desconectar()" 
+                    class="item-accordion">
+                        Desconectar
                     </ion-item>
                 </div>
             </ion-list>

@@ -3,8 +3,8 @@
 angular.module('chasqui.services', [])
 
 .factory('AuthenticationService',
-    ['$http', '$rootScope','$cordovaSQLite', 
-    function ($http, $rootScope,$cordovaSQLite) {
+    ['$http', '$rootScope','$cordovaSQLite','privateService', 
+    function ($http, $rootScope,$cordovaSQLite,privateService) {
         var authentication = {};
         var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
         var db = null;
@@ -20,6 +20,8 @@ angular.module('chasqui.services', [])
                               });
             //})
         }
+
+
 
         authentication.BorrarCredenciales = function(){
             //$ionicPlatform.ready(function() {
@@ -69,6 +71,7 @@ angular.module('chasqui.services', [])
                     nickname: nickname
                 }
             };
+            privateService.refrescarHeader();
         };
  
         authentication.ClearCredentials = function () {
@@ -203,9 +206,11 @@ angular.module('chasqui.services', [])
     function ($http, $rootScope) {
         var privateService = {};
         var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
-        var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
+        var header = {} //{headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
-
+        privateService.refrescarHeader = function(){
+            header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}};
+        }
 
         privateService.obtenerNotificaciones = function(callback){
            $http.get(URL_BACKEND+"/rest/user/adm/notificacion/1",header).success(function(data){            

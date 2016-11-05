@@ -4,8 +4,8 @@
     <div class="item item-divider">{{actividad}}</div> 
 </div>
 <div align="center">
-    <h2>{{producto.nombreProducto}} - {{producto.nombreVariedad}}</hs>
-    <a ng-click="openModal()"><img ng-src="{{producto.imagenPrincipal}}" height="200" width="200"></a>
+    <h2>{{producto.nombreProducto}} - {{producto.nombreVariedad}}</h2>
+    <a ng-click="openModal()"><img ng-src="{{producto.imagenPrincipal}}" height="200" width="200"/></a>
     <div ng-disabled="true">
          <p ng-bind-html="renderHTML(producto.descripcion)"/>
     </div>

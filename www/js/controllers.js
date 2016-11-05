@@ -120,14 +120,8 @@ angular.module('chasqui.controllers', [])
     
 })
 
-.controller('SideMenuCtrl', function($scope) {
-    var right_menus = [{
-        name: "General",
-        items: [
-            // {
-            //     "title": "Activity",
-            //     "sref": "menu.activity"
-            // }
+.controller('SideMenuCtrl', function($scope,$state,$rootScope,AuthenticationService) {
+    var right_menus = [
             {
                 "title":'Inicio',
                 "sref":"menu.home"
@@ -136,77 +130,19 @@ angular.module('chasqui.controllers', [])
                 "title":"Perfil Usuario",
                 "sref":"menu.perfil"
             },
-            // ,{
-            //     "title": "Login",
-            //     "sref": "app.login"
-            // },{
-            //     "title": "Profile",
-            //     "sref": "menu.profile"
-            // },
             {
                 "title":"Medallas",
                 "sref":"menu.medallas"
-            },
-            {
-                "title": "Friends",
-                "sref": "menu.friends"
             }
-            //,{
-            //     "title": "Gallery",
-            //     "sref": "menu.gallery"
-            // },
-        ]
-    }/*,{
-        name: "Components",
-        items: [{
-                "title": "Header",
-                "sref": "menu.components.header"
-            },{
-                "title": "Content",
-                "sref": "menu.components.content"
-            },{
-                "title": "Footer",
-                "sref": "menu.components.footer"
-            },{
-                "title": "Buttons",
-                "sref": "menu.components.buttons"
-            },{
-                "title": "List",
-                "sref": "menu.components.list"
-            },{
-                "title": "Cards",
-                "sref": "menu.components.cards"
-            },{
-                "title": "Forms",
-                "sref": "menu.components.forms"
-            },{
-                "title": "Toggle",
-                "sref": "menu.components.toggle"
-            },{
-                "title": "Checkbox",
-                "sref": "menu.components.checkbox"
-            },{
-                "title": "Radio Buttons",
-                "sref": "menu.components.radio-buttons"
-            },{
-                "title": "Range",
-                "sref": "menu.components.range"
-            },{
-                "title": "Select",
-                "sref": "menu.components.select"
-            },{
-                "title": "Tabs",
-                "sref": "menu.components.tabs"
-            },{
-                "title": "Grid",
-                "sref": "menu.components.grid"
-            },{
-                "title": "Utility",
-                "sref": "menu.components.utility"
-            },
-        ]
-    }*/,];
+        ];
 
+
+    $scope.desconectar = function(){
+        AuthenticationService.BorrarCredenciales();
+        AuthenticationService.ClearCredentials();
+        $rootScope.globals.currentUser;
+        $state.go('abstrac.login');
+    }
     $scope.groups = right_menus;
   
     /*
