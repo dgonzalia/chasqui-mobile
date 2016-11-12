@@ -270,3 +270,7 @@ p.info {
     top: -7px !important;
     left: -20px !important;
 }
+
+.item-insignia{
+  border-width: 0px !important;
+} 

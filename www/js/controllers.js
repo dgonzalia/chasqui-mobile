@@ -580,7 +580,8 @@ angular.module('chasqui.controllers', [])
         var params = {
                        actividad:$scope.actividad,
                        nombreProductor:nombreProductor,
-                       idProductor:encontrarProductor(nombreProductor).idProductor
+                       idProductor:encontrarProductor(nombreProductor).idProductor,
+                       pagina: 0 
                      }
         $state.go('menu.home.productores.productos',params);
     }
@@ -618,9 +619,8 @@ angular.module('chasqui.controllers', [])
         $scope.actividad = $scope.actividad + ' -> Productos';
     }
 
-    $scope.loadMoreData = function() {
-        $stateParams.pagina ++;
-        publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina).success(function(data){
+
+    function ejecutar(data){
             if (data.productos.length > 0) {
                 $scope.pss = $scope.pss.concat(data.productos);
                 $scope.hayItems = true;
@@ -632,10 +632,29 @@ angular.module('chasqui.controllers', [])
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }
             
-        }).error(function(data){
-            LxNotificationService.error('Error al obtener productos');
-        }); 
-    };
+        }
+
+    $scope.loadMoreData = function() {
+        $stateParams.pagina ++;
+            if($scope.actividad.includes('Productor')){
+                publicService.obtenerProductosDeProductor($stateParams.idProductor, $stateParams.nombreProductor, $stateParams.actividad, $stateParams.pagina)
+                    .success(function(data){
+                        ejecutar(data);
+                    })
+                    .error(function(data){
+                        LxNotificationService.error('Error al obtener productos');
+                    })
+            }
+            else{
+                publicService.obtenerProductosDeCategoria($stateParams.idCategoria, $stateParams.nombreCategoria, $stateParams.actividad, $stateParams.pagina)
+                    .success(function(data){
+                        ejecutar(data);
+                    })
+                    .error(function(data){
+                        LxNotificationService.error('Error al obtener productos');
+                    })
+                }
+    }
 
     $scope.$on('$stateChangeSuccess', function() {
         $scope.loadMoreData();

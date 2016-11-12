@@ -287,11 +287,12 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
         params:{
             actividad:null,
             idProductor:null,
-            nombreProductor:null
+            nombreProductor:null,
+            pagina: null
         },
         resolve:{
             prods : function(publicService,$stateParams){
-                return publicService.obtenerProductosDeProductor($stateParams.idProductor,$stateParams.nombreProductor,$stateParams.actividad);
+                return publicService.obtenerProductosDeProductor($stateParams.idProductor,$stateParams.nombreProductor,$stateParams.actividad,$stateParams.pagina);
             }
         }
     })

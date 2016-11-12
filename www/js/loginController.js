@@ -1,8 +1,6 @@
 function loginCtrl ($scope, $location, $state, AuthenticationService,$cordovaSQLite, $timeout, $stateParams, ionicMaterialInk, LxNotificationService) {
         
     $scope.usuario= {};           
-   
-    ionicMaterialInk.displayEffect();
 
 
     $scope.login = function () {
@@ -11,6 +9,7 @@ function loginCtrl ($scope, $location, $state, AuthenticationService,$cordovaSQL
             AuthenticationService.GuardarCredenciales(response.token,$scope.usuario.email,response.id,response.nickname);
             $state.go("menu.home");
         }, function (response) {
+            console.log(response);
             LxNotificationService.error('No es posible conectarse al servidor');
         });
     };

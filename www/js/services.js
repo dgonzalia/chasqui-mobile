@@ -6,7 +6,7 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope','$cordovaSQLite','privateService', 
     function ($http, $rootScope,$cordovaSQLite,privateService) {
         var authentication = {};
-        var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.105:8019/chasqui"
         var db = null;
 
         authentication.GuardarCredenciales = function(token,email,id,nickname){
@@ -53,6 +53,7 @@ angular.module('chasqui.services', [])
         };
 
         authentication.Login = function (username, password, callbackSucces, callbackError) {
+            console.log(URL_BACKEND);
             $http.post(URL_BACKEND+"/rest/client/sso/singIn", { email: username, password: password })
                 .success(function (response) {
                     callbackSucces(response);
@@ -85,7 +86,7 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 'AuthenticationService',
     function ($http, $rootScope, AuthenticationService) {
         var publicService = {};
-        var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.105:8019/chasqui"
 
         publicService.registro = function(perfil, callbackSuccess, callbackError){
             $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil)
@@ -147,18 +148,23 @@ angular.module('chasqui.services', [])
           }
 
 
-        publicService.obtenerProductosDeProductor = function(idProductor,nombreProductor,actividad){
+        publicService.obtenerProductosDeProductor = function(idProductor,nombreProductor,actividad,pagina){
             var postParams = {
-                              pagina:0,
+                              pagina:pagina,
                               cantItems:10,
                               precio:'Down',
                               idProductor:idProductor
                              }
+
             return $http.post(URL_BACKEND+"/rest/client/producto/byProductor",postParams)
                         .success(function(data){
                              for (var i = 0; i < data.productos.length; i++) {
                                 if(!(data.productos[i].imagenPrincipal === undefined || data.productos[i].imagenPrincipal === null)){
                                     data.productos[i].imagenPrincipal = URL_BACKEND+data.productos[i].imagenPrincipal;  
+                                }
+                                for(var x =0; x < data.productos[i].medallasProducto.length; x++){
+                                    var prd = data.productos[i];
+                                    prd.medallasProducto[x].pathImagen = URL_BACKEND+prd.medallasProducto[x].pathImagen;
                                 }
                             }
                             data.actividad = actividad + ' -> ' + nombreProductor;
@@ -205,7 +211,7 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope',
     function ($http, $rootScope) {
         var privateService = {};
-        var URL_BACKEND = "http://192.168.0.108:8019/chasqui"
+        var URL_BACKEND = "http://192.168.0.105:8019/chasqui"
         var header = {} //{headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
 
         privateService.refrescarHeader = function(){
