@@ -162,9 +162,11 @@ angular.module('chasqui.services', [])
                                 if(!(data.productos[i].imagenPrincipal === undefined || data.productos[i].imagenPrincipal === null)){
                                     data.productos[i].imagenPrincipal = URL_BACKEND+data.productos[i].imagenPrincipal;  
                                 }
-                                for(var x =0; x < data.productos[i].medallasProducto.length; x++){
-                                    var prd = data.productos[i];
-                                    prd.medallasProducto[x].pathImagen = URL_BACKEND+prd.medallasProducto[x].pathImagen;
+                                if(!(data.productos[i].medallasProducto === undefined || data.productos[i].medallasProducto === null){
+                                    for(var x =0; x < data.productos[i].medallasProducto.length; x++){
+                                        var prd = data.productos[i];
+                                         prd.medallasProducto[x].pathImagen = URL_BACKEND+prd.medallasProducto[x].pathImagen;
+                                    }
                                 }
                             }
                             data.actividad = actividad + ' -> ' + nombreProductor;
