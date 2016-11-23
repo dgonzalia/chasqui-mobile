@@ -4,7 +4,7 @@
     <div class="item item-divider">{{actividad}}</div> 
 </div>
 <div align="center">
-    <h2>{{producto.nombreProducto}} - {{producto.nombreVariedad}}</h2>
+    <h3>{{producto.nombreProducto}} - {{producto.nombreVariedad}}</h3><br>
     <a ng-click="openModal()"><img ng-src="{{producto.imagenPrincipal}}" height="200" width="200"/></a>
     <div ng-disabled="true">
          <p ng-bind-html="renderHTML(producto.descripcion)"/>
@@ -16,7 +16,7 @@
             <div class="row">
                 <div ng-repeat="m in producto.medallasProducto" >
                     <div class="col col-50 item item-insignia item-avatar item-icon-right">
-                        <img src="http://www.proyectochasqui.com:8080/chasqui/imagenes/usuarios/ROOT/agroecologia.png"> 
+                        <img src="img/agroecologia.png"> 
                     </div>  
                 </div>   
             </div>

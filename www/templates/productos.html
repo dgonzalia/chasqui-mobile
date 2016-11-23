@@ -1,8 +1,9 @@
 <ion-view view-title="Productos">
+
     
 <ion-nav-buttons side="right">
     <span ui-sref="app.cart" >
-        <button class="button button-clear icon ion-android-cart white-color">
+        <button class="button button-clear icon ion-bag white-color">
             <!--ng-show="cart.products.length" ng-if="badge"-->
             <span class="badge badge-assertive header-badge">512</span>
         </button>
@@ -18,30 +19,37 @@
         <div class="p+">
             <div class="card">
                 <div flex-container="row">
+				
                     <div class="card__img card__img--left" style="height: 160px">
                         <img ng-src="{{p.imagenPrincipal}}" height="200" width="200">
                     </div>  
 
                     <div flex-item flex-container="column">
-                        <div flex-item>
-                                <strong class="fs-headline display-block">{{p.nombreProducto}} {{p.nombreVariedad}}</strong>
-                                <span class="fs-subhead tc-black-2 display-block">$ {{p.precio}}</span>
-                        </div>
-                        <div class="card__actions">
-                            <lx-button lx-size="s" lx-type="raised" ng-click="verInfoProducto(p)">Ver Info.
-                            </lx-button>
-                            <lx-button lx-size="s" class="btn btn--s btn--raised bgc-green-100 tc-green-900" ng-click="addProduct(p)"
-                                       lx-type="raised">Agregar al carrito
-                            </lx-button>
-                        </div>
+                       
+  					<div flex-item>
+					<h3>{{p.nombreProducto}} {{p.nombreVariedad}}</h3>
+					<br>
+					<h4>$ {{p.precio}}</h4>
+                   
                     </div>
+						
+                    <div class="card__actions">
+                            <lx-button lx-size="s" class="btn btn--m btn--raised bgc-light-blue-300 tc-white" ng-click="verInfoProducto(p)">Ver Info.
+                            </lx-button>
+                            <lx-button lx-size="s" class="btn btn--s btn--raised bgc-deep-orange-700 tc-white" ng-click="addProduct(p)"lx-type="raised">Agregar al carrito
+                            </lx-button>
+                    </div>
+						
+					
+                    </div>
+					
                 </div>
             </div>
         </div>
       </div>
 
     <div ng-if="!hayItems" class="tc-white-1 p+" flex-container="column" flex-align="space-between center" style="height: 100px">
-        <div class="p+ bgc-blue-500">No hay mas productos</div>
+        <div class="p+ bgc-light-blue-300">No hay mas productos</div>
     </div>
 
   <ion-list>
