@@ -1,29 +1,30 @@
 <ion-view view-title="Inicio">
-<ion-content>
-<div class="card">
-    <div class="item item-divider">{{actividad}}</div> 
-</div>
-  <ion-list>
-        <div ng-repeat="v in vss">
-            <div class="card">
-                <div class="row">
-                    <div class="col col-75">
-                        <div class="row">
-                         <p><h3 class="dark">{{v.nombre}}<h3></p><br/>
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider">{{actividad}}</div> 
+        </div>
+        <ion-list>
+            <div ng-repeat="v in vss" class="animate-fade-slide-in-right" ng-last-repeat="catalogos">
+                <div class="card">
+                    <div class="row">
+                        <div class="col col-75">
+                            <div class="row">
+                                <p><h3 class="dark">{{v.nombre}}<h3></p><br/>
+                            </div>
+                            <div class="row">
+                                <lx-button lx-size="xs" lx-type="raised" lx-color="blue" ng-click="verCategorias(v)">Ver Categorias
+                                </lx-button>
+                                <span></span>
+                                <lx-button lx-size="xs" lx-type="raised" lx-color="green" ng-click="verProductores(v)">Ver Productores
+                                </lx-button>
+                            </div>
                         </div>
-                        <div class="row">
-                            <lx-button lx-size="xs" lx-type="raised" lx-color="blue" ng-click="verCategorias(v.nombre)">Ver Categorias
-                            </lx-button>
-                            <lx-button lx-size="xs" lx-type="raised" lx-color="green" ng-click="verProductores(v.nombre)">Ver Productores
-                            </lx-button>
+                        <div ng-show="v.imagen" class ="col col-25 item item-thumbnail-right fix-avatar-vendedor">
+                            <img ng-src="{{v.imagen}}" align="left">
                         </div>
-                    </div>
-                    <div class ="col col-25 item item-thumbnail-right">
-                        <img ng-src="{{v.imagen}}" align="left">
                     </div>
                 </div>
             </div>
-        </div>
-  <ion-list>
-</ion-content> 
+        <ion-list>
+    </ion-content> 
 </ion-view>

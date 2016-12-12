@@ -1,23 +1,26 @@
 <ion-view view-title="Catálogo">
-     <ion-content>
-
-	 <div class="card">
-     <div class="item item-divider">{{actividad}}</div> 
-     </div> 
-     
-	 <ion-list class="animate-fade-slide-in">
-      <div ng-repeat="v in ctss">
-        <div class="card" ng-click="verProductos(v.nombre)">
-          <div class="item item-text-wrap">
-		  <div class="row">
-             <div class="col"><h3 class="dark">{{v.nombre}}<h3></div>
-             <div class="col"><lx-button class="btn btn--m btn--raised bgc-light-blue-300 tc-white" lx-size="xs" lx-type="raised" ng-click="verProductos(v.nombre)">Ver Productos
-              </lx-button></div>
-           </div>
-           </div>          
-         </div>
-     </ion-list>
-	 
-	 </ion-content> 
-
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider">{{actividad}}</div> 
+        </div> 
+        <ion-list >
+            <div ng-repeat="categoria in ctss" class="animate-fade-slide-in" ng-last-repeat="categorias">
+                <div class="card" ng-click="verProductos(categoria)">
+                    <div class="item item-text-wrap">
+                        <div class="row">
+                            <div class="col"><h3 class="dark">{{categoria.nombre}}<h3></div>
+                            <div class="col">
+                                <lx-button class="btn btn--m btn--raised bgc-light-blue-300 tc-white" 
+                                           lx-size="xs" 
+                                           lx-type="raised" 
+                                           ng-click="verProductos(categoria)">
+                                            Ver Productos
+                                </lx-button>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </ion-list>
+    </ion-content> 
 </ion-view>

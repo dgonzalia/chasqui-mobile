@@ -1,14 +1,14 @@
-<ion-view view-title="Info. Caracteristicas">
-<ion-content> 
-<div class="card">
-    <div class="item item-divider">{{actividad}}</div> 
-</div>
-<div align="center">
-    <h3>{{medalla.nombre}}</h3>
-    <a><img ng-src="{{medalla.pathImagen}}" height="200" width="200"/></a>
-    <div ng-disabled="true">
-         <p ng-bind-html="renderHTML(medalla.descripcion)"/>
-    </div>
-</div>
-</ion-content> 
+<ion-view view-title="Info. Medalla">
+    <ion-content> 
+        <div class="card">
+            <div class="item item-divider">{{actividad}}</div> 
+        </div>
+        <div align="center">
+            <h3>{{medalla.nombre}}</h3>
+            <a><img ng-src="{{medalla.pathImagen}}" height="200" width="200"/></a>
+            <div ng-disabled="true">
+                <p ng-bind-html="renderHTML(medalla.descripcion)"/>
+            </div>
+        </div>
+    </ion-content> 
 </ion-view>

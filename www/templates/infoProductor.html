@@ -1,33 +1,38 @@
 <ion-view view-title="Productor">
-<ion-content> 
-<div class="card">
-    <div class="item item-divider">{{actividad}}</div> 
-</div>
-<fieldset ng-disabled="true" class="list form"> 
-    <label class="item item-input">
-      <span class="input-label">Nombre:</span>
-      <input type="text" ng-model="productor.nombreProductor">
-    </label>
-    <label class="item item-input">
-      <span class="input-label">Pais:</span>
-      <input type="text"  ng-model="productor.direccion.pais">
-    </label>
-    <label class="item item-input">
-      <span class="input-label">Provincia:</span>
-      <input type="text"  ng-model="productor.direccion.provincia">
-    </label>
-    <label class="item item-input">
-      <span class="input-label">Localidad:</span>
-      <input type="text" ng-model="productor.direccion.localidad">
-    </label>
-    <label class="item item-input">
-      <span class="input-label">Calle:</span>
-      <input type="text" ng-model="productor.direccion.calle">
-     </label>
-    <label class="item item-input">
-      <span class="input-label">Altura:</span>
-      <input type="text" ng-model="productor.direccion.altura">
-    </label>
-</fieldset>  
-</ion-content> 
+    <ion-content> 
+        <div class="card">
+            <div class="item item-divider">{{actividad}}</div> 
+        </div>
+        <fieldset ng-disabled="true" class="list form"> 
+            <label class="item item-input">
+                <span class="input-label">Nombre:</span>
+                <input type="text" ng-model="productor.nombreProductor">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Pais:</span>
+                <input type="text"  ng-model="productor.direccion.pais">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Provincia:</span>
+                <input type="text"  ng-model="productor.direccion.provincia">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Localidad:</span>
+                <input type="text" ng-model="productor.direccion.localidad">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Calle:</span>
+                <input type="text" ng-model="productor.direccion.calle">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Altura:</span>
+                <input type="text" ng-model="productor.direccion.altura">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Descripcion:</span>
+                <br><br>        
+                <p ng-bind-html="renderHTML(productor.descripcionLarga)"/>
+            </label>
+        </fieldset>
+    </ion-content> 
 </ion-view>

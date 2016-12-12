@@ -1,63 +1,55 @@
 <ion-view view-title="Productos">
 
-    
-<ion-nav-buttons side="right">
-    <span ui-sref="app.cart" >
-        <button class="button button-clear icon ion-bag white-color">
-            <!--ng-show="cart.products.length" ng-if="badge"-->
-            <span class="badge badge-assertive header-badge">512</span>
-        </button>
-    </span>
-</ion-nav-buttons>
-    
-<ion-content> 
-<div class="card">
-    <div class="item item-divider">{{actividad}}</div> 
-</div>
-  <ion-list>
-      <div ng-repeat="p in pss">
-        <div class="p+">
-            <div class="card">
-                <div flex-container="row">
-				
-                    <div class="card__img card__img--left" style="height: 160px">
-                        <img ng-src="{{p.imagenPrincipal}}" height="200" width="200">
-                    </div>  
+    <ion-nav-buttons side="right">
+        <span ui-sref="menu.pedidos.cart({idVendedor: idVendedor})">
+            <button class="button button-clear icon ion-bag white-color"> 
+                <span class="badge" ng-class="{'badge-assertive header-badge': badge>0}"><div ng-if="badge>0">{{badge}}</div></span>
+            </button>
+        </span>
+    </ion-nav-buttons>
 
-                    <div flex-item flex-container="column">
-                       
-  					<div flex-item>
-					<h3>{{p.nombreProducto}} {{p.nombreVariedad}}</h3>
-					<br>
-					<h4>$ {{p.precio}}</h4>
-                   
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider">{{actividad}}</div>
+        </div>
+        <ion-list>
+            <div ng-repeat="p in pss">
+                <div class="p+">
+                    <div class="card">
+                        <div flex-container="row">
+                            <div class="card__img card__img--left" style="height: 160px" ng-click="verInfoProducto(p)">
+                                <img ng-src="{{p.imagenPrincipal}}" height="200" width="200">
+                            </div>
+                            <div flex-item flex-container="column">
+                                <div flex-item>
+                                    <h3>{{p.nombreProducto}} - {{p.nombreVariedad}}</h3>
+                                    <br>
+                                    <h4>{{p.precio | currency}}</h4>
+                                </div>
+                                <div class="card__actions">
+                                    <lx-button lx-size="s" 
+                                               class="btn btn--m btn--raised bgc-light-blue-300 tc-white" 
+                                               ng-click="verInfoProducto(p)">
+                                            Ver Info.
+                                    </lx-button>
+                                    <lx-button lx-size="s" 
+                                               class="btn btn--s btn--raised bgc-deep-orange-700 tc-white" 
+                                               ng-click="addProduct(p)" 
+                                               lx-type="raised">
+                                            Agregar al carrito
+                                    </lx-button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-						
-                    <div class="card__actions">
-                            <lx-button lx-size="s" class="btn btn--m btn--raised bgc-light-blue-300 tc-white" ng-click="verInfoProducto(p)">Ver Info.
-                            </lx-button>
-                            <lx-button lx-size="s" class="btn btn--s btn--raised bgc-deep-orange-700 tc-white" ng-click="addProduct(p)"lx-type="raised">Agregar al carrito
-                            </lx-button>
-                    </div>
-						
-					
-                    </div>
-					
                 </div>
             </div>
-        </div>
-      </div>
+            <div ng-if="!hayItems" class="tc-white-1 p+" flex-container="column" flex-align="space-between center" style="height: 100px">
+                <div class="p+ bgc-light-blue-300">No hay mas productos</div>
+            </div>
+        <ion-list>
 
-    <div ng-if="!hayItems" class="tc-white-1 p+" flex-container="column" flex-align="space-between center" style="height: 100px">
-        <div class="p+ bgc-light-blue-300">No hay mas productos</div>
-    </div>
+        <ion-infinite-scroll ng-if="hayItems" distance="10%" on-infinite="loadMoreData()"></ion-infinite-scroll>
 
-  <ion-list>
-      
-  <ion-infinite-scroll
-      ng-if="hayItems"                      
-      distance="10%"                
-      on-infinite="loadMoreData()">
-  </ion-infinite-scroll>  
-</ion-content> 
+    </ion-content>
 </ion-view>

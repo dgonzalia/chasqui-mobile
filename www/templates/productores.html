@@ -1,34 +1,43 @@
 <ion-view view-title="Productores">
-<ion-content> 
-<div class="card">
-    <div class="item item-divider">{{actividad}}</div> 
-</div>
-  <ion-list  class="animate-fade-slide-in">
-      <div ng-repeat="p in pss">
+    <ion-content>
         <div class="card">
-          <div class="item item-text-wrap">
-            <div class="row">
-              <div class="col col-90">
-                <div class="row">
-                   <h3 class="dark">{{p.nombreProductor}}<h3>
-                  </div>
-                  <div class="row">
-                    <p>{{p.descripcionCorta}}</p>
-                  </div>
-               </div>
-               <div class = "col col-10 item item-avatar item-icon-right">
-                  <img ng-src="{{p.pathImagen}}" ng-show="imagenValida(p.nombreProductor)" align="left">
-               </div>
-            </div>
-             <div class="row mt">
-              <lx-button lx-size="xs" lx-type="raised" ng-click="verInfoProductor(p.nombreProductor)">Ver Info.
-              </lx-button>
-              <lx-button class="btn btn--m btn--raised bgc-orange-50 tc-orange-900" lx-size="xs" lx-type="raised" ng-click="verProductos(p.nombreProductor)">Ver Productos
-              </lx-button>
-            </div>
-          </div>
+            <div class="item item-divider">{{actividad}}</div>
         </div>
-      </div>
-  <ion-list>
-</ion-content> 
+        <ion-list>
+            <div ng-repeat="p in pss" class="animate-fade-slide-in" ng-last-repeat="productores">
+                <div class="card">
+                    <div class="item item-text-wrap">
+                        <div class="row">
+                            <div class="col col-90">
+                                <div class="row">
+                                    <h3 class="dark">{{p.nombreProductor}}<h3>
+                                </div>
+                                <div class="row">
+                                    <p>{{p.descripcionCorta}}</p>
+                                </div>
+                                <div class="item item-insignia item-avatar item-icon-rigth resize-medalla">
+                                    <img ng-src="{{p.medalla.pathImagen}}" />
+                                </div>
+                            </div>
+                            <div class = "col col-10 item item-thumbnail-right fix-avatar-productor">
+                                <img ng-src="{{p.pathImagen}}" ng-show="imagenValida(p)">
+                            </div>
+                        </div>
+                        <div class="row mt">
+                            <lx-button lx-size="xs" 
+                                       lx-type="raised" 
+                                       ng-click="verInfoProductor(p)">
+                                    Ver Info.
+                            </lx-button>
+                            <lx-button class="btn btn--m btn--raised bgc-orange-50 tc-orange-900" 
+                                       lx-size="xs" lx-type="raised" 
+                                       ng-click="verProductos(p)">
+                                    Ver Productos
+                            </lx-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <ion-list>
+    </ion-content> 
 </ion-view>

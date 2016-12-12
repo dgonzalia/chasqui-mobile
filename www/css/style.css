@@ -42,8 +42,8 @@ p {
 }
 
 .menu .avatar {
-    height: 90px;
-    width: 250px;
+    height: 45px;
+    width: 125px;
     border-radius: 0% !important;
 }
 
@@ -218,15 +218,14 @@ p.info {
   }
 }
 
-
 /* Actionsheets Android Styling */
 .platform-android .action-sheet-backdrop.active {
     background-color: rgba(0, 0, 0, 0.1); 
 }    
 .platform-android .action-sheet {
-    align-content: center;
+    align-content: left;
     margin:auto;
-    max-width: 96vw;
+    max-width: 96vw !important;
     border-radius: 5px;
     /*margin: 0;*/
     margin-bottom: 10px;
@@ -238,6 +237,7 @@ p.info {
     color: inherit;
 }
 .platform-android .action-sheet .action-sheet-title {
+    text-align: center;
     font-size: 14px;
     padding: 16px;
     color: #666; 
@@ -249,12 +249,13 @@ p.info {
 }
 .platform-android .action-sheet .button.destructive {
     color: red;
+    padding-left: 130px;
 }
 .platform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {
     background: #e8e8e8; 
 }
 .platform-android .action-sheet-group {
-    /*margin: 0;*/
+   /* margin: 0;*/
     border-radius: 0;
     background-color: #fafafa; 
 }
@@ -265,6 +266,16 @@ p.info {
     padding-left: 56px; 
 }
 
+/*Fix menu header*/
+.has-expanded-header {
+    top: 75px !important;
+}
+
+.menu .bar.bar-header.expanded {
+    min-height: 75px !important;
+}
+
+/*Fix cantidad de elementos agregados al carrito*/
 .header-badge{
     display: inline-block !important;
     top: -7px !important;
@@ -274,3 +285,67 @@ p.info {
 .item-insignia{
   border-width: 0px !important;
 } 
+
+/*Custom flexbox*/
+.row-chasqui {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+}
+
+.center-xs-chasqui {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.col-xs-2-chasqui {
+  -ms-flex-preferred-size: 16.66666667%;
+  flex-basis: 16.66666667%;
+  max-width: 16.66666667%;
+}
+
+/* Size de medallas en infoProducto*/
+.item-avatar .item-content .item-image, .item-avatar .item-content>img:first-child, .item-avatar .item-image, .item-avatar-left .item-content .item-image, .item-avatar-left .item-content>img:first-child, .item-avatar-left .item-image, .item-avatar-left>img:first-child, .item-avatar>img:first-child {
+    max-height: 60px !important;
+    max-width: 60px !important;
+}
+
+/* Resize imagen de medallas de productores */
+.resize-medalla>img:first-child {
+    max-height: 40px !important;
+    max-width: 40px !important;
+}
+
+/* Fix position Imagen Productor */
+.fix-avatar-productor {
+    margin-left: -60px !important;
+    top: -15px !important
+}
+
+/* Fix position Imagen Vendedor */
+.fix-avatar-vendedor {
+    right: 15px !important;
+}
+
+.fix-buttom-top {
+        top: 0px !important;
+}
+
+/* Fix navbar height*/
+.bar.bar-header.expanded, .expanded .bar.bar-header {
+    height: 43px;
+}
