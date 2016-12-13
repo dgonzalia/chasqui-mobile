@@ -88,6 +88,18 @@ angular.module('chasqui.services', [])
             });
         };
 
+        publicService.resetPassword = function(email){
+            $http.get(URL_BACKEND+"/rest/client/sso/resetPass/"+email)
+                .success(function(data){
+                    LxNotificationService.success("La nueva contraseña fue enviada a su email");
+                })
+                .error(function(data, status){
+                    if (status == 406) {
+                        LxNotificationService.error(data.error);
+                    }
+                });
+        }
+
         publicService.obtenerVendedores = function(){
             return $http.get(URL_BACKEND+"/rest/client/vendedor/all")
                 .success(function(data){

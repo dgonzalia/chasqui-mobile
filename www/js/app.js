@@ -35,27 +35,28 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
             }
         });
         
-        $ionicPlatform.registerBackButtonAction(function (e) {
-              if ($ionicHistory.backView()) {
-                $ionicHistory.goBack();
-              } else {
-                var confirmPopup = $ionicPopup.confirm({
-                    title: 'Confirmar',
-                    template: "¿Salir de Chasqui?",
-                    cancelText: 'No',
-                    okText: 'Si'
-                });
-                confirmPopup.then(function (close) {
-                  if (close) {
-                    // there is no back view, so close the app instead
-                    ionic.Platform.exitApp();
-                  } // otherwise do nothing
-                });
-              }
-              e.preventDefault();
-              return false;
-            }, 101);
+
     });
+    $ionicPlatform.registerBackButtonAction(function (e) {
+      if ($ionicHistory.backView()) {
+        $ionicHistory.goBack();
+      } else {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Confirmar',
+            template: "¿Salir de Chasqui?",
+            cancelText: 'No',
+            okText: 'Si'
+        });
+        confirmPopup.then(function (close) {
+          if (close) {
+            // there is no back view, so close the app instead
+            ionic.Platform.exitApp();
+          } // otherwise do nothing
+        });
+      }
+      e.preventDefault();
+      return false;
+    }, 101);
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

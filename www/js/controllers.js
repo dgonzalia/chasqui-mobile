@@ -65,9 +65,10 @@ angular.module('chasqui.controllers', [])
     $scope.groups = right_menus;
 })
 
-.controller('loginCtrl', function($scope, $state, AuthenticationService, LxNotificationService){
+.controller('loginCtrl', function($scope, $state, AuthenticationService, publicService, LxNotificationService){
     
-    $scope.usuario = {};           
+    $scope.usuario = {};
+    $scope.resetPassword = false;           
 
     $scope.login = function () {
             AuthenticationService.Login($scope.usuario.email, $scope.usuario.password, 
@@ -83,6 +84,25 @@ angular.module('chasqui.controllers', [])
 
     $scope.singUp = function(){
         $state.go("app.singup");
+    }
+
+    $scope.showInput = function() {
+        if ($scope.resetPassword) {
+            $scope.resetPassword = false;
+        }
+        else {
+            $scope.resetPassword = true;
+        }
+    }
+
+    $scope.forgetPassword = function () {
+        if ($scope.usuario.resetEmail) {
+            publicService.resetPassword($scope.usuario.resetEmail);
+            $scope.showInput();
+        }
+        else {
+            LxNotificationService.info("Debe ingresar su email");
+        }
     }
 })
 
