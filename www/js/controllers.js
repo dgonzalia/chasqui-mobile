@@ -43,15 +43,15 @@ angular.module('chasqui.controllers', [])
                 "sref":"menu.home"
             },
             {
-                "title":"Perfil Usuario",
+                "title":"Mi perfil",
                 "sref":"menu.perfil"
             },
             {
-                "title":"Medallas",
+                "title":"Características",
                 "sref":"menu.medallas"
             },
             {
-                "title":"Pedidos",
+                "title":"Mis Pedidos",
                 "sref":"menu.pedidos"
             }
         ];

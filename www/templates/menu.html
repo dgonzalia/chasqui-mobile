@@ -2,7 +2,7 @@
 
     <!-- Side Menu Content -->
     <ion-side-menu-content >
-        <ion-nav-bar class="bar-positive" 
+        <ion-nav-bar class="bar-royal2" 
                      ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
             <!-- Back Button -->
             <!--<ion-nav-back-button class="no-text"></ion-nav-back-button> -->
@@ -24,12 +24,13 @@
     </ion-side-menu-content>
 
     <!-- Left Side Menu -->
-    <ion-side-menu side="left" ng-controller="sideMenuCtrl">
-        <ion-header-bar class="positive-bg expanded">
-            <span class="avatar" style="background: url('img/logo.png'); background-size: cover;"></span>
-        </ion-header-bar>
-        <ion-content class="positive-bg has-expanded-header">
+    <ion-side-menu side="left" ng-controller="sideMenuCtrl" class="royal2-bg   ">
+        <div class="avatar header-menu-color" 
+            style="background: url('img/logo.png'); background-size: cover;">
+        </div>
+        <ion-content class="royal2-bg has-expanded-header">
             <ion-list>
+                <div class="espacio-small"></div>
                 <div ng-repeat="group in groups">
                     <ion-item class="item-stable" 
                               ui-sref="{{group.sref}}" 

@@ -14,9 +14,28 @@
         </div>
         <ion-list>
             <div ng-repeat="p in pss">
-                <div class="p+">
-                    <div class="card">
-                        <div flex-container="row">
+                <div class="p">
+                    <div class="card2">
+                        <div class="row">
+                            <div class="col col-25 item item-thumbnail-left"  ng-click="verInfoProducto(p)">
+                                <img ng-src="{{p.imagenPrincipal}}">
+                            </div>
+                            <div class = "col col-75" >
+                                <div flex-item>
+                                    <h5>{{p.nombreProducto}} - {{p.nombreVariedad}}</h5>
+                                    <h6 class="stable">Productor X</h6>
+                                    <h4>{{p.precio | currency}}</h4>
+                                </div>
+                                <lx-button lx-size="s" 
+                                               class="btn btn--s btn--raised bgc-deep-orange-700 tc-white" 
+                                               ng-click="addProduct(p)" 
+                                               lx-type="raised">
+                                            Agregar al carrito
+                                </lx-button>
+                            </div>
+                        </div>
+                                
+<!--                        <div flex-container="row">
                             <div class="card__img card__img--left" style="height: 160px" ng-click="verInfoProducto(p)">
                                 <img ng-src="{{p.imagenPrincipal}}" height="200" width="200">
                             </div>
@@ -40,7 +59,7 @@
                                     </lx-button>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

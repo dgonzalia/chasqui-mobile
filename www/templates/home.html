@@ -1,5 +1,17 @@
 <ion-view view-title="Inicio">
-    <ion-content>
+    <ion-content style="background: url(img/fondo_general_movil.png) center; background-size: cover;">
+        <div class="bienvenido">
+            <div class="espacio-small"></div>
+            <div class="row">
+                <div class ="col col-25">
+                    <span class="avatar-bienvenida" style="background: url('img/chasqui-logo.png'); background-size: cover;"></span>
+                </div>
+                <div class="col col-75">
+                    <div class="row">
+                        <p>Bienvenido a Chasqui, una herramienta construida en y para la Economía Social y Solidaria. Acá encontrarás los catálogos de diferentes organizaciones de la ESS</p>
+                    </div>
+            </div>
+        </div>
         <div class="card">
             <div class="item item-divider">{{actividad}}</div> 
         </div>
@@ -11,15 +23,20 @@
                             <div class="row">
                                 <p><h3 class="dark">{{v.nombre}}<h3></p><br/>
                             </div>
-                            <div class="row">
-                                <lx-button lx-size="xs" lx-type="raised" lx-color="blue" ng-click="verCategorias(v)">Ver Categorias
+                            <div class="row mt">
+                                <lx-button class="btn btn--m btn--raised bgc-light-blue-600"
+                                           lx-size="xs" 
+                                           lx-type="raised" 
+                                           ng-click="verCategorias(v)">Categorias
                                 </lx-button>
-                                <span></span>
-                                <lx-button lx-size="xs" lx-type="raised" lx-color="green" ng-click="verProductores(v)">Ver Productores
+                                <lx-button class="btn btn--m btn--raised bgc-indigo-600" 
+                                           lx-size="xs" 
+                                           lx-type="raised" 
+                                           ng-click="verProductores(v)">Productores
                                 </lx-button>
                             </div>
                         </div>
-                        <div ng-show="v.imagen" class ="col col-25 item item-thumbnail-right fix-avatar-vendedor">
+                        <div ng-show="v.imagen" class ="col col-25 item item-thumbnail-left fix-avatar-vendedor">
                             <img ng-src="{{v.imagen}}" align="left">
                         </div>
                     </div>

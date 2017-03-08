@@ -31,7 +31,7 @@ p {
 }
 
 .menu-open .bar.bar-header.expanded {
-    background-color: #222;
+    background-color: #642365;
 }
 
 .menu h2 {
@@ -348,4 +348,58 @@ p.info {
 /* Fix navbar height*/
 .bar.bar-header.expanded, .expanded .bar.bar-header {
     height: 43px;
+}
+.avatar-bienvenida {
+    background-position: center;
+    background-size: cover;
+    /* border-radius: 50%; */
+    /* display: inline-block; */
+    height: 72px;
+    left: 16px;
+    position: absolute;
+    width: 72px;
+}
+
+.espacio-small {
+  height: 20px;
+}
+
+.bar.bar-royal2 {
+  border-color: #6b46e5;
+  background-color: #642365;
+  background-image: linear-gradient(0deg, #6b46e5, #6b46e5 50%, transparent 50%);
+  color: #fff; 
+  }
+  .bar.bar-royal2 .title {
+    color: #fff; }
+  .bar.bar-royal2.bar-footer {
+    background-image: linear-gradient(180deg, #6b46e5, #6b46e5 50%, transparent 50%); }
+  
+.royal2-bg {
+    background-color: #642365;
+    color: #fff;
+}
+
+.header-menu-color {
+    background-color: #642365;
+}
+
+.card2 {
+    border-radius: 2px;
+    background-color: #FFF;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.card-info {
+    margin: 0px 10px 0px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-style: inherit;
+    font-variant: inherit;
+    font-size: inherit;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
 }

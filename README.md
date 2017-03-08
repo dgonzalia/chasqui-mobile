@@ -8,25 +8,40 @@
 
 - [Ionic Documentation](http://ionicframework.com/docs/) 
 
-# Quick Start [en desarrollo]
-## Step 1: Install using [Bower](http://bower.io) 
 
+# Entorno de desarrollo
+**Nota:** Orientado a Android. Para plataformas iOS/Windows, seguir las guías oficiales.
+### Instalar Ionic Framework, basado en el [Getting Started](http://ionicframework.com/getting-started/) 
+
+Install Node.js
 ```shell
- cd /PATH/TO/YOUR/PROJECT
- bower install ionic-material
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+Install the latest Cordova and Ionic [(Más información)](https://www.npmjs.com/package/ionic)
+```shell
+sudo npm install -g cordova ionic
 ```
 
-### Step 2: Add `RobotoDraft` font (by **Google**)
-#### Via CDN:
-```html
- <link href='https://fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic' rel='stylesheet' type='text/css'>
+### Android Platform Guide [(Más información)](http://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html)
+#### Install the Android SDK -> [Descargar](https://developer.android.com/studio/index.html):
+
+* Unpack the downloaded ZIP file into an appropriate location for your applications.
+* To launch Android Studio, navigate to the android-studio/bin/ directory in a terminal and execute studio.sh
+* After execute studio.sh, choose “Standard Installation” and continue the wizard. 
+
+You may want to add android-studio/bin/ to your PATH environmental variable so that you can start Android Studio from any directory.
+```shell
+sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
 ```
 
-#### via Bower 
-Check out [RobotoDraft by RaiButera on Github](https://github.com/raibutera/robotodraft) 
+#### Para 64-bit Ubuntu
+¿How to solve “Unable to run mksdcard SDK tool” when installing Android Studio?:
+
+If you are running the 64-bit Ubuntu, the following fix should solve your problem:
 
 ```shell
-bower install robotodraft 
+sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
 ```
 
 **using Sass?** instructions for [raibutera/robotodraft](https://github.com/raibutera/robotodraft) + scss:
