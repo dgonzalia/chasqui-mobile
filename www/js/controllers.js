@@ -65,16 +65,27 @@ angular.module('chasqui.controllers', [])
     $scope.groups = right_menus;
 })
 
-.controller('loginCtrl', function($scope, $state, AuthenticationService, publicService, LxNotificationService){
+.controller('loginCtrl', function($scope, $state, AuthenticationService, publicService, LxNotificationService,$timeout){
     
     $scope.usuario = {};
-    $scope.resetPassword = false;           
+    $scope.resetPassword = false;
+
+    AuthenticationService.obtenerCredenciales((email,password) => {
+        if(email !== undefined && password !== undefined){
+            $scope.usuario.email = email;
+            $scope.usuario.password = password;
+            document.getElementById("password").focus();
+            $timeout(function(){
+                document.getElementById("inputEmail").focus();
+            },10);
+        }
+    });           
 
     $scope.login = function () {
             AuthenticationService.Login($scope.usuario.email, $scope.usuario.password, 
             function(response) {
                 AuthenticationService.SetCredentials($scope.usuario.email, response.token, response.id, response.nickname);  
-                AuthenticationService.GuardarCredenciales(response.token,$scope.usuario.email,response.id,response.nickname);
+                AuthenticationService.GuardarCredenciales(response.token,$scope.usuario.email,response.id,response.nickname,$scope.usuario.password);
                 $state.go("menu.home");
             }, 
             function (response) {

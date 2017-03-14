@@ -6,26 +6,38 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope','$cordovaSQLite','privateService', 
     function ($http, $rootScope,$cordovaSQLite,privateService) {
         var authentication = {};
-        var URL_BACKEND = "http://www.proyectochasqui.com:8080/chasqui";
+        var URL_BACKEND = "http://192.168.0.15:8019/chasqui";
         var db = null;
 
-        authentication.GuardarCredenciales = function(token, email, id, nickname){
-            var query = "INSERT INTO USUARIO (TOKEN,EMAIL,ID_USUARIO,NICKNAME) VALUES (?,?,?,?)";
+        authentication.GuardarCredenciales = function(token, email, id, nickname,password){
+            var query = "INSERT INTO USUARIO (TOKEN,EMAIL,ID_USUARIO,NICKNAME,PASSWORD) VALUES (?,?,?,?,?)";
             var borrado = "DELETE FROM USUARIO"; 
             $cordovaSQLite.execute(db,borrado);
-            $cordovaSQLite.execute(db,query,[token,email,id,nickname])
-                .then(function(result){});
+            $cordovaSQLite.execute(db,query,[token,email,id,nickname,password])
+                .then(function(result){
+                    console.log(result);
+                },function(error){console.log(error)});
         }
 
         authentication.BorrarCredenciales = function(){
-            var borrado = "DELETE FROM USUARIO"; 
-            $cordovaSQLite.execute(db,borrado);
+            var borrado = "UPDATE USUARIO SET TOKEN =?,NICKNAME=?"; 
+            $cordovaSQLite.execute(db,borrado,[null,null]);
         }
 
         authentication.setDB = function(dataBase){
             db = dataBase;
         }
 
+        authentication.obtenerCredenciales = function(callback){
+            var query = "SELECT * FROM USUARIO";
+            $cordovaSQLite.execute(db,query).then(function(result){
+                if(result.rows.length > 0){
+                    var password = result.rows.item(0).PASSWORD;
+                    var email = result.rows.item(0).EMAIL;
+                    callback(email,password);
+                }
+            });
+        }
         authentication.esTokenValido = function(callback){
             var header = {headers: {'Authorization': $rootScope.globals.currentUser.authdata}}
             $http.get(URL_BACKEND+"/rest/user/adm/check", header)
@@ -76,8 +88,8 @@ angular.module('chasqui.services', [])
     ['$http', '$rootScope', 'AuthenticationService', 'LxNotificationService',
     function ($http, $rootScope, AuthenticationService, LxNotificationService) {
         var publicService = {};
-        var URL_BACKEND = "http://www.proyectochasqui.com:8080/chasqui";
-
+      //  var URL_BACKEND = "http://www.proyectochasqui.com:8080/chasqui";
+        var URL_BACKEND = "http://192.168.0.15:8019/chasqui"
         publicService.registro = function(perfil, callbackSuccess, callbackError){
             $http.post(URL_BACKEND+"/rest/client/sso/singUp", perfil)
                 .success(function(data){
@@ -228,7 +240,7 @@ angular.module('chasqui.services', [])
     ['$http','$rootScope', 'LxNotificationService',
     function ($http, $rootScope, LxNotificationService) {
         var privateService = {};
-        var URL_BACKEND = "http://www.proyectochasqui.com:8080/chasqui";
+        var URL_BACKEND = "http://192.168.0.15:8019/chasqui";
         var header = {};
 
         privateService.refrescarHeader = function(){
