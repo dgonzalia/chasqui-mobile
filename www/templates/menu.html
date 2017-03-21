@@ -24,13 +24,17 @@
     </ion-side-menu-content>
 
     <!-- Left Side Menu -->
-    <ion-side-menu side="left" ng-controller="sideMenuCtrl" class="royal2-bg   ">
-        <div class="avatar header-menu-color" 
-            style="background: url('img/logo.png'); background-size: cover;">
-        </div>
-        <ion-content class="royal2-bg has-expanded-header">
+    <ion-side-menu side="left" ng-controller="sideMenuCtrl">
+
+        <ion-header-bar class="dark-bg expanded">
+            <img src="img/chasqui-logo.png" class="avatar motion spin fade">
+            <div class="menu-bottom">
+                ¡Bienvenido, {{nombre}}!
+                <p>{{email}}</p>
+            </div>
+        </ion-header-bar>
+        <ion-content class="has-expanded-header">
             <ion-list>
-                <div class="espacio-small"></div>
                 <div ng-repeat="group in groups">
                     <ion-item class="item-stable" 
                               ui-sref="{{group.sref}}" 

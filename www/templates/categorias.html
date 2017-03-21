@@ -1,26 +1,13 @@
-<ion-view view-title="Catálogo">
+<ion-view view-title="Categorias">
     <ion-content>
         <div class="card">
             <div class="item item-divider">{{actividad}}</div> 
         </div> 
-        <ion-list >
-            <div ng-repeat="categoria in ctss" class="animate-fade-slide-in" ng-last-repeat="categorias">
-                <div class="card" style="background: url(img/fondo_producto3.png) center; background-size: cover;" ng-click="verProductos(categoria)">
-                    <div class="item item-text-wrap">
-                        <div class="row">
-                            <div class="col">
-                                <h2 class="dark">{{categoria.nombre}}<h2>
-
-                               <lx-button class="btn btn--m btn--raised bgc-light-blue-300 tc-white" 
-                                       lx-size="xs" 
-                                       lx-type="raised" 
-                                       ng-click="verProductos(categoria)">
-                                        Ver Productos
-                            </lx-button></div>
-                        </div>
-                    </div>          
-                </div>
+            <div ng-repeat="categoria in ctss" class="list card animate-fade-slide-in" ng-last-repeat="categorias">
+                      <a class="item item-icon-left" ng-click="verProductos(categoria)">
+                        <i class="icon ion-android-arrow-dropright"></i>
+                        {{categoria.nombre}}
+                      </a>
             </div>
-        </ion-list>
     </ion-content> 
 </ion-view>

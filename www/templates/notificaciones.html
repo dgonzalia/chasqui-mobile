@@ -1,6 +1,9 @@
 <ion-popover-view view-title="Notificaciones" >	
    <ion-content>
       <ion-list>
+        <div ng-if="notificaciones.length==0" align="center">
+          <h4>¡No hay notificaciones!</h4>
+        </div>
   			<ion-item ng-repeat="n in notificaciones">
                 <ion-card>
                     <ion-card-header>

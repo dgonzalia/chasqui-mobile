@@ -41,12 +41,12 @@ p {
     position: absolute;
 }
 
-.menu .avatar {
+/*.menu .avatar {
     height: 45px;
     width: 125px;
     border-radius: 0% !important;
 }
-
+*/
 .menu.menu-left * {
     font-weight: bold;
 }
@@ -268,11 +268,15 @@ p.info {
 
 /*Fix menu header*/
 .has-expanded-header {
-    top: 75px !important;
+    /*top: 75px !important;*/
 }
 
 .menu .bar.bar-header.expanded {
-    min-height: 75px !important;
+    min-height: 150px !important;
+    background-image: url(../img/material-graphite005.jpg);
+    background-size: 100%;
+    background-position: 0%;
+    transition: all .5s ease-in-out;
 }
 
 /*Fix cantidad de elementos agregados al carrito*/
@@ -288,6 +292,7 @@ p.info {
 
 /*Custom flexbox*/
 .row-chasqui {
+  width: 300px;
   box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -301,8 +306,8 @@ p.info {
   flex-direction: row;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -0.5rem;
-  margin-left: -0.5rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .center-xs-chasqui {
@@ -313,9 +318,9 @@ p.info {
 }
 
 .col-xs-2-chasqui {
-  -ms-flex-preferred-size: 16.66666667%;
-  flex-basis: 16.66666667%;
-  max-width: 16.66666667%;
+  -ms-flex-preferred-size: 30%;
+  flex-basis: 30%;
+  max-width: 30%;
 }
 
 /* Size de medallas en infoProducto*/
@@ -352,8 +357,6 @@ p.info {
 .avatar-bienvenida {
     background-position: center;
     background-size: cover;
-    /* border-radius: 50%; */
-    /* display: inline-block; */
     height: 72px;
     left: 16px;
     position: absolute;
@@ -403,3 +406,64 @@ p.info {
     border: 1px solid #ddd;
     background-color: #f8f8f8;
 }
+
+/*Precio*/
+.precio-producto {
+    width: 360px;
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 24px;
+    font-style: inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+/*Recuadro imagen*/ 
+.recuadro-imagen {
+  border: 1px dotted #999;
+} 
+
+/*Recuadro galeria imagen producto*/ 
+.imagen-galeria{
+    width: 84px;
+    height: 34px;
+    position: absolute;
+    right: 0px;
+    margin-top: 11px;
+    margin-right: 15px;
+    z-index: 5;
+    background-color: rgba(234, 67, 53, 0.86);
+    padding: 5px 0px 0px 14px;
+} 
+
+.imagen-galeria p {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 15px;
+} 
+
+/*Recuadro info producto*/ 
+.producto-info{
+    position: absolute;
+    left: 5px;
+    z-index: 5;
+    background-color: rgba(27, 27, 27, 0.18);
+    padding: 2px 7px 0px 7px;
+} 
+
+.producto-info p {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.menu-bottom p {
+    font-size: 10px;
+    margin: 0px;
+    color: #45c6f2;
+} 

@@ -4,8 +4,11 @@
             <div class="item item-divider">{{actividad}}</div>
         </div>
         <div class="row">
-            <div class="col" align="center">
-                <a ng-click="openModal()"><img ng-src="{{producto.imagenPrincipal}}" height="300" /></a>
+           <div class="imagen-galeria">
+                <p>+ fotos</p>
+           </div>     
+            <div class="col recuadro-imagen" align="center">
+                <a ng-click="openModal()"><img ng-src="{{producto.imagenPrincipal}}"/></a>
             </div>
         </div>
         
@@ -20,10 +23,16 @@
             <div class="card-info ion-ios-people">
                 {{producto.nombreFabricante}}
             </div>
-            <br>
-            <button class="card-info ion-social-usd">
+            <div class="row-chasqui center-xs-chasqui">
+                <div class="col-xs-2-chasqui" ng-repeat="m in producto.medallasProducto">
+                    <div class="item item-insignia item-avatar item-icon-right ">
+                        <img ng-src="{{m.pathImagen}}" />
+                    </div>
+                </div>
+            </div>
+            <div class="precio-producto ion-social-usd">
                 {{producto.precio}}
-            </button>
+            </div>
         </div>
         
             
@@ -38,32 +47,12 @@
             </div>
         </div>
             
-            <!--medallas-->
-<!--            <div class="row-chasqui center-xs-chasqui">
-                <div class="col-xs-2-chasqui" ng-repeat="m in producto.medallasProducto">
-                    <div class="item item-insignia item-avatar item-icon-right ">
-                        <img ng-src="{{m.pathImagen}}" />
-                    </div>
-                </div>
-            </div>-->
-            
-            <!--fiels de productor y precio-->
-<!--            <fieldset ng-disabled="true" class="list form">
-                <label class="item item-input">
-                    <span class="input-label">Productor:</span>
-                    <input type="text" ng-value="producto.nombreFabricante"></input>
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Precio:</span>
-                    <input type="text" ng-value="producto.precio | currency"></input>
-                </label>
-            </fieldset>-->
-
         <script id="image-modal.html" type="text/ng-template">
             <div class="modal image-modal transparent" ng-click="closeModal()">
                 <ion-slide-box on-slide-changed="slideChanged(index)" show-pager="false">
                     <ion-slide ng-repeat="i in imagenes">
-                        <img ng-src="{{i.path}}" class="fullscreen-image" />
+                        <img ng-src="{{i.path}}" class="fullscreen-image"/>
+                        <p class="info"> <-  Deslizar para ver  -> </p>
                     </ion-slide>
                 </ion-slide-box>
             </div>

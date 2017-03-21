@@ -22,7 +22,7 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
         }
         AuthenticationService.setDB(db);
         $cordovaSQLite.execute(db,
-        "CREATE TABLE IF NOT EXISTS USUARIO (TOKEN TEXT PRIMARY KEY, EMAIL TEXT,ID_USUARIO INTEGER, NICKNAME TEXT,PASSWORD TEXT)");
+        "CREATE TABLE IF NOT EXISTS USUARIO (TOKEN TEXT PRIMARY KEY, EMAIL TEXT, ID_USUARIO INTEGER, NICKNAME TEXT)");
 
         var query = "SELECT * FROM USUARIO";
         $cordovaSQLite.execute(db,query).then(function(result){
@@ -83,13 +83,18 @@ angular.module('chasqui', ['ionic', 'chasqui.controllers', 'ngCordova','chasqui.
         abstract:true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl',
+        resolve: {
+            datosPerfil : function(privateService){
+                return privateService.obtenerDatosPerfilUsuario();
+            } 
+        }
     })
 
     .state('app.loading', {
         url: '/loading',
         views: {
              'menuContent': {
-                templateUrl: 'templates/loading.html'
+              templateUrl: 'templates/loading.html'
             }
         },
     })

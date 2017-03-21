@@ -3,9 +3,12 @@
 
 angular.module('chasqui.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicPopover, privateService) {
+.controller('AppCtrl', function($scope, $ionicPopover, privateService, datosPerfil) {
+    
     $scope.isExpanded = true;
     $scope.hasHeaderFabLeft = true;
+    $scope.nombre = datosPerfil.data.nombre;
+    $scope.email = datosPerfil.data.email;
 
     /* Popover Notificaciones */
     $ionicPopover.fromTemplateUrl('templates/notificaciones.html', {
@@ -65,27 +68,16 @@ angular.module('chasqui.controllers', [])
     $scope.groups = right_menus;
 })
 
-.controller('loginCtrl', function($scope, $state, AuthenticationService, publicService, LxNotificationService,$timeout){
+.controller('loginCtrl', function($scope, $state, AuthenticationService, publicService, LxNotificationService){
     
     $scope.usuario = {};
-    $scope.resetPassword = false;
-
-    AuthenticationService.obtenerCredenciales((email,password) => {
-        if(email !== undefined && password !== undefined){
-            $scope.usuario.email = email;
-            $scope.usuario.password = password;
-            document.getElementById("password").focus();
-            $timeout(function(){
-                document.getElementById("inputEmail").focus();
-            },10);
-        }
-    });           
+    $scope.resetPassword = false;   
 
     $scope.login = function () {
             AuthenticationService.Login($scope.usuario.email, $scope.usuario.password, 
             function(response) {
                 AuthenticationService.SetCredentials($scope.usuario.email, response.token, response.id, response.nickname);  
-                AuthenticationService.GuardarCredenciales(response.token,$scope.usuario.email,response.id,response.nickname,$scope.usuario.password);
+                AuthenticationService.GuardarCredenciales(response.token, $scope.usuario.email, response.id, response.nickname);
                 $state.go("menu.home");
             }, 
             function (response) {
@@ -323,8 +315,8 @@ angular.module('chasqui.controllers', [])
 .controller('categoriasCtrl',function ($scope, $timeout, $state, ionicMaterialInk, ionicMaterialMotion, publicService, categorias) {
 
     $scope.actividad = categorias.data.actividad;
-    if(!$scope.actividad.includes('Catálogo')){
-        $scope.actividad = $scope.actividad + '-> Catálogo';
+    if(!$scope.actividad.includes('Categorias')){
+        $scope.actividad = $scope.actividad + '-> Categorias';
     }
     $scope.ctss = categorias.data;
 
