@@ -1,17 +1,30 @@
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 # Chasqui mobile
 
 ### Documentacion
-- [Ionic Material API & Demo](http://ionicmaterial.com/demo/) 
+- [Ionic Material API & Demo](http://ionicmaterial.com/demo/)
 (Usar el ☰ menu para ver las secciones de documentación)
 
 - [Ionicons](http://ionicons.com/)
 
-- [Ionic Documentation](http://ionicframework.com/docs/) 
+- [Ionic Documentation](http://ionicframework.com/docs/)
 
 
 # Entorno de desarrollo
 **Nota:** Orientado a Android. Para plataformas iOS/Windows, seguir las guías oficiales.
-### Instalar Ionic Framework, basado en el [Getting Started](http://ionicframework.com/getting-started/) 
+### Instalar Ionic Framework, basado en el [Getting Started](http://ionicframework.com/getting-started/)
 
 Install Node.js
 ```shell
@@ -28,7 +41,7 @@ sudo npm install -g cordova ionic
 
 * Unpack the downloaded ZIP file into an appropriate location for your applications.
 * To launch Android Studio, navigate to the android-studio/bin/ directory in a terminal and execute studio.sh
-* After execute studio.sh, choose “Standard Installation” and continue the wizard. 
+* After execute studio.sh, choose “Standard Installation” and continue the wizard.
 
 You may want to add android-studio/bin/ to your PATH environmental variable so that you can start Android Studio from any directory.
 ```shell
@@ -58,7 +71,7 @@ $RobotoDraftFontVersion: "1.0.0";
 ### Step 3: Add Ionic Material stylesheets and scripts
 Add `ionic.material.min.css` and `ionic.material.min.js` to your `index.html`
 
-```html 
+```html
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="lib/ionic-material/dist/ionic.material.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -67,7 +80,7 @@ Add `ionic.material.min.css` and `ionic.material.min.js` to your `index.html`
     <script src="lib/ionic-material/dist/ionic.material.min.js"></script>
 ```
 
-### Step 4: Inject Ionic & Ionic Material into your Ionic App 
+### Step 4: Inject Ionic & Ionic Material into your Ionic App
 
 ```javascript
     var app = angular.module('YOUR_APP_NAME', ['ionic', 'ionic-material']);
@@ -83,7 +96,7 @@ The angular services `ionicMaterialInk` and `ionicMaterialMotion` are used to ac
 
 **NB:** Make sure the relevant services are injected into your controllers.
 
-In your controllers: 
+In your controllers:
 - `ionicMaterialInk.displayEffect()` (will need to happen once on controller activation and then repeat every time the objects update)
 - `ionicMaterialMotion.ripple()` (etc.)
 
@@ -97,7 +110,7 @@ Instructions:
 
 Look at `gulpfile.js` for how the process works.
 
-## Development 
+## Development
 This project uses [Webpack](http://webpack.github.io/)
 
 ## Website
@@ -110,7 +123,7 @@ Ionic material is aimed at being an extension library for the Ionic Framework, m
 As a 100% free open-source project, **developer participation is encouraged**, as much or little as possible.
 
 ### Can I use Ionic and Angular Material together?
-*Ionic* and *Angular Material* are fairly incompatible (you can add them to the same project, but the styling will be extremely inconsistent and none of the UI components will work cross-framework, eg. an ionic side menu with material tabs). Ionic is 1.0 and angular material is still pre-1.0. 
+*Ionic* and *Angular Material* are fairly incompatible (you can add them to the same project, but the styling will be extremely inconsistent and none of the UI components will work cross-framework, eg. an ionic side menu with material tabs). Ionic is 1.0 and angular material is still pre-1.0.
 
 **Ionic Material** is best explained as a "material extension" to Ionic, rather than to Angular as a whole. The difference isn't just semantics - Ionic Material extends the actual ionic framework namespace (in JS), renders material styles on the ionic elements (following ionic's conventions), and will aim to follow the releases of Ionic, and support material theming, ink, and motion for any new Ionic release.
 
